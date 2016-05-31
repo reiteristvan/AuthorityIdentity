@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7A73F2F0-6134-4530-B457-C39C3C030ED1}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Authority.EntityFramework</RootNamespace>
+    <AssemblyName>Authority.EntityFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthorityContext.cs" />
+    <Compile Include="Configurations\ClaimConfiguration.cs" />
+    <Compile Include="Configurations\ClientApplicationConfiguration.cs" />
+    <Compile Include="Configurations\DeveloperConfiguration.cs" />
+    <Compile Include="Configurations\ErrorConfiguration.cs" />
+    <Compile Include="Configurations\PolicyConfiguration.cs" />
+    <Compile Include="Configurations\ProductConfiguration.cs" />
+    <Compile Include="Configurations\ProductStyleConfiguration.cs" />
+    <Compile Include="Configurations\UserConfiguration.cs" />
+    <Compile Include="IAuthorityContext.cs" />
+    <Compile Include="ISafeAuthorityContext.cs" />
+    <Compile Include="Migrations\201512251447578_Seed.cs" />
+    <Compile Include="Migrations\201512251447578_Seed.Designer.cs">
+      <DependentUpon>201512251447578_Seed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512251721313_Error.cs" />
+    <Compile Include="Migrations\201512251721313_Error.Designer.cs">
+      <DependentUpon>201512251721313_Error.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512261144512_ErrorAddDate.cs" />
+    <Compile Include="Migrations\201512261144512_ErrorAddDate.Designer.cs">
+      <DependentUpon>201512261144512_ErrorAddDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512310936215_ProductIsActive.cs" />
+    <Compile Include="Migrations\201512310936215_ProductIsActive.Designer.cs">
+      <DependentUpon>201512310936215_ProductIsActive.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512310945130_ProductOwnerId.cs" />
+    <Compile Include="Migrations\201512310945130_ProductOwnerId.Designer.cs">
+      <DependentUpon>201512310945130_ProductOwnerId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601011554266_UserPolicyClaimsRefactor.cs" />
+    <Compile Include="Migrations\201601011554266_UserPolicyClaimsRefactor.Designer.cs">
+      <DependentUpon>201601011554266_UserPolicyClaimsRefactor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601011559101_UserPolicyManyToMany.cs" />
+    <Compile Include="Migrations\201601011559101_UserPolicyManyToMany.Designer.cs">
+      <DependentUpon>201601011559101_UserPolicyManyToMany.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601031256068_ClaimFriendlyName.cs" />
+    <Compile Include="Migrations\201601031256068_ClaimFriendlyName.Designer.cs">
+      <DependentUpon>201601031256068_ClaimFriendlyName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601031534442_ProductHasClaims.cs" />
+    <Compile Include="Migrations\201601031534442_ProductHasClaims.Designer.cs">
+      <DependentUpon>201601031534442_ProductHasClaims.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601300711245_ProductClaimsNoCascadeDelete.cs" />
+    <Compile Include="Migrations\201601300711245_ProductClaimsNoCascadeDelete.Designer.cs">
+      <DependentUpon>201601300711245_ProductClaimsNoCascadeDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603280942256_ProductSiteUrlAndLandingPage.cs" />
+    <Compile Include="Migrations\201603280942256_ProductSiteUrlAndLandingPage.Designer.cs">
+      <DependentUpon>201603280942256_ProductSiteUrlAndLandingPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604181146109_AddClientIdClientSecretToProduct.cs" />
+    <Compile Include="Migrations\201604181146109_AddClientIdClientSecretToProduct.Designer.cs">
+      <DependentUpon>201604181146109_AddClientIdClientSecretToProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604190300097_ProductProductStyle.cs" />
+    <Compile Include="Migrations\201604190300097_ProductProductStyle.Designer.cs">
+      <DependentUpon>201604190300097_ProductProductStyle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604191823300_ProductUser.cs" />
+    <Compile Include="Migrations\201604191823300_ProductUser.Designer.cs">
+      <DependentUpon>201604191823300_ProductUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604201317312_UserAddedProductIdColumn.cs" />
+    <Compile Include="Migrations\201604201317312_UserAddedProductIdColumn.Designer.cs">
+      <DependentUpon>201604201317312_UserAddedProductIdColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604231609300_ProductRemoveLandingUrlAddNotificationEmailActivationUrl.cs" />
+    <Compile Include="Migrations\201604231609300_ProductRemoveLandingUrlAddNotificationEmailActivationUrl.Designer.cs">
+      <DependentUpon>201604231609300_ProductRemoveLandingUrlAddNotificationEmailActivationUrl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201604241107086_UserCompositeKey.cs" />
+    <Compile Include="Migrations\201604241107086_UserCompositeKey.Designer.cs">
+      <DependentUpon>201604241107086_UserCompositeKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605280827068_ChangeAuthtoApiKey.cs" />
+    <Compile Include="Migrations\201605280827068_ChangeAuthtoApiKey.Designer.cs">
+      <DependentUpon>201605280827068_ChangeAuthtoApiKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605281201276_PolicyHasProductIdInModel.cs" />
+    <Compile Include="Migrations\201605281201276_PolicyHasProductIdInModel.Designer.cs">
+      <DependentUpon>201605281201276_PolicyHasProductIdInModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605291144508_AddDefaultToPolicy.cs" />
+    <Compile Include="Migrations\201605291144508_AddDefaultToPolicy.Designer.cs">
+      <DependentUpon>201605291144508_AddDefaultToPolicy.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605301738139_TablesGetAuthorityPrefix.cs" />
+    <Compile Include="Migrations\201605301738139_TablesGetAuthorityPrefix.Designer.cs">
+      <DependentUpon>201605301738139_TablesGetAuthorityPrefix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Authority.DomainModel\Authority.DomainModel.csproj">
+      <Project>{1fa094f2-153a-4378-9ad6-5831ba75f7e3}</Project>
+      <Name>Authority.DomainModel</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512251447578_Seed.resx">
+      <DependentUpon>201512251447578_Seed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512251721313_Error.resx">
+      <DependentUpon>201512251721313_Error.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512261144512_ErrorAddDate.resx">
+      <DependentUpon>201512261144512_ErrorAddDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512310936215_ProductIsActive.resx">
+      <DependentUpon>201512310936215_ProductIsActive.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512310945130_ProductOwnerId.resx">
+      <DependentUpon>201512310945130_ProductOwnerId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601011554266_UserPolicyClaimsRefactor.resx">
+      <DependentUpon>201601011554266_UserPolicyClaimsRefactor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601011559101_UserPolicyManyToMany.resx">
+      <DependentUpon>201601011559101_UserPolicyManyToMany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601031256068_ClaimFriendlyName.resx">
+      <DependentUpon>201601031256068_ClaimFriendlyName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601031534442_ProductHasClaims.resx">
+      <DependentUpon>201601031534442_ProductHasClaims.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601300711245_ProductClaimsNoCascadeDelete.resx">
+      <DependentUpon>201601300711245_ProductClaimsNoCascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603280942256_ProductSiteUrlAndLandingPage.resx">
+      <DependentUpon>201603280942256_ProductSiteUrlAndLandingPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604181146109_AddClientIdClientSecretToProduct.resx">
+      <DependentUpon>201604181146109_AddClientIdClientSecretToProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604190300097_ProductProductStyle.resx">
+      <DependentUpon>201604190300097_ProductProductStyle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604191823300_ProductUser.resx">
+      <DependentUpon>201604191823300_ProductUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604201317312_UserAddedProductIdColumn.resx">
+      <DependentUpon>201604201317312_UserAddedProductIdColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604231609300_ProductRemoveLandingUrlAddNotificationEmailActivationUrl.resx">
+      <DependentUpon>201604231609300_ProductRemoveLandingUrlAddNotificationEmailActivationUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604241107086_UserCompositeKey.resx">
+      <DependentUpon>201604241107086_UserCompositeKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605280827068_ChangeAuthtoApiKey.resx">
+      <DependentUpon>201605280827068_ChangeAuthtoApiKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605281201276_PolicyHasProductIdInModel.resx">
+      <DependentUpon>201605281201276_PolicyHasProductIdInModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605291144508_AddDefaultToPolicy.resx">
+      <DependentUpon>201605291144508_AddDefaultToPolicy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605301738139_TablesGetAuthorityPrefix.resx">
+      <DependentUpon>201605301738139_TablesGetAuthorityPrefix.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Migrations.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

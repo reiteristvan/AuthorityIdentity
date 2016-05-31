@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Authority.Core
+namespace Authority.DomainModel
 {
     public abstract class EntityBase
     {

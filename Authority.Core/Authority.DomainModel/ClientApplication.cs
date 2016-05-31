@@ -1,4 +1,4 @@
-﻿namespace Authority.Core
+﻿namespace Authority.DomainModel
 {
     public sealed class ClientApplication : EntityBase
     {

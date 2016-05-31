@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Authority.Core
+namespace Authority.DomainModel
 {
     public sealed class Policy : EntityBase
     {
