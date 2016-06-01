@@ -2,6 +2,7 @@
 using System.Data;
 using System.Threading.Tasks;
 using Authority.EntityFramework;
+using Serilog.Events;
 
 namespace Authority.Operations
 {
@@ -20,8 +21,9 @@ namespace Authority.Operations
 
         public async Task Check(Func<Task<bool>> condition, int errorCode)
         {
-            if (!(await condition()))
+            if (!await condition())
             {
+                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", errorCode);
                 _authorityContext.RollbackTransaction();
                 throw new RequirementFailedException(errorCode);
             }
@@ -31,6 +33,7 @@ namespace Authority.Operations
         {
             if (!condition())
             {
+                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", errorCode);
                 _authorityContext.RollbackTransaction();
                 throw new RequirementFailedException(errorCode);
             }
@@ -43,8 +46,9 @@ namespace Authority.Operations
                 await _authorityContext.SaveChangesAsync();
                 _authorityContext.CommitTransaction();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", e.StackTrace);
                 _authorityContext.RollbackTransaction();
                 throw;
             }
@@ -57,8 +61,9 @@ namespace Authority.Operations
                 _authorityContext.SaveChanges();
                 _authorityContext.CommitTransaction();
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", e.StackTrace);
                 _authorityContext.RollbackTransaction();
                 throw;
             }
