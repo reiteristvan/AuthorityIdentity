@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Utilities;
+using Serilog.Events;
 
 namespace Authority.Operations.Developers
 {
@@ -58,6 +59,8 @@ namespace Authority.Operations.Developers
             };
 
             Context.Developers.Add(developer);
+
+            Authority.Logger.Write(LogEventLevel.Information, "Developer registered - {0}, {1}", developer.DisplayName, developer.Email);
 
             return developer;
         }

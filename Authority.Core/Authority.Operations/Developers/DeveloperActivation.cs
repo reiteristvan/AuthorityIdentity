@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
+using Serilog.Events;
 
 namespace Authority.Operations.Developers
 {
@@ -36,6 +37,8 @@ namespace Authority.Operations.Developers
 
             Context.Developers.Attach(developer);
             Context.Entry(developer).State = EntityState.Modified;
+
+            Authority.Logger.Write(LogEventLevel.Information, "Developer activated - {0}", developer.Email);
         }
     }
 }

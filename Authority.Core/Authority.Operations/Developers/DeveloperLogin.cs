@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Utilities;
+using Serilog.Events;
 
 namespace Authority.Operations.Developers
 {
@@ -36,7 +37,18 @@ namespace Authority.Operations.Developers
             byte[] hashBytes = _passwordService.CreateHash(passwordBytes, saltBytes);
             string hash = Convert.ToBase64String(hashBytes);
 
-            return user.PasswordHash == hash;
+            bool success = user.PasswordHash == hash;
+
+            if (!success)
+            {
+                Authority.Logger.Write(LogEventLevel.Information, "Developer login failed - {0}", user.Email);
+            }
+            else
+            {
+                Authority.Logger.Write(LogEventLevel.Information, "Developer logged in - {0}", user.Email);
+            }
+
+            return success;
         }
     }
 }
