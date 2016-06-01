@@ -29,10 +29,10 @@ namespace Authority.Operations
             switch (configuration.LogTarget)
             {
                 case LogTargetConstants.EventLog:
-                    loggerConfiguration = loggerConfiguration.WriteTo.EventLog(EventLogName);
+                    loggerConfiguration = loggerConfiguration.WriteTo.EventLog("Authority");
                     break;
                 case LogTargetConstants.File:
-                    // TODO file logging
+                    loggerConfiguration = loggerConfiguration.WriteTo.RollingFile(@"c:\log-{Date}.txt");
                     break;
                 default:
                     throw new ArgumentException("Unknown logging target");

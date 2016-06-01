@@ -17,7 +17,7 @@ namespace Authority.Operations.Configuration
             {
                 return new AuthorityConfiguration
                 {
-                    LogTarget = LogTargetConstants.EventLog
+                    LogTarget = LogTargetConstants.File
                 };
             }
         }

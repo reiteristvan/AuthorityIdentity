@@ -10,6 +10,7 @@ namespace Authority.IntegrationTests.Fixtures
     {
         public SimpleFixture()
         {
+            Operations.Authority.Init();
             Context = new AuthorityContext();
         }
 
