@@ -1,7 +1,4 @@
-﻿using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using Authority.DomainModel;
+﻿using Authority.DomainModel;
 
 namespace Authority.IntegrationTests.Fixtures
 {
@@ -9,16 +6,16 @@ namespace Authority.IntegrationTests.Fixtures
     {
         public override void Dispose()
         {
-            foreach (DbEntityEntry changedEntry in Context.ChangeTracker.Entries().Where(c => c.Entity is User))
+            foreach (User user in Context.Users)
             {
-                Context.Entry(changedEntry.Entity).State = EntityState.Deleted;
+                Context.Users.Remove(user);
             }
 
             Context.SaveChanges();
 
-            foreach (DbEntityEntry changedEntry in Context.ChangeTracker.Entries().Where(c => c.Entity is Product))
+            foreach (Product product in Context.Products)
             {
-                Context.Entry(changedEntry.Entity).State = EntityState.Deleted;
+                Context.Products.Remove(product);
             }
 
             Context.SaveChanges();
