@@ -143,6 +143,10 @@
     <Compile Include="Migrations\201605301738139_TablesGetAuthorityPrefix.Designer.cs">
       <DependentUpon>201605301738139_TablesGetAuthorityPrefix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606021335043_RemoveClientApplication.cs" />
+    <Compile Include="Migrations\201606021335043_RemoveClientApplication.Designer.cs">
+      <DependentUpon>201606021335043_RemoveClientApplication.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -219,6 +223,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605301738139_TablesGetAuthorityPrefix.resx">
       <DependentUpon>201605301738139_TablesGetAuthorityPrefix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606021335043_RemoveClientApplication.resx">
+      <DependentUpon>201606021335043_RemoveClientApplication.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

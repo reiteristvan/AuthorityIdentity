@@ -76,6 +76,8 @@
     <Compile Include="Developers\LoginTests.cs" />
     <Compile Include="Developers\RegistrationTests.cs" />
     <Compile Include="EntityGenerator.cs" />
+    <Compile Include="Fixtures\AccountTestFixture.cs" />
+    <Compile Include="Fixtures\FixtureBase.cs" />
     <Compile Include="Fixtures\SimpleFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomData.cs" />

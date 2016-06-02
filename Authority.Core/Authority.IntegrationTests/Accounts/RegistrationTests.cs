@@ -8,11 +8,11 @@ using Xunit;
 
 namespace IdentityServer.IntegrationTests.Accounts
 {
-    public sealed class RegistrationTests : IClassFixture<SimpleFixture>
+    public sealed class RegistrationTests : IClassFixture<AccountTestFixture>
     {
-        private readonly SimpleFixture _fixture;
+        private readonly AccountTestFixture _fixture;
 
-        public RegistrationTests(SimpleFixture fixture)
+        public RegistrationTests(AccountTestFixture fixture)
         {
             _fixture = fixture;
         }

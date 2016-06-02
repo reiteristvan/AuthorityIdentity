@@ -1,22 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
-using Authority.EntityFramework;
 
 namespace Authority.IntegrationTests.Fixtures
 {
-    public class SimpleFixture : IDisposable
+    public class SimpleFixture : FixtureBase
     {
-        public SimpleFixture()
-        {
-            Operations.Authority.Init();
-            Context = new AuthorityContext();
-        }
-
-        public AuthorityContext Context { get; private set; }
-
-        public void Dispose()
+        public override void Dispose()
         {
             IEnumerable<DbEntityEntry> changes = Context.ChangeTracker.Entries();
 
