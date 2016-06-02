@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Authority.DomainModel
 {
     public class Developer : EntityBase
     {
-        public Developer()
-        {
-            Applications = new HashSet<ClientApplication>();
-        }
-
         public string Email { get; set; }
 
         public string DisplayName { get; set; }
@@ -25,7 +19,5 @@ namespace Authority.DomainModel
         public bool IsActive { get; set; }
 
         public DateTime Created { get; set; }
-
-        public ICollection<ClientApplication> Applications { get; set; } 
     }
 }

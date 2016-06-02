@@ -18,8 +18,6 @@ namespace Authority.EntityFramework.Configurations
             Property(d => d.IsPending).IsRequired();
             Property(d => d.IsActive).IsRequired();
             Property(d => d.PendingRegistrationId).IsRequired();
-
-            HasMany(d => d.Applications);
         }
     }
 }

@@ -13,7 +13,6 @@ namespace Authority.EntityFramework
         DbSet<ProductStyle> ProductStyles { get; set; }
         DbSet<Claim> Claims { get; set; }
         DbSet<Policy> Policies { get; set; }
-        DbSet<ClientApplication> ClientApplications { get; set; }
         DbSet<Error> Errors { get; set; } 
         Database Database { get; }
         DbChangeTracker ChangeTracker { get; }
