@@ -2,6 +2,7 @@
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
 using Authority.IntegrationTests.Fixtures;
+using Authority.Operations.Account;
 using IdentityServer.UnitOfWork.Account;
 using Xunit;
 
@@ -23,9 +24,9 @@ namespace Authority.IntegrationTests.Accounts
             User user = await TestOperations.RegisterAndActivateUser(_fixture.Context, _fixture.Product.Id, password);
 
             UserLogIn loginOperation = new UserLogIn(_fixture.Context, _fixture.Product.Id, user.Email, password);
-            bool result = await loginOperation.Do();
+            LoginResult result = await loginOperation.Do();
 
-            Assert.True(result);
+            Assert.True(!string.IsNullOrEmpty(result.Email));
         }
     }
 }

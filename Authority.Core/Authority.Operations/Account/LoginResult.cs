@@ -7,6 +7,8 @@ namespace Authority.Operations.Account
     {
         public LoginResult()
         {
+            Username = "";
+            Email = "";
             Policies = new List<Policy>();
             Claims = new List<AuthorityClaim>();
         }
