@@ -27,7 +27,6 @@ namespace Authority.IntegrationTests.Fixtures
             }
 
             Context.SaveChanges();
-
             Context.Dispose();
         }
     }

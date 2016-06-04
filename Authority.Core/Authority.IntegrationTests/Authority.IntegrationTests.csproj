@@ -68,14 +68,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Accounts\ActivationTests.cs" />
+    <Compile Include="Accounts\LoginTests.cs" />
     <Compile Include="Accounts\RegistrationTests.cs" />
     <Compile Include="Common\AssertExtensions.cs" />
     <Compile Include="Common\DbContextExtensions.cs" />
-    <Compile Include="Common\Operations.cs" />
+    <Compile Include="Common\TestOperations.cs" />
     <Compile Include="Developers\ActivationTests.cs" />
     <Compile Include="Developers\LoginTests.cs" />
     <Compile Include="Developers\RegistrationTests.cs" />
-    <Compile Include="EntityGenerator.cs" />
     <Compile Include="Fixtures\AccountTestFixture.cs" />
     <Compile Include="Fixtures\FixtureBase.cs" />
     <Compile Include="Fixtures\SimpleFixture.cs" />
