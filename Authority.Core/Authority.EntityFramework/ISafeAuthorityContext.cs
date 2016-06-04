@@ -11,7 +11,7 @@ namespace Authority.EntityFramework
         DbSet<Developer> Developers { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<ProductStyle> ProductStyles { get; set; }
-        DbSet<Claim> Claims { get; set; }
+        DbSet<AuthorityClaim> Claims { get; set; }
         DbSet<Policy> Policies { get; set; }
         DbSet<Error> Errors { get; set; } 
         Database Database { get; }

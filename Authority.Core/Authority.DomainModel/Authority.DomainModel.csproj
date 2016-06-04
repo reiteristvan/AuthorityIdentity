@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Claim.cs" />
+    <Compile Include="AuthorityClaim.cs" />
     <Compile Include="Developer.cs" />
     <Compile Include="EntityBase.cs" />
     <Compile Include="Error.cs" />

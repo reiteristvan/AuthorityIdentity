@@ -1,6 +1,6 @@
 ﻿namespace Authority.DomainModel
 {
-    public sealed class Claim : EntityBase
+    public sealed class AuthorityClaim : EntityBase
     {
         public string FriendlyName { get; set; }
 

@@ -8,7 +8,7 @@ namespace Authority.DomainModel
         public Product()
         {
             Policies = new HashSet<Policy>();
-            Claims = new HashSet<Claim>();
+            Claims = new HashSet<AuthorityClaim>();
         }
 
         public Guid OwnerId { get; set; }
@@ -22,6 +22,6 @@ namespace Authority.DomainModel
         public virtual ProductStyle Style { get; set; }
 
         public ICollection<Policy> Policies { get; set; }
-        public ICollection<Claim> Claims { get; set; }
+        public ICollection<AuthorityClaim> Claims { get; set; }
     }
 }

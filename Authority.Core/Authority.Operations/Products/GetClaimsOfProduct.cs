@@ -17,7 +17,7 @@ namespace Authority.Operations.Products
             
         }
 
-        public async Task<IEnumerable<Claim>>  Retrieve(Guid userId, Guid productId)
+        public async Task<IEnumerable<AuthorityClaim>>  Retrieve(Guid userId, Guid productId)
         {
             Product product = await Context.Products
                 .Include(p => p.Policies)

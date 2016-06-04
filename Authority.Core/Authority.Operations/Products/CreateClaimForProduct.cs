@@ -25,7 +25,7 @@ namespace Authority.Operations.Products
 
             Check(() => product.OwnerId == userId, ProductErrorCodes.UnAuthorizedAccess);
 
-            Claim claim = new Claim
+            AuthorityClaim claim = new AuthorityClaim
             {
                 FriendlyName = friendlyName,
                 Issuer = issuer,

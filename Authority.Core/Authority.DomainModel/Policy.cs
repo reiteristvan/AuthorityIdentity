@@ -7,7 +7,7 @@ namespace Authority.DomainModel
     {
         public Policy()
         {
-            Claims = new HashSet<Claim>();
+            Claims = new HashSet<AuthorityClaim>();
             Users = new HashSet<User>();
         }
 
@@ -16,7 +16,7 @@ namespace Authority.DomainModel
         public string Name { get; set; }
         public bool Default { get; set; }
 
-        public ICollection<Claim> Claims { get; set; }
+        public ICollection<AuthorityClaim> Claims { get; set; }
         public ICollection<User> Users { get; set; } 
     }
 }

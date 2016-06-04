@@ -3,9 +3,9 @@ using Authority.DomainModel;
 
 namespace Authority.EntityFramework.Configurations
 {
-    public sealed class ClaimConfiguration : EntityTypeConfiguration<Claim>
+    public sealed class AuthorityClaimConfiguration : EntityTypeConfiguration<AuthorityClaim>
     {
-        public ClaimConfiguration()
+        public AuthorityClaimConfiguration()
         {
             ToTable("Authority.Claims");
 

@@ -50,7 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthorityContext.cs" />
-    <Compile Include="Configurations\ClaimConfiguration.cs" />
+    <Compile Include="Configurations\AuthorityClaimConfiguration.cs" />
     <Compile Include="Configurations\DeveloperConfiguration.cs" />
     <Compile Include="Configurations\ErrorConfiguration.cs" />
     <Compile Include="Configurations\PolicyConfiguration.cs" />
