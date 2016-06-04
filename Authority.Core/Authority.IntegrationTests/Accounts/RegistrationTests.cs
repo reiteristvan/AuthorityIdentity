@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Authority.DomainModel;
 using Authority.IntegrationTests;
 using Authority.IntegrationTests.Common;
 using Authority.IntegrationTests.Fixtures;
@@ -46,7 +45,29 @@ namespace IdentityServer.IntegrationTests.Accounts
             {
                 UserRegistration second = new UserRegistration(_fixture.Context, _fixture.Product.Id, email, username, password);
                 await second.Do();
-            });
+            },
+            exception => exception.ErrorCode == AccountErrorCodes.EmailAlreadyExists);
+        }
+
+        [Fact]
+        public async Task RegistrationUsernameExistsShouldFail()
+        {
+            string email = RandomData.Email();
+            string username = RandomData.RandomString();
+            string password = RandomData.RandomString(12, true);
+
+            UserRegistration first = new UserRegistration(_fixture.Context, _fixture.Product.Id, email, username, password);
+            await first.Do();
+
+            await first.CommitAsync();
+
+            await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
+            {
+                string userEmail = RandomData.Email();
+                UserRegistration second = new UserRegistration(_fixture.Context, _fixture.Product.Id, userEmail, username, password);
+                await second.Do();
+            },
+            exception => exception.ErrorCode == AccountErrorCodes.UsernameNotAvailable);
         }
     }
 }
