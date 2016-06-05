@@ -11,13 +11,15 @@ namespace Authority.Operations.Policies
         private readonly Guid _userId;
         private readonly Guid _productId;
         private readonly string _name;
+        private readonly bool _defaultPolicy;
 
-        public CreatePolicy(IAuthorityContext AuthorityContext, Guid userId, Guid productId, string name)
+        public CreatePolicy(IAuthorityContext AuthorityContext, Guid userId, Guid productId, string name, bool defaultPolicy = false)
             : base(AuthorityContext)
         {
             _userId = userId;
             _productId = productId;
             _name = name;
+            _defaultPolicy = defaultPolicy;
         }
 
         public bool IsUserOwnsProduct(Guid userId, Product product)
@@ -40,8 +42,8 @@ namespace Authority.Operations.Policies
             Policy policy = new Policy
             {
                 Name = _name,
-                ProductId = product.Id,
-                Default = false
+                ProductId = _productId,
+                Default = _defaultPolicy
             };
 
             Context.Policies.Add(policy);

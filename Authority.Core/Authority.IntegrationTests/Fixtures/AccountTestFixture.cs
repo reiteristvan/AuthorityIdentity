@@ -1,4 +1,5 @@
-﻿using Authority.DomainModel;
+﻿using System;
+using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
 
 namespace Authority.IntegrationTests.Fixtures
@@ -7,7 +8,7 @@ namespace Authority.IntegrationTests.Fixtures
     {
         public AccountTestFixture()
         {
-            Product = TestOperations.CreateProductAndPublish(Context).Result;
+            Product = TestOperations.CreateProductAndPublish(Context, Guid.NewGuid()).Result;
         }
 
         public Product Product { get; private set; }
