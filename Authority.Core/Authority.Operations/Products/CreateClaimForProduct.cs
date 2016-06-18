@@ -16,14 +16,12 @@ namespace Authority.Operations.Products
         }
 
         public async Task Execute(
-            Guid userId, Guid productId, string friendlyName, string issuer, string type, string value)
+            Guid productId, string friendlyName, string issuer, string type, string value)
         {
             Product product = await Context.Products
                 .Include(p => p.Policies)
                 .Include(p => p.Policies.Select(po => po.Claims))
                 .FirstOrDefaultAsync(p => p.Id == productId);
-
-            Check(() => product.OwnerId == userId, ProductErrorCodes.UnAuthorizedAccess);
 
             AuthorityClaim claim = new AuthorityClaim
             {

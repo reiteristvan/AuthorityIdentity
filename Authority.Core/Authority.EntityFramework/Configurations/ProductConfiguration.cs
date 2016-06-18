@@ -11,7 +11,6 @@ namespace Authority.EntityFramework.Configurations
 
             HasKey(e => e.Id);
 
-            Property(p => p.OwnerId).IsRequired();
             Property(p => p.Name).IsRequired().HasMaxLength(128);
             Property(p => p.IsPublic).IsRequired();
             Property(p => p.IsActive).IsRequired();

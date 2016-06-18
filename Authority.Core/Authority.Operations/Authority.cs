@@ -5,7 +5,6 @@ using System.Linq;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Configuration;
-using Authority.Operations.Developers;
 using Serilog;
 
 namespace Authority.Operations
@@ -74,19 +73,6 @@ namespace Authority.Operations
             if (Configuration.Mode == ModeConstants.Server)
             {
                 return;
-            }
-
-            Developer admin = context.Developers.FirstOrDefault();
-
-            if (admin == null)
-            {
-                DeveloperRegistration registerAdmin = new DeveloperRegistration(context, "admin@authority.com", "admin", "p@ssw0rd1");
-                admin = registerAdmin.Do().Result;
-                registerAdmin.Commit();
-
-                DeveloperActivation activateAdmin = new DeveloperActivation(context, admin.PendingRegistrationId);
-                activateAdmin.Do().Wait();
-                activateAdmin.Commit();
             }
 
             List<Product> products = context.Products.ToList();

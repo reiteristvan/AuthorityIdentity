@@ -8,21 +8,18 @@ namespace Authority.Operations.Products
 {
     public sealed class CreateProduct : OperationWithReturnValueAsync<Guid>
     {
-        private readonly Guid _ownerId;
         private readonly string _name;
         private readonly string _siteUrl;
         private readonly string _notificationEmail;
         private readonly string _activationUrl;
 
-        public CreateProduct(IAuthorityContext AuthorityContext, 
-                             Guid ownerId, 
+        public CreateProduct(IAuthorityContext AuthorityContext,  
                              string name, 
                              string siteUrl, 
                              string notificationEmail,
                              string activationUrl)
             : base(AuthorityContext)
         {
-            _ownerId = ownerId;
             _name = name;
             _siteUrl = siteUrl;
             _notificationEmail = notificationEmail;
@@ -35,7 +32,6 @@ namespace Authority.Operations.Products
 
             Product product = new Product
             {
-                OwnerId = _ownerId,
                 Name = _name,
                 IsActive = true,
                 IsPublic = false,

@@ -8,7 +8,7 @@ namespace Authority.IntegrationTests.Fixtures
     {
         public AccountTestFixture()
         {
-            Product = TestOperations.CreateProductAndPublish(Context, Guid.NewGuid()).Result;
+            Product = TestOperations.CreateProductAndPublish(Context).Result;
         }
 
         public Product Product { get; private set; }

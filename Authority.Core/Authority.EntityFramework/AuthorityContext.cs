@@ -15,20 +15,13 @@ namespace Authority.EntityFramework
     {
         private DbContextTransaction _transaction;
 
-        public AuthorityContext(string connection)
-            : base(connection)
-        {
-            
-        }
-
         public AuthorityContext()
-            : base("AuthorityConnection")
+            : base("name=AuthorityConnection")
         {
 
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Developer> Developers { get; set; } 
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductStyle> ProductStyles { get; set; } 
         public DbSet<Policy> Policies { get; set; } 
@@ -40,7 +33,6 @@ namespace Authority.EntityFramework
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add(new DeveloperConfiguration());
             modelBuilder.Configurations.Add(new ProductConfiguration());
             modelBuilder.Configurations.Add(new ProductStyleConfiguration());
             modelBuilder.Configurations.Add(new AuthorityClaimConfiguration());

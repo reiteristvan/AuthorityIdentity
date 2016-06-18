@@ -21,7 +21,6 @@ namespace Authority.IntegrationTests.Policies
         {
             CreatePolicy create = new CreatePolicy(
                 _fixture.Context, 
-                _fixture.Developer.Id, 
                 _fixture.Product.Id, 
                 RandomData.RandomString(), 
                 true);

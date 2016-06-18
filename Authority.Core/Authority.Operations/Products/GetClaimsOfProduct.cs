@@ -17,14 +17,12 @@ namespace Authority.Operations.Products
             
         }
 
-        public async Task<IEnumerable<AuthorityClaim>>  Retrieve(Guid userId, Guid productId)
+        public async Task<IEnumerable<AuthorityClaim>>  Retrieve(Guid productId)
         {
             Product product = await Context.Products
                 .Include(p => p.Policies)
                 .Include(p => p.Policies.Select(po => po.Claims))
                 .FirstOrDefaultAsync(p => p.Id == productId);
-
-            Check(() => product.OwnerId == userId, ProductErrorCodes.UnAuthorizedAccess);
 
             return product.Policies.SelectMany(p => p.Claims).DistinctBy(c => c.Id);
         }

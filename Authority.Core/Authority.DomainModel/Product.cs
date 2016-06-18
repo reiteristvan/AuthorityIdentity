@@ -11,7 +11,6 @@ namespace Authority.DomainModel
             Claims = new HashSet<AuthorityClaim>();
         }
 
-        public Guid OwnerId { get; set; }
         public string Name { get; set; }
         public bool IsPublic { get; set; }
         public bool IsActive { get; set; }

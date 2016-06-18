@@ -73,10 +73,6 @@
     <Compile Include="Account\UserRegistration.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
-    <Compile Include="Developers\DeveloperActivation.cs" />
-    <Compile Include="Developers\DeveloperLogin.cs" />
-    <Compile Include="Developers\DeveloperRegistration.cs" />
-    <Compile Include="Developers\DevelopersErrorCodes.cs" />
     <Compile Include="Errors\RecordError.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Logging\LogConfiguration.cs" />

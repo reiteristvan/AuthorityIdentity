@@ -7,12 +7,10 @@ namespace Authority.IntegrationTests.Fixtures
     {
         public PolicyTestFixture()
         {
-            Developer = TestOperations.RegisterAndActivateDeveloper(Context, RandomData.RandomString(12, true)).Result;
-            Product = TestOperations.CreateProductAndPublish(Context, Developer.Id).Result;
+            Product = TestOperations.CreateProductAndPublish(Context).Result;
         }
 
         public Product Product { get; private set; }
-        public Developer Developer { get; private set; }
 
         public override void Dispose()
         {
@@ -33,11 +31,6 @@ namespace Authority.IntegrationTests.Fixtures
             foreach (Product product in Context.Products)
             {
                 Context.Products.Remove(product);
-            }
-
-            foreach (Developer developer in Context.Developers)
-            {
-                Context.Developers.Remove(developer);
             }
 
             Context.SaveChanges();

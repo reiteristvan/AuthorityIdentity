@@ -8,7 +8,6 @@ namespace Authority.EntityFramework
     public interface ISafeAuthorityContext
     {
         DbSet<User> Users { get; set; }
-        DbSet<Developer> Developers { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<ProductStyle> ProductStyles { get; set; }
         DbSet<AuthorityClaim> Claims { get; set; }
