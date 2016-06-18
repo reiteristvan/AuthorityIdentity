@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="AuthorityContext.cs" />
     <Compile Include="Configurations\AuthorityClaimConfiguration.cs" />
-    <Compile Include="Configurations\ErrorConfiguration.cs" />
     <Compile Include="Configurations\PolicyConfiguration.cs" />
     <Compile Include="Configurations\ProductConfiguration.cs" />
     <Compile Include="Configurations\ProductStyleConfiguration.cs" />
@@ -150,6 +149,10 @@
     <Compile Include="Migrations\201606180902576_RemoveDeveloperEntity.Designer.cs">
       <DependentUpon>201606180902576_RemoveDeveloperEntity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606180921024_RemoveErrorEntity.cs" />
+    <Compile Include="Migrations\201606180921024_RemoveErrorEntity.Designer.cs">
+      <DependentUpon>201606180921024_RemoveErrorEntity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -232,6 +235,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606180902576_RemoveDeveloperEntity.resx">
       <DependentUpon>201606180902576_RemoveDeveloperEntity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606180921024_RemoveErrorEntity.resx">
+      <DependentUpon>201606180921024_RemoveErrorEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

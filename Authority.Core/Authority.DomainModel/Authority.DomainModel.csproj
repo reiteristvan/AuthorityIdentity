@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="AuthorityClaim.cs" />
     <Compile Include="EntityBase.cs" />
-    <Compile Include="Error.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="ProductStyle.cs" />

@@ -26,7 +26,6 @@ namespace Authority.EntityFramework
         public DbSet<ProductStyle> ProductStyles { get; set; } 
         public DbSet<Policy> Policies { get; set; } 
         public DbSet<AuthorityClaim> Claims { get; set; } 
-        public DbSet<Error> Errors { get; set; } 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -37,7 +36,6 @@ namespace Authority.EntityFramework
             modelBuilder.Configurations.Add(new ProductStyleConfiguration());
             modelBuilder.Configurations.Add(new AuthorityClaimConfiguration());
             modelBuilder.Configurations.Add(new PolicyConfiguration());
-            modelBuilder.Configurations.Add(new ErrorConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

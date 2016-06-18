@@ -73,7 +73,6 @@
     <Compile Include="Account\UserRegistration.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
-    <Compile Include="Errors\RecordError.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Logging\LogConfiguration.cs" />
     <Compile Include="Operation.cs" />
