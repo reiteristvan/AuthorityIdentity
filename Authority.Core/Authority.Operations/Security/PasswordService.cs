@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Authority.Operations.Utilities
+namespace Authority.Operations.Security
 {
     public sealed class PasswordService
     {

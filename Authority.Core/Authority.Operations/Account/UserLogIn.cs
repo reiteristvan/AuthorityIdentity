@@ -8,7 +8,7 @@ using Authority.EntityFramework;
 using Authority.Operations;
 using Authority.Operations.Account;
 using Authority.Operations.Extensions;
-using Authority.Operations.Utilities;
+using Authority.Operations.Security;
 
 namespace IdentityServer.UnitOfWork.Account
 {

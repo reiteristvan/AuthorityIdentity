@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
-using Authority.Operations.Utilities;
+using Authority.Operations.Security;
 
 namespace Authority.Operations.Account
 {
