@@ -5,6 +5,7 @@ using System.Linq;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Configuration;
+using Authority.Operations.Observers;
 using Serilog;
 
 namespace Authority.Operations
@@ -14,6 +15,8 @@ namespace Authority.Operations
         private const string EventLogName = "AuthorityLogs";
 
         public static ILogger Logger { get; set; }
+
+        public static List<IAccountObserver> Observers { get; internal set; } 
 
         private static AuthorityConfiguration _configuration;
         public static AuthorityConfiguration Configuration
@@ -33,6 +36,10 @@ namespace Authority.Operations
         {
             ReadConfiguration();
             InitLogging();
+
+            Observers = new List<IAccountObserver>();
+            Observers.Add(new LoggingObserver());
+
             SetupEnvironment();
         }
 
@@ -57,7 +64,7 @@ namespace Authority.Operations
                     loggerConfiguration = loggerConfiguration.WriteTo.EventLog("Authority");
                     break;
                 case LogTargetConstants.File:
-                    loggerConfiguration = loggerConfiguration.WriteTo.RollingFile(@"c:\log-{Date}.txt");
+                    loggerConfiguration = loggerConfiguration.WriteTo.RollingFile(@"log-{Date}.txt");
                     break;
                 default:
                     throw new ArgumentException("Unknown logging target");

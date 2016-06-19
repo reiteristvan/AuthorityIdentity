@@ -75,6 +75,10 @@
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Logging\LogConfiguration.cs" />
+    <Compile Include="Observers\IAccountObserver.cs" />
+    <Compile Include="Observers\LoggingObserver.cs" />
+    <Compile Include="Observers\LoginInfo.cs" />
+    <Compile Include="Observers\RegistrationInfo.cs" />
     <Compile Include="Operation.cs" />
     <Compile Include="OperationWithNoReturn.cs" />
     <Compile Include="OperationWithReturnValue.cs" />

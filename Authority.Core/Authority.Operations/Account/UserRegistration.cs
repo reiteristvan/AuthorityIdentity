@@ -5,8 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
+using Authority.Operations.Observers;
 using Authority.Operations.Security;
-using Serilog.Events;
 
 namespace Authority.Operations.Account
 {
@@ -17,6 +17,7 @@ namespace Authority.Operations.Account
         private readonly string _username;
         private readonly string _password;
         private readonly PasswordService _passwordService;
+        private User _user;
 
         public UserRegistration(IAuthorityContext authorityContext, 
             Guid productId, string email, string username, string password)
@@ -45,6 +46,14 @@ namespace Authority.Operations.Account
 
         public override async Task<User> Do()
         {
+            if (Authority.Observers.Any())
+            {
+                Authority.Observers.ForEach(o => o.OnRegistering(new RegistrationInfo
+                {
+                    Email = _email, ProductId = _productId, Username = _username
+                }));
+            }
+
             await Check(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
             await Check(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
 
@@ -56,7 +65,7 @@ namespace Authority.Operations.Account
             byte[] saltBytes = _passwordService.CreateSalt();
             byte[] hashBytes = _passwordService.CreateHash(passwordBytes, saltBytes);
 
-            User user = new User
+            _user = new User
             {
                 ProductId = product.Id,
                 Email = _email,
@@ -69,27 +78,35 @@ namespace Authority.Operations.Account
                 IsExternal = false
             };
 
-            Context.Users.Add(user);
+            Context.Users.Add(_user);
 
             Policy defaultPolicy = product.Policies.FirstOrDefault(p => p.Default);
 
             if (defaultPolicy != null)
             {
-                user.Policies.Add(defaultPolicy);
+                _user.Policies.Add(defaultPolicy);
             }
 
-            return user;
+            return _user;
         }
 
         public override void Commit()
         {
-            Authority.Logger.Write(LogEventLevel.Information, "User registered {0}", _email);
+            if (Authority.Observers.Any())
+            {
+                Authority.Observers.ForEach(o => o.OnRegistered(_user));    
+            }
+
             base.Commit();
         }
 
         public override async Task CommitAsync()
         {
-            Authority.Logger.Write(LogEventLevel.Information, "User registered {0}", _email);
+            if (Authority.Observers.Any())
+            {
+                Authority.Observers.ForEach(o => o.OnRegistered(_user));
+            }
+
             await base.CommitAsync();
         }
     }
