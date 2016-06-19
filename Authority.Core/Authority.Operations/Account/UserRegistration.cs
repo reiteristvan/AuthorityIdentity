@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Security;
+using Serilog.Events;
 
 namespace Authority.Operations.Account
 {
@@ -78,6 +79,18 @@ namespace Authority.Operations.Account
             }
 
             return user;
+        }
+
+        public override void Commit()
+        {
+            Authority.Logger.Write(LogEventLevel.Information, "User registered {0}", _email);
+            base.Commit();
+        }
+
+        public override async Task CommitAsync()
+        {
+            Authority.Logger.Write(LogEventLevel.Information, "User registered {0}", _email);
+            await base.CommitAsync();
         }
     }
 }

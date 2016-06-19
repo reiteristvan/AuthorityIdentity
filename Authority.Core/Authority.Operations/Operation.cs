@@ -39,7 +39,7 @@ namespace Authority.Operations
             }
         }
 
-        public async Task CommitAsync()
+        public virtual async Task CommitAsync()
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Authority.Operations
             }
         }
 
-        public void Commit()
+        public virtual void Commit()
         {
             try
             {

@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
+using Serilog.Events;
 
 namespace Authority.Operations.Account
 {
@@ -10,6 +11,7 @@ namespace Authority.Operations.Account
     {
         private readonly Guid _productId;
         private readonly Guid _activationCode;
+        private string _email;
 
         public UserActivation(IAuthorityContext authorityContext, Guid productId, Guid activationCode)
             : base(authorityContext)
@@ -35,8 +37,21 @@ namespace Authority.Operations.Account
                 throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
             }
 
+            _email = user.Email;
             user.PendingRegistrationId = Guid.Empty;
             user.IsPending = false;
+        }
+
+        public override void Commit()
+        {
+            base.Commit();
+            Authority.Logger.Write(LogEventLevel.Information, "User activated {0}", _email);
+        }
+
+        public override async Task CommitAsync()
+        {
+            await base.CommitAsync();
+            Authority.Logger.Write(LogEventLevel.Information, "User activated {0}", _email);
         }
     }
 }
