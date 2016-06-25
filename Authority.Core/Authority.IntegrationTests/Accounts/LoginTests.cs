@@ -3,7 +3,6 @@ using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
 using Authority.IntegrationTests.Fixtures;
 using Authority.Operations.Account;
-using IdentityServer.UnitOfWork.Account;
 using Xunit;
 
 namespace Authority.IntegrationTests.Accounts

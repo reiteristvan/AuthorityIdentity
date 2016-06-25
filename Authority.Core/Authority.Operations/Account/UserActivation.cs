@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
-using Serilog.Events;
 
 namespace Authority.Operations.Account
 {
@@ -11,7 +11,7 @@ namespace Authority.Operations.Account
     {
         private readonly Guid _productId;
         private readonly Guid _activationCode;
-        private string _email;
+        private User _user;
 
         public UserActivation(IAuthorityContext authorityContext, Guid productId, Guid activationCode)
             : base(authorityContext)
@@ -29,29 +29,36 @@ namespace Authority.Operations.Account
                 throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
             }
 
-            User user = await Context.Users
+            _user = await Context.Users
                 .FirstOrDefaultAsync(u => u.ProductId == product.Id && u.PendingRegistrationId == _activationCode);
 
-            if (user == null || !user.IsPending)
+            if (_user == null || !_user.IsPending)
             {
                 throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
             }
 
-            _email = user.Email;
-            user.PendingRegistrationId = Guid.Empty;
-            user.IsPending = false;
+            _user.PendingRegistrationId = Guid.Empty;
+            _user.IsPending = false;
         }
 
         public override void Commit()
         {
             base.Commit();
-            Authority.Logger.Write(LogEventLevel.Information, "User activated {0}", _email);
+
+            if (Authority.Observers.Any())
+            {
+                Authority.Observers.ForEach(o => o.OnActivated(_user));
+            }
         }
 
         public override async Task CommitAsync()
         {
             await base.CommitAsync();
-            Authority.Logger.Write(LogEventLevel.Information, "User activated {0}", _email);
+
+            if (Authority.Observers.Any())
+            {
+                Authority.Observers.ForEach(o => o.OnActivated(_user));
+            }
         }
     }
 }

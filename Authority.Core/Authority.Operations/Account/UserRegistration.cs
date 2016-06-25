@@ -92,22 +92,22 @@ namespace Authority.Operations.Account
 
         public override void Commit()
         {
-            if (Authority.Observers.Any())
-            {
-                Authority.Observers.ForEach(o => o.OnRegistered(_user));    
-            }
-
             base.Commit();
-        }
 
-        public override async Task CommitAsync()
-        {
             if (Authority.Observers.Any())
             {
                 Authority.Observers.ForEach(o => o.OnRegistered(_user));
             }
+        }
 
+        public override async Task CommitAsync()
+        {
             await base.CommitAsync();
+
+            if (Authority.Observers.Any())
+            {
+                Authority.Observers.ForEach(o => o.OnRegistered(_user));
+            }
         }
     }
 }
