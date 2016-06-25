@@ -24,7 +24,7 @@ namespace IdentityServer.IntegrationTests.Accounts
             string username = RandomData.RandomString();
             string password = RandomData.RandomString(12, true);
 
-            UserRegistration operation = new UserRegistration(_fixture.Context, _fixture.Product.Id, email, username, password);
+            UserRegistration operation = new UserRegistration(_fixture.Context, _fixture.Domain.Id, email, username, password);
             await operation.Do();
             await operation.CommitAsync();
         }
@@ -36,14 +36,14 @@ namespace IdentityServer.IntegrationTests.Accounts
             string username = RandomData.RandomString();
             string password = RandomData.RandomString(12, true);
 
-            UserRegistration first = new UserRegistration(_fixture.Context, _fixture.Product.Id, email, username, password);
+            UserRegistration first = new UserRegistration(_fixture.Context, _fixture.Domain.Id, email, username, password);
             await first.Do();
 
             await first.CommitAsync();
 
             await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
             {
-                UserRegistration second = new UserRegistration(_fixture.Context, _fixture.Product.Id, email, username, password);
+                UserRegistration second = new UserRegistration(_fixture.Context, _fixture.Domain.Id, email, username, password);
                 await second.Do();
             },
             exception => exception.ErrorCode == AccountErrorCodes.EmailAlreadyExists);
@@ -56,7 +56,7 @@ namespace IdentityServer.IntegrationTests.Accounts
             string username = RandomData.RandomString();
             string password = RandomData.RandomString(12, true);
 
-            UserRegistration first = new UserRegistration(_fixture.Context, _fixture.Product.Id, email, username, password);
+            UserRegistration first = new UserRegistration(_fixture.Context, _fixture.Domain.Id, email, username, password);
             await first.Do();
 
             await first.CommitAsync();
@@ -64,7 +64,7 @@ namespace IdentityServer.IntegrationTests.Accounts
             await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
             {
                 string userEmail = RandomData.Email();
-                UserRegistration second = new UserRegistration(_fixture.Context, _fixture.Product.Id, userEmail, username, password);
+                UserRegistration second = new UserRegistration(_fixture.Context, _fixture.Domain.Id, userEmail, username, password);
                 await second.Do();
             },
             exception => exception.ErrorCode == AccountErrorCodes.UsernameNotAvailable);

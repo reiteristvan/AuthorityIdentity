@@ -12,7 +12,7 @@ namespace Authority.Operations.Account
 {
     public sealed class UserRegistration : OperationWithReturnValueAsync<User>
     {
-        private readonly Guid _productId;
+        private readonly Guid _domainId;
         private readonly string _email;
         private readonly string _username;
         private readonly string _password;
@@ -20,10 +20,10 @@ namespace Authority.Operations.Account
         private User _user;
 
         public UserRegistration(IAuthorityContext authorityContext, 
-            Guid productId, string email, string username, string password)
+            Guid domainId, string email, string username, string password)
             : base(authorityContext)
         {
-            _productId = productId;
+            _domainId = domainId;
             _email = email;
             _username = username;
             _password = password;
@@ -33,14 +33,14 @@ namespace Authority.Operations.Account
         private async Task<bool> IsUserExist()
         {
             User user = await Context.Users
-                .FirstOrDefaultAsync(u => u.Email == _email && u.ProductId == _productId);
+                .FirstOrDefaultAsync(u => u.Email == _email && u.DomainId == _domainId);
             return user == null;
         }
 
         private async Task<bool> IsUsernameAvailable()
         {
             User user = await Context.Users
-                .FirstOrDefaultAsync(p => p.Username == _username && p.ProductId == _productId);
+                .FirstOrDefaultAsync(p => p.Username == _username && p.DomainId == _domainId);
             return user == null;
         }
 
@@ -50,16 +50,16 @@ namespace Authority.Operations.Account
             {
                 Authority.Observers.ForEach(o => o.OnRegistering(new RegistrationInfo
                 {
-                    Email = _email, ProductId = _productId, Username = _username
+                    Email = _email, ProductId = _domainId, Username = _username
                 }));
             }
 
             await Check(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
             await Check(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
 
-            Product product = await Context.Products
+            Domain product = await Context.Domains
                 .Include(p => p.Policies)
-                .FirstOrDefaultAsync(p => p.Id == _productId);
+                .FirstOrDefaultAsync(p => p.Id == _domainId);
 
             byte[] passwordBytes = Encoding.UTF8.GetBytes(_password);
             byte[] saltBytes = _passwordService.CreateSalt();
@@ -67,7 +67,7 @@ namespace Authority.Operations.Account
 
             _user = new User
             {
-                ProductId = product.Id,
+                DomainId = product.Id,
                 Email = _email,
                 Username = _username,
                 Salt = Convert.ToBase64String(saltBytes),

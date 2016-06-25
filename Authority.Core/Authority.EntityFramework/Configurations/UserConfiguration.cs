@@ -9,9 +9,9 @@ namespace Authority.EntityFramework.Configurations
         {
             ToTable("Authority.Users");
 
-            HasKey(e => new { e.ProductId, e.Email });
+            HasKey(e => new { e.DomainId, e.Email });
 
-            Property(u => u.ProductId).IsRequired();
+            Property(u => u.DomainId).IsRequired();
             Property(u => u.Email).IsRequired().HasMaxLength(128);
             Property(u => u.Username).IsRequired().HasMaxLength(64);
             Property(d => d.PasswordHash).IsRequired().HasMaxLength(128);

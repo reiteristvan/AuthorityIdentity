@@ -18,7 +18,7 @@ namespace Authority.Operations.Products
         public async Task Execute(
             Guid productId, string friendlyName, string issuer, string type, string value)
         {
-            Product product = await Context.Products
+            Domain product = await Context.Domains
                 .Include(p => p.Policies)
                 .Include(p => p.Policies.Select(po => po.Claims))
                 .FirstOrDefaultAsync(p => p.Id == productId);

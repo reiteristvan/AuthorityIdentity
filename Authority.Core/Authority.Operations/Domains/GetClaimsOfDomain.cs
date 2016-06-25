@@ -9,9 +9,9 @@ using Authority.Operations.Extensions;
 
 namespace Authority.Operations.Products
 {
-    public sealed class GetClaimsOfProduct : SafeOperation
+    public sealed class GetClaimsOfDomain : SafeOperation
     {
-        public GetClaimsOfProduct(ISafeAuthorityContext AuthorityContext)
+        public GetClaimsOfDomain(ISafeAuthorityContext AuthorityContext)
             : base(AuthorityContext)
         {
             
@@ -19,7 +19,7 @@ namespace Authority.Operations.Products
 
         public async Task<IEnumerable<AuthorityClaim>>  Retrieve(Guid productId)
         {
-            Product product = await Context.Products
+            Domain product = await Context.Domains
                 .Include(p => p.Policies)
                 .Include(p => p.Policies.Select(po => po.Claims))
                 .FirstOrDefaultAsync(p => p.Id == productId);

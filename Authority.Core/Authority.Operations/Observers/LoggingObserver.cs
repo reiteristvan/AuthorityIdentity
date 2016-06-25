@@ -18,7 +18,7 @@ namespace Authority.Operations.Observers
             Authority.Logger.Write(
                 LogEventLevel.Information,
                 "User registered: {0} to {1}",
-                user.Email, user.ProductId);
+                user.Email, user.DomainId);
         }
 
         public void OnActivated(User user)
@@ -26,7 +26,7 @@ namespace Authority.Operations.Observers
             Authority.Logger.Write(
                 LogEventLevel.Information,
                 "User activated: {0} to {1}",
-                user.Email, user.ProductId);
+                user.Email, user.DomainId);
         }
 
         public void OnLoggingIn(LoginInfo loginInfo)
@@ -42,7 +42,7 @@ namespace Authority.Operations.Observers
             Authority.Logger.Write(
                 LogEventLevel.Information,
                 "User logged in: {0} to {1}",
-                user.Email, user.ProductId);
+                user.Email, user.DomainId);
         }
     }
 }

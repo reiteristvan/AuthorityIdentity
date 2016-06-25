@@ -11,7 +11,7 @@ namespace Authority.DomainModel
             Users = new HashSet<User>();
         }
 
-        public Guid ProductId { get; set; }
+        public Guid DomainId { get; set; }
 
         public string Name { get; set; }
         public bool Default { get; set; }

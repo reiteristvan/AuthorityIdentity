@@ -13,16 +13,16 @@ namespace Authority.Operations.Account
 {
     public sealed class UserLogIn : OperationWithReturnValueAsync<LoginResult>
     {
-        private readonly Guid _productId;
+        private readonly Guid _domainId;
         private readonly string _email;
         private readonly string _password;
         private readonly PasswordService _passwordService;
         private User _user;
 
-        public UserLogIn(IAuthorityContext authorityContext, Guid productId, string email, string password)
+        public UserLogIn(IAuthorityContext authorityContext, Guid domainId, string email, string password)
             : base(authorityContext)
         {
-            _productId = productId;
+            _domainId = domainId;
             _email = email;
             _password = password;
             _passwordService = new PasswordService();
@@ -35,16 +35,16 @@ namespace Authority.Operations.Account
                 Authority.Observers.ForEach(o => o.OnLoggingIn(new LoginInfo
                 {
                     Email = _email,
-                    ProductId = _productId
+                    ProductId = _domainId
                 }));
             }
 
             LoginResult result = new LoginResult();
 
-            Product product = await Context.Products
-                .FirstOrDefaultAsync(p => p.Id == _productId);
+            Domain product = await Context.Domains
+                .FirstOrDefaultAsync(p => p.Id == _domainId);
 
-            if (product == null || !product.IsActive || !product.IsPublic)
+            if (product == null || !product.IsActive)
             {
                 return result;
             }
@@ -52,7 +52,7 @@ namespace Authority.Operations.Account
             _user = await Context.Users
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(po => po.Claims))
-                .FirstOrDefaultAsync(u => u.Email == _email && u.ProductId == product.Id);
+                .FirstOrDefaultAsync(u => u.Email == _email && u.DomainId == product.Id);
 
             if (_user == null || _user.IsPending || !_user.IsActive)
             {

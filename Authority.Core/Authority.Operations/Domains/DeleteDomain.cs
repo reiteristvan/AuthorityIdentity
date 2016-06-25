@@ -7,9 +7,9 @@ using Authority.EntityFramework;
 
 namespace Authority.Operations.Products
 {
-    public sealed class DeleteProduct : Operation
+    public sealed class DeleteDomain : Operation
     {
-        public DeleteProduct(IAuthorityContext AuthorityContext)
+        public DeleteDomain(IAuthorityContext AuthorityContext)
             : base(AuthorityContext)
         {
             

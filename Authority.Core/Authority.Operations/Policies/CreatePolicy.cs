@@ -8,27 +8,27 @@ namespace Authority.Operations.Policies
 {
     public class CreatePolicy : OperationWithReturnValueAsync<Policy>
     {
-        private readonly Guid _productId;
+        private readonly Guid _domainId;
         private readonly string _name;
         private readonly bool _defaultPolicy;
 
-        public CreatePolicy(IAuthorityContext AuthorityContext, Guid productId, string name, bool defaultPolicy = false)
+        public CreatePolicy(IAuthorityContext AuthorityContext, Guid domainId, string name, bool defaultPolicy = false)
             : base(AuthorityContext)
         {
-            _productId = productId;
+            _domainId = domainId;
             _name = name;
             _defaultPolicy = defaultPolicy;
         }
 
         public override async Task<Policy> Do()
         {
-            Product product = await Context.Products
-                .FirstOrDefaultAsync(p => p.Id == _productId);
+            Domain domain = await Context.Domains
+                .FirstOrDefaultAsync(p => p.Id == _domainId);
 
             Policy policy = new Policy
             {
                 Name = _name,
-                ProductId = _productId,
+                DomainId= _domainId,
                 Default = _defaultPolicy
             };
 

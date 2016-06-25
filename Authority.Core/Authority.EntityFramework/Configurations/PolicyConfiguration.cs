@@ -11,7 +11,7 @@ namespace Authority.EntityFramework.Configurations
 
             HasKey(e => e.Id);
 
-            Property(p => p.ProductId).IsRequired();
+            Property(p => p.DomainId).IsRequired();
             Property(p => p.Name).IsRequired();
             Property(p => p.Default).IsRequired();
 

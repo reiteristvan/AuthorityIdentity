@@ -10,7 +10,7 @@ namespace Authority.DomainModel
             Policies = new HashSet<Policy>();
         }
 
-        public Guid ProductId { get; set; }
+        public Guid DomainId { get; set; }
 
         public string Email { get; set; }
 

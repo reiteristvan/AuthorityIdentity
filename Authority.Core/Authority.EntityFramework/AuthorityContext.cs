@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework.Configurations;
-using IdentityServer.EntityFramework.Configurations;
 
 namespace Authority.EntityFramework
 {
@@ -22,8 +21,7 @@ namespace Authority.EntityFramework
         }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Product> Products { get; set; }
-        public DbSet<ProductStyle> ProductStyles { get; set; } 
+        public DbSet<Domain> Domains { get; set; }
         public DbSet<Policy> Policies { get; set; } 
         public DbSet<AuthorityClaim> Claims { get; set; } 
 
@@ -32,8 +30,7 @@ namespace Authority.EntityFramework
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
 
             modelBuilder.Configurations.Add(new UserConfiguration());
-            modelBuilder.Configurations.Add(new ProductConfiguration());
-            modelBuilder.Configurations.Add(new ProductStyleConfiguration());
+            modelBuilder.Configurations.Add(new DomainConfiguration());
             modelBuilder.Configurations.Add(new AuthorityClaimConfiguration());
             modelBuilder.Configurations.Add(new PolicyConfiguration());
 

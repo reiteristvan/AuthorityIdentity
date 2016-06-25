@@ -7,10 +7,10 @@ namespace Authority.IntegrationTests.Fixtures
     {
         public PolicyTestFixture()
         {
-            Product = TestOperations.CreateProductAndPublish(Context).Result;
+            Domain = TestOperations.CreateDomain(Context).Result;
         }
 
-        public Product Product { get; private set; }
+        public Domain Domain { get; private set; }
 
         public override void Dispose()
         {
@@ -28,9 +28,9 @@ namespace Authority.IntegrationTests.Fixtures
 
             //Context.SaveChanges();
 
-            foreach (Product product in Context.Products)
+            foreach (Domain domain in Context.Domains)
             {
-                Context.Products.Remove(product);
+                Context.Domains.Remove(domain);
             }
 
             Context.SaveChanges();

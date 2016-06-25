@@ -20,9 +20,9 @@ namespace Authority.IntegrationTests.Accounts
         [Fact]
         public async Task ActivationShouldSucceed()
         {
-            User user = await TestOperations.RegisterUser(_fixture.Context, _fixture.Product.Id);
+            User user = await TestOperations.RegisterUser(_fixture.Context, _fixture.Domain.Id);
 
-            UserActivation activation = new UserActivation(_fixture.Context, _fixture.Product.Id, user.PendingRegistrationId);
+            UserActivation activation = new UserActivation(_fixture.Context, _fixture.Domain.Id, user.PendingRegistrationId);
             await activation.Do();
             await activation.CommitAsync();
 

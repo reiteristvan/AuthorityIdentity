@@ -9,28 +9,28 @@ namespace Authority.Operations.Account
 {
     public sealed class UserActivation : OperationWithNoReturnAsync
     {
-        private readonly Guid _productId;
+        private readonly Guid _domainId;
         private readonly Guid _activationCode;
         private User _user;
 
-        public UserActivation(IAuthorityContext authorityContext, Guid productId, Guid activationCode)
+        public UserActivation(IAuthorityContext authorityContext, Guid domainId, Guid activationCode)
             : base(authorityContext)
         {
-            _productId = productId;
+            _domainId = domainId;
             _activationCode = activationCode;
         }
 
         public override async Task Do()
         {
-            Product product = await Context.Products.FirstOrDefaultAsync(p => p.Id == _productId);
+            Domain product = await Context.Domains.FirstOrDefaultAsync(p => p.Id == _domainId);
 
-            if (_activationCode == Guid.Empty || product == null || !product.IsActive || !product.IsPublic)
+            if (_activationCode == Guid.Empty || product == null || !product.IsActive)
             {
                 throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
             }
 
             _user = await Context.Users
-                .FirstOrDefaultAsync(u => u.ProductId == product.Id && u.PendingRegistrationId == _activationCode);
+                .FirstOrDefaultAsync(u => u.DomainId == product.Id && u.PendingRegistrationId == _activationCode);
 
             if (_user == null || !_user.IsPending)
             {

@@ -10,39 +10,35 @@ namespace Authority.IntegrationTests.Common
 {
     public static class TestOperations
     {
-        public static async Task<Product> CreateProductAndPublish(AuthorityContext context)
+        public static async Task<Domain> CreateDomain(AuthorityContext context)
         {
-            CreateProduct operation = new CreateProduct(context, RandomData.RandomString(), "", "", "");
+            CreateProduct operation = new CreateProduct(context, RandomData.RandomString());
             Guid productId = await operation.Do();
             await operation.CommitAsync();
 
-            Product product = await context.Products.FirstOrDefaultAsync(p => p.Id == productId);
-
-            ToggleProductPublish publishOperation = new ToggleProductPublish(context, productId);
-            await publishOperation.Do();
-            await publishOperation.CommitAsync();
+            Domain product = await context.Domains.FirstOrDefaultAsync(p => p.Id == productId);
 
             return product;
         }
 
-        public static async Task<User> RegisterUser(AuthorityContext context, Guid productId, string password = "")
+        public static async Task<User> RegisterUser(AuthorityContext context, Guid domainId, string password = "")
         {
             string email = RandomData.Email();
             string username = RandomData.RandomString();
             password = string.IsNullOrEmpty(password) ? RandomData.RandomString(12, true) : password;
 
-            UserRegistration operation = new UserRegistration(context, productId, email, username, password);
+            UserRegistration operation = new UserRegistration(context, domainId, email, username, password);
             User user = await operation.Do();
             await operation.CommitAsync();
 
             return user;
         }
 
-        public static async Task<User> RegisterAndActivateUser(AuthorityContext context, Guid productId, string password)
+        public static async Task<User> RegisterAndActivateUser(AuthorityContext context, Guid domainId, string password)
         {
-            User user = await RegisterUser(context, productId, password);
+            User user = await RegisterUser(context, domainId, password);
 
-            UserActivation activation = new UserActivation(context, productId, user.PendingRegistrationId);
+            UserActivation activation = new UserActivation(context, domainId, user.PendingRegistrationId);
             await activation.Do();
             await activation.CommitAsync();
 

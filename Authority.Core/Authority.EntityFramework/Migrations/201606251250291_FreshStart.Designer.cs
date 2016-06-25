@@ -7,13 +7,13 @@ namespace Authority.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ProductOwnerId : IMigrationMetadata
+    public sealed partial class FreshStart : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ProductOwnerId));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(FreshStart));
         
         string IMigrationMetadata.Id
         {
-            get { return "201512310945130_ProductOwnerId"; }
+            get { return "201606251250291_FreshStart"; }
         }
         
         string IMigrationMetadata.Source

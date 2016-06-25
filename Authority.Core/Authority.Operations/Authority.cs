@@ -82,7 +82,7 @@ namespace Authority.Operations
                 return;
             }
 
-            List<Product> products = context.Products.ToList();
+            List<Domain> domains = context.Domains.ToList();
         }
     }
 }
