@@ -24,6 +24,7 @@ namespace Authority.IntegrationTests.Accounts
 
             UserLogIn loginOperation = new UserLogIn(_fixture.Context, _fixture.Product.Id, user.Email, password);
             LoginResult result = await loginOperation.Do();
+            await loginOperation.CommitAsync();
 
             Assert.True(!string.IsNullOrEmpty(result.Email));
         }
