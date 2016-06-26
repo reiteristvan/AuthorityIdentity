@@ -13,7 +13,7 @@ namespace Authority.IntegrationTests.Common
     {
         public static async Task<Domain> CreateDomain(AuthorityContext context)
         {
-            CreateProduct operation = new CreateProduct(context, RandomData.RandomString());
+            CreateDomain operation = new CreateDomain(context, RandomData.RandomString());
             Guid productId = await operation.Do();
             await operation.CommitAsync();
 

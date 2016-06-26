@@ -1,6 +1,6 @@
 ﻿namespace Authority.Operations.Products
 {
-    public static class ProductErrorCodes
+    public static class DomainErrorCodes
     {
         public const int NameNotAvailable = 3000;
     }

@@ -6,11 +6,11 @@ using Authority.EntityFramework;
 
 namespace Authority.Operations.Products
 {
-    public sealed class CreateProduct : OperationWithReturnValueAsync<Guid>
+    public sealed class CreateDomain : OperationWithReturnValueAsync<Guid>
     {
         private readonly string _name;
 
-        public CreateProduct(IAuthorityContext AuthorityContext, string name)
+        public CreateDomain(IAuthorityContext AuthorityContext, string name)
             : base(AuthorityContext)
         {
             _name = name;
@@ -18,23 +18,23 @@ namespace Authority.Operations.Products
 
         public override async Task<Guid> Do()
         {
-            await Check(() => IsNameAvailable(_name), ProductErrorCodes.NameNotAvailable);
+            await Check(() => IsNameAvailable(_name), DomainErrorCodes.NameNotAvailable);
 
-            Domain product = new Domain
+            Domain domain = new Domain
             {
                 Name = _name,
                 IsActive = true
             };
 
-            Context.Domains.Add(product);
+            Context.Domains.Add(domain);
 
-            return product.Id;
+            return domain.Id;
         }
 
         private async Task<bool> IsNameAvailable(string name)
         {
-            Domain product = await Context.Domains.FirstOrDefaultAsync(p => p.Name == name);
-            return product == null;
+            Domain domain = await Context.Domains.FirstOrDefaultAsync(p => p.Name == name);
+            return domain == null;
         }
     }
 }
