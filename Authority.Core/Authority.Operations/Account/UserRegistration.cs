@@ -70,6 +70,7 @@ namespace Authority.Operations.Account
                 DomainId = product.Id,
                 Email = _email,
                 Username = _username,
+                LastLogin = DateTimeOffset.MinValue,
                 Salt = Convert.ToBase64String(saltBytes),
                 PasswordHash = Convert.ToBase64String(hashBytes),
                 IsPending = true,

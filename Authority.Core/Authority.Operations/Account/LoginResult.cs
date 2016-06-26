@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Authority.DomainModel;
 
 namespace Authority.Operations.Account
@@ -15,6 +16,7 @@ namespace Authority.Operations.Account
 
         public string Username { get; set; }
         public string Email { get; set; }
+        public DateTimeOffset LastLogin { get; set; }
 
         public List<Policy> Policies { get; set; } 
         public List<AuthorityClaim> Claims { get; set; } 

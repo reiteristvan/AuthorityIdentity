@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201606251250291_FreshStart.Designer.cs">
       <DependentUpon>201606251250291_FreshStart.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606261233374_UserLastLogin.cs" />
+    <Compile Include="Migrations\201606261233374_UserLastLogin.Designer.cs">
+      <DependentUpon>201606261233374_UserLastLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201606251250291_FreshStart.resx">
       <DependentUpon>201606251250291_FreshStart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261233374_UserLastLogin.resx">
+      <DependentUpon>201606261233374_UserLastLogin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

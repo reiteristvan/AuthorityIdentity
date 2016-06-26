@@ -16,6 +16,8 @@ namespace Authority.DomainModel
 
         public string Username { get; set; }
 
+        public DateTimeOffset LastLogin { get; set; }
+
         public string PasswordHash { get; set; }
 
         public string Salt { get; set; }

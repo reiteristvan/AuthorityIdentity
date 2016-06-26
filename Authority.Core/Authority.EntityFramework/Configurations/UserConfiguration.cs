@@ -14,6 +14,7 @@ namespace Authority.EntityFramework.Configurations
             Property(u => u.DomainId).IsRequired();
             Property(u => u.Email).IsRequired().HasMaxLength(128);
             Property(u => u.Username).IsRequired().HasMaxLength(64);
+            Property(u => u.LastLogin).IsRequired();
             Property(d => d.PasswordHash).IsRequired().HasMaxLength(128);
             Property(d => d.Salt).IsRequired().HasMaxLength(128);
             Property(d => d.IsPending).IsRequired();

@@ -71,8 +71,11 @@ namespace Authority.Operations.Account
 
             result.Email = _email;
             result.Username = _user.Username;
+            result.LastLogin = _user.LastLogin;
             result.Policies = _user.Policies.ToList();
             result.Claims = _user.Policies.SelectMany(p => p.Claims).DistinctBy(c => c.Id).ToList();
+
+            _user.LastLogin = DateTimeOffset.UtcNow;
 
             return result;
         }
