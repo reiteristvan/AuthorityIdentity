@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Accounts\ActivationTests.cs" />
+    <Compile Include="Accounts\DeleteTests.cs" />
     <Compile Include="Accounts\LoginTests.cs" />
     <Compile Include="Accounts\RegistrationTests.cs" />
     <Compile Include="Accounts\UserStatusTests.cs" />
