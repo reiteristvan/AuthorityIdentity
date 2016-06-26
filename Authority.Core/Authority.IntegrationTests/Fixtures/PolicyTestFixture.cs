@@ -19,14 +19,14 @@ namespace Authority.IntegrationTests.Fixtures
                 Context.Claims.Remove(authorityClaim);
             }
 
-            //Context.SaveChanges();
+            Context.SaveChanges();
 
             foreach (Policy policy in Context.Policies)
             {
                 Context.Policies.Remove(policy);
             }
 
-            //Context.SaveChanges();
+            Context.SaveChanges();
 
             foreach (Domain domain in Context.Domains)
             {

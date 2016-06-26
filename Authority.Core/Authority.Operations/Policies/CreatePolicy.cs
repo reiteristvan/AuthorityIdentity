@@ -23,7 +23,12 @@ namespace Authority.Operations.Policies
         public override async Task<Policy> Do()
         {
             Domain domain = await Context.Domains
-                .FirstOrDefaultAsync(p => p.Id == _domainId);
+                .FirstOrDefaultAsync(d => d.Id == _domainId);
+
+            if (domain == null)
+            {
+                throw new RequirementFailedException(PolicyErrorCodes.DomainNotFound);
+            }
 
             Policy policy = new Policy
             {
