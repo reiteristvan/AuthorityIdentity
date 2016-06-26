@@ -22,15 +22,15 @@ namespace Authority.Operations.Account
 
         public override async Task Do()
         {
-            Domain product = await Context.Domains.FirstOrDefaultAsync(p => p.Id == _domainId);
+            Domain domain = await Context.Domains.FirstOrDefaultAsync(p => p.Id == _domainId);
 
-            if (_activationCode == Guid.Empty || product == null || !product.IsActive)
+            if (_activationCode == Guid.Empty || domain == null || !domain.IsActive)
             {
                 throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
             }
 
             _user = await Context.Users
-                .FirstOrDefaultAsync(u => u.DomainId == product.Id && u.PendingRegistrationId == _activationCode);
+                .FirstOrDefaultAsync(u => u.DomainId == domain.Id && u.PendingRegistrationId == _activationCode);
 
             if (_user == null || !_user.IsPending)
             {

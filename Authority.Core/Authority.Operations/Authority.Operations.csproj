@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="Account\AccountErrorCodes.cs" />
     <Compile Include="Account\LoginResult.cs" />
+    <Compile Include="Account\SetUserStatus.cs" />
     <Compile Include="Account\UserActivation.cs" />
     <Compile Include="Account\UserLogIn.cs" />
     <Compile Include="Account\UserRegistration.cs" />
