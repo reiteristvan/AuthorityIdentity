@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Account;
+using Authority.Operations.Policies;
 using Authority.Operations.Products;
 
 namespace Authority.IntegrationTests.Common
@@ -19,6 +20,20 @@ namespace Authority.IntegrationTests.Common
             Domain product = await context.Domains.FirstOrDefaultAsync(p => p.Id == productId);
 
             return product;
+        }
+
+        public static async Task<Policy> CreatePolicy(
+            AuthorityContext context, 
+            Guid domainId, 
+            string name,
+            bool defaultPolicy = false)
+        {
+            CreatePolicy operation = new CreatePolicy(context, domainId, name, defaultPolicy);
+
+            Policy policy = await operation.Do();
+            await operation.CommitAsync();
+
+            return policy;
         }
 
         public static async Task<User> RegisterUser(AuthorityContext context, Guid domainId, string password = "")
