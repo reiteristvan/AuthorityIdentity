@@ -27,7 +27,7 @@ namespace Authority.IntegrationTests.Common
             string username = RandomData.RandomString();
             password = string.IsNullOrEmpty(password) ? RandomData.RandomString(12, true) : password;
 
-            UserRegistration operation = new UserRegistration(context, domainId, email, username, password);
+            RegisterUser operation = new RegisterUser(context, domainId, email, username, password);
             User user = await operation.Do();
             await operation.CommitAsync();
 
@@ -38,7 +38,7 @@ namespace Authority.IntegrationTests.Common
         {
             User user = await RegisterUser(context, domainId, password);
 
-            UserActivation activation = new UserActivation(context, domainId, user.PendingRegistrationId);
+            ActivateUser activation = new ActivateUser(context, domainId, user.PendingRegistrationId);
             await activation.Do();
             await activation.CommitAsync();
 

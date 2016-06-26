@@ -10,7 +10,7 @@ using Authority.Operations.Security;
 
 namespace Authority.Operations.Account
 {
-    public sealed class UserRegistration : OperationWithReturnValueAsync<User>
+    public sealed class RegisterUser : OperationWithReturnValueAsync<User>
     {
         private readonly Guid _domainId;
         private readonly string _email;
@@ -19,7 +19,7 @@ namespace Authority.Operations.Account
         private readonly PasswordService _passwordService;
         private User _user;
 
-        public UserRegistration(IAuthorityContext authorityContext, 
+        public RegisterUser(IAuthorityContext authorityContext, 
             Guid domainId, string email, string username, string password)
             : base(authorityContext)
         {

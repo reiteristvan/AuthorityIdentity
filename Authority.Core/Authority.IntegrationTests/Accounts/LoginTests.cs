@@ -22,7 +22,7 @@ namespace Authority.IntegrationTests.Accounts
             string password = RandomData.RandomString(12, true);
             User user = await TestOperations.RegisterAndActivateUser(_fixture.Context, _fixture.Domain.Id, password);
 
-            UserLogIn loginOperation = new UserLogIn(_fixture.Context, _fixture.Domain.Id, user.Email, password);
+            LoginUser loginOperation = new LoginUser(_fixture.Context, _fixture.Domain.Id, user.Email, password);
             LoginResult result = await loginOperation.Do();
             await loginOperation.CommitAsync();
 

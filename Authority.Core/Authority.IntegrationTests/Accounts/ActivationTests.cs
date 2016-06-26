@@ -22,7 +22,7 @@ namespace Authority.IntegrationTests.Accounts
         {
             User user = await TestOperations.RegisterUser(_fixture.Context, _fixture.Domain.Id);
 
-            UserActivation activation = new UserActivation(_fixture.Context, _fixture.Domain.Id, user.PendingRegistrationId);
+            ActivateUser activation = new ActivateUser(_fixture.Context, _fixture.Domain.Id, user.PendingRegistrationId);
             await activation.Do();
             await activation.CommitAsync();
 

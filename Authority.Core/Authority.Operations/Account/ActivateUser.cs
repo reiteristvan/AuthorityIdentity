@@ -7,13 +7,13 @@ using Authority.EntityFramework;
 
 namespace Authority.Operations.Account
 {
-    public sealed class UserActivation : OperationWithNoReturnAsync
+    public sealed class ActivateUser : OperationWithNoReturnAsync
     {
         private readonly Guid _domainId;
         private readonly Guid _activationCode;
         private User _user;
 
-        public UserActivation(IAuthorityContext authorityContext, Guid domainId, Guid activationCode)
+        public ActivateUser(IAuthorityContext authorityContext, Guid domainId, Guid activationCode)
             : base(authorityContext)
         {
             _domainId = domainId;

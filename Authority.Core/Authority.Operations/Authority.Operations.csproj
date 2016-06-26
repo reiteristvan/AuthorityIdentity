@@ -69,9 +69,9 @@
     <Compile Include="Account\AccountErrorCodes.cs" />
     <Compile Include="Account\LoginResult.cs" />
     <Compile Include="Account\SetUserStatus.cs" />
-    <Compile Include="Account\UserActivation.cs" />
-    <Compile Include="Account\UserLogIn.cs" />
-    <Compile Include="Account\UserRegistration.cs" />
+    <Compile Include="Account\ActivateUser.cs" />
+    <Compile Include="Account\LoginUser.cs" />
+    <Compile Include="Account\RegisterUser.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
