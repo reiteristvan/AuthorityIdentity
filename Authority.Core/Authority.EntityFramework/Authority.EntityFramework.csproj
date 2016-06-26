@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201606261233374_UserLastLogin.Designer.cs">
       <DependentUpon>201606261233374_UserLastLogin.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs" />
+    <Compile Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.Designer.cs">
+      <DependentUpon>201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -86,6 +90,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606261233374_UserLastLogin.resx">
       <DependentUpon>201606261233374_UserLastLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.resx">
+      <DependentUpon>201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

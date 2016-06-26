@@ -14,7 +14,7 @@ namespace Authority.EntityFramework.Configurations
             Property(p => p.Name).IsRequired().HasMaxLength(128);
             Property(p => p.IsActive).IsRequired();
 
-            HasMany(p => p.Policies);
+            HasMany(p => p.Policies).WithRequired().WillCascadeOnDelete(true);
             HasMany(p => p.Claims).WithOptional().WillCascadeOnDelete(true);
         }
     }
