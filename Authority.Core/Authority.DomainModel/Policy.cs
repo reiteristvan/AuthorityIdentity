@@ -5,6 +5,8 @@ namespace Authority.DomainModel
 {
     public sealed class Policy : EntityBase
     {
+        public const string TableName = "Authority.Policies";
+
         public Policy()
         {
             Claims = new HashSet<AuthorityClaim>();

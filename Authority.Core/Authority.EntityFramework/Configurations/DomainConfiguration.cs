@@ -7,7 +7,7 @@ namespace Authority.EntityFramework.Configurations
     {
         public DomainConfiguration()
         {
-            ToTable("Authority.Domains");
+            ToTable(Domain.TableName);
 
             HasKey(e => e.Id);
 

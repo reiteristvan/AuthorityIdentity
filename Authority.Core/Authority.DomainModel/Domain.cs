@@ -4,6 +4,8 @@ namespace Authority.DomainModel
 {
     public class Domain : EntityBase
     {
+        public const string TableName = "Authority.Domains";
+
         public Domain()
         {
             Policies = new HashSet<Policy>();

@@ -96,6 +96,7 @@
     <Compile Include="RequirementFailedException.cs" />
     <Compile Include="SafeOperation.cs" />
     <Compile Include="Security\PasswordService.cs" />
+    <Compile Include="SqlOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

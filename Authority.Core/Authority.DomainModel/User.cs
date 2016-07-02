@@ -5,6 +5,8 @@ namespace Authority.DomainModel
 {
     public class User : EntityBase
     {
+        public const string TableName = "Authority.Users";
+
         public User()
         {
             Policies = new HashSet<Policy>();

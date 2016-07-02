@@ -7,7 +7,7 @@ namespace Authority.EntityFramework.Configurations
     {
         public AuthorityClaimConfiguration()
         {
-            ToTable("Authority.Claims");
+            ToTable(AuthorityClaim.TableName);
 
             HasKey(e => e.Id);
 
