@@ -1,4 +1,6 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Linq;
+using System.Security.Cryptography;
 
 namespace Authority.Operations.Security
 {
@@ -36,6 +38,25 @@ namespace Authority.Operations.Security
         {
             Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations);
             return pbkdf2.GetBytes(outputBytes);
+        }
+
+        public string GeneratePassword(int length = 12, bool includeSpecialCharacters = false)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            const string specialChars = "<>#&!+-*";
+
+            Random random = new Random();
+
+            string result = new string(Enumerable.Repeat(chars, length)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+
+            if (includeSpecialCharacters)
+            {
+                result += specialChars[random.Next(specialChars.Length)];
+                result += specialChars[random.Next(specialChars.Length)];
+            }
+
+            return result;
         }
     }
 }
