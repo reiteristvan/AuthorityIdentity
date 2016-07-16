@@ -2,9 +2,9 @@
 
 namespace Authority.Operations.Observers
 {
-    public sealed class LoginInfo
+    public sealed class InviteInfo
     {
-        public Guid DomainId { get; set; }
         public string Email { get; set; }
+        public Guid DomainId { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Authority.Operations
 
         public static ILogger Logger { get; set; }
 
+        public static IAuthorityEmailService EmailService { get; set; }
         public static List<IAccountObserver> Observers { get; internal set; } 
 
         private static AuthorityConfiguration _configuration;

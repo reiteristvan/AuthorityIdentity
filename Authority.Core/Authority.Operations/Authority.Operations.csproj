@@ -69,6 +69,8 @@
     <Compile Include="Account\AccountErrorCodes.cs" />
     <Compile Include="Account\BulkUserRegistration.cs" />
     <Compile Include="Account\DeleteUser.cs" />
+    <Compile Include="Account\FinalizeInvitation.cs" />
+    <Compile Include="Account\InviteUser.cs" />
     <Compile Include="Account\LoginResult.cs" />
     <Compile Include="Account\SetUserStatus.cs" />
     <Compile Include="Account\ActivateUser.cs" />
@@ -77,8 +79,10 @@
     <Compile Include="Authority.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="IAuthorityEmailService.cs" />
     <Compile Include="Logging\LogConfiguration.cs" />
     <Compile Include="Observers\IAccountObserver.cs" />
+    <Compile Include="Observers\InviteInfo.cs" />
     <Compile Include="Observers\LoggingObserver.cs" />
     <Compile Include="Observers\LoginInfo.cs" />
     <Compile Include="Observers\RegistrationInfo.cs" />

@@ -35,7 +35,7 @@ namespace Authority.Operations.Account
                 Authority.Observers.ForEach(o => o.OnLoggingIn(new LoginInfo
                 {
                     Email = _email,
-                    ProductId = _domainId
+                    DomainId = _domainId
                 }));
             }
 

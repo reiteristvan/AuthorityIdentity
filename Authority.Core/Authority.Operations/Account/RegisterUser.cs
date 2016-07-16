@@ -16,17 +16,19 @@ namespace Authority.Operations.Account
         private readonly string _email;
         private readonly string _username;
         private readonly string _password;
+        private readonly bool _needToActivate;
         private readonly PasswordService _passwordService;
         private User _user;
 
         public RegisterUser(IAuthorityContext authorityContext, 
-            Guid domainId, string email, string username, string password)
+            Guid domainId, string email, string username, string password, bool needToActivate = true)
             : base(authorityContext)
         {
             _domainId = domainId;
             _email = email;
             _username = username;
             _password = password;
+            _needToActivate = needToActivate;
             _passwordService = new PasswordService();
         }
 
@@ -50,14 +52,14 @@ namespace Authority.Operations.Account
             {
                 Authority.Observers.ForEach(o => o.OnRegistering(new RegistrationInfo
                 {
-                    Email = _email, ProductId = _domainId, Username = _username
+                    Email = _email, DomainId = _domainId, Username = _username
                 }));
             }
 
             await Check(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
             await Check(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
 
-            Domain product = await Context.Domains
+            Domain domain = await Context.Domains
                 .Include(p => p.Policies)
                 .FirstOrDefaultAsync(p => p.Id == _domainId);
 
@@ -67,21 +69,21 @@ namespace Authority.Operations.Account
 
             _user = new User
             {
-                DomainId = product.Id,
+                DomainId = domain.Id,
                 Email = _email,
                 Username = _username,
                 LastLogin = DateTimeOffset.MinValue,
                 Salt = Convert.ToBase64String(saltBytes),
                 PasswordHash = Convert.ToBase64String(hashBytes),
-                IsPending = true,
-                PendingRegistrationId = Guid.NewGuid(),
+                IsPending = _needToActivate,
+                PendingRegistrationId = _needToActivate ? Guid.NewGuid() : Guid.Empty,
                 IsActive = true,
                 IsExternal = false
             };
 
             Context.Users.Add(_user);
 
-            Policy defaultPolicy = product.Policies.FirstOrDefault(p => p.Default);
+            Policy defaultPolicy = domain.Policies.FirstOrDefault(p => p.Default);
 
             if (defaultPolicy != null)
             {
@@ -99,6 +101,11 @@ namespace Authority.Operations.Account
             {
                 Authority.Observers.ForEach(o => o.OnRegistered(_user));
             }
+
+            if (Authority.EmailService != null && _needToActivate)
+            {
+                Authority.EmailService.SendUserActivationEmail(_user.Email, _user.PendingRegistrationId);
+            }
         }
 
         public override async Task CommitAsync()
@@ -108,6 +115,11 @@ namespace Authority.Operations.Account
             if (Authority.Observers.Any())
             {
                 Authority.Observers.ForEach(o => o.OnRegistered(_user));
+            }
+
+            if (Authority.EmailService != null && _needToActivate)
+            {
+                await Authority.EmailService.SendUserActivationEmailAsync(_user.Email, _user.PendingRegistrationId);
             }
         }
     }

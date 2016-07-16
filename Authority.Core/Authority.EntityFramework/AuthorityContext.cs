@@ -24,6 +24,7 @@ namespace Authority.EntityFramework
         public DbSet<Domain> Domains { get; set; }
         public DbSet<Policy> Policies { get; set; } 
         public DbSet<AuthorityClaim> Claims { get; set; } 
+        public DbSet<Invite> Invites { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -33,6 +34,7 @@ namespace Authority.EntityFramework
             modelBuilder.Configurations.Add(new DomainConfiguration());
             modelBuilder.Configurations.Add(new AuthorityClaimConfiguration());
             modelBuilder.Configurations.Add(new PolicyConfiguration());
+            modelBuilder.Configurations.Add(new InviteConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -78,6 +80,12 @@ namespace Authority.EntityFramework
 
         public void BeginTransaction(IsolationLevel isolationLevel)
         {
+            // this is needed because of nested operations
+            if (Database.CurrentTransaction != null)
+            {
+                return;
+            }
+
             _transaction = Database.BeginTransaction(isolationLevel);
         }
 

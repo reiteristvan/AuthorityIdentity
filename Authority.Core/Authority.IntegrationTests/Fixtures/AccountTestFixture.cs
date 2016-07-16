@@ -15,6 +15,11 @@ namespace Authority.IntegrationTests.Fixtures
 
         public override void Dispose()
         {
+            foreach (Invite invite in Context.Invites)
+            {
+                Context.Invites.Remove(invite);
+            }
+
             foreach (User user in Context.Users)
             {
                 Context.Users.Remove(user);
@@ -28,6 +33,7 @@ namespace Authority.IntegrationTests.Fixtures
             }
 
             Context.SaveChanges();
+
             Context.Dispose();
         }
     }

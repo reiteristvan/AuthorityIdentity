@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="AuthorityClaim.cs" />
     <Compile Include="EntityBase.cs" />
+    <Compile Include="Invite.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="Domain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AuthorityContext.cs" />
     <Compile Include="Configurations\AuthorityClaimConfiguration.cs" />
+    <Compile Include="Configurations\InviteConfiguration.cs" />
     <Compile Include="Configurations\PolicyConfiguration.cs" />
     <Compile Include="Configurations\DomainConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
@@ -67,6 +68,18 @@
     <Compile Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs" />
     <Compile Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.Designer.cs">
       <DependentUpon>201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607101420048_UserInvite.cs" />
+    <Compile Include="Migrations\201607101420048_UserInvite.Designer.cs">
+      <DependentUpon>201607101420048_UserInvite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607101422024_UserInviteCreatedAcceptedColumn.cs" />
+    <Compile Include="Migrations\201607101422024_UserInviteCreatedAcceptedColumn.Designer.cs">
+      <DependentUpon>201607101422024_UserInviteCreatedAcceptedColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201607160800482_AddedExpirationToInvitation.cs" />
+    <Compile Include="Migrations\201607160800482_AddedExpirationToInvitation.Designer.cs">
+      <DependentUpon>201607160800482_AddedExpirationToInvitation.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -93,6 +106,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.resx">
       <DependentUpon>201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607101420048_UserInvite.resx">
+      <DependentUpon>201607101420048_UserInvite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607101422024_UserInviteCreatedAcceptedColumn.resx">
+      <DependentUpon>201607101422024_UserInviteCreatedAcceptedColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607160800482_AddedExpirationToInvitation.resx">
+      <DependentUpon>201607160800482_AddedExpirationToInvitation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

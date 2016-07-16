@@ -5,12 +5,20 @@ namespace Authority.Operations.Observers
 {
     public sealed class LoggingObserver : IAccountObserver
     {
+        public void OnInvited(InviteInfo inviteInfo)
+        {
+            Authority.Logger.Write(
+                LogEventLevel.Information,
+                "User invited: {0} to {1}",
+                inviteInfo.Email, inviteInfo.DomainId);
+        }
+
         public void OnRegistering(RegistrationInfo registrationInfo)
         {
             Authority.Logger.Write(
                 LogEventLevel.Information, 
                 "User registering: {0} to {1}", 
-                registrationInfo.Email, registrationInfo.ProductId);
+                registrationInfo.Email, registrationInfo.DomainId);
         }
 
         public void OnRegistered(User user)
@@ -34,7 +42,7 @@ namespace Authority.Operations.Observers
             Authority.Logger.Write(
                 LogEventLevel.Information,
                 "User logging in: {0} to {1}",
-                loginInfo.Email, loginInfo.ProductId);
+                loginInfo.Email, loginInfo.DomainId);
         }
 
         public void LoggedIn(User user)
