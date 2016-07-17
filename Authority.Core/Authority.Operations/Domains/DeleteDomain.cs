@@ -21,7 +21,7 @@ namespace Authority.Operations.Products
         {
             Domain domain = await Context.Domains
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
-
+            
             if (domain == null)
             {
                 throw new RequirementFailedException(DomainErrorCodes.DomainNotExists);

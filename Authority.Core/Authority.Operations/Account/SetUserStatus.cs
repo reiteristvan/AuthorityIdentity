@@ -24,10 +24,7 @@ namespace Authority.Operations.Account
         {
             User user = await Context.Users.FirstOrDefaultAsync(u => u.DomainId == _domainId && u.Email == _email);
 
-            if (user == null)
-            {
-                throw new RequirementFailedException(AccountErrorCodes.UserNotFound);
-            }
+            Require(() => user != null, AccountErrorCodes.UserNotFound);
 
             user.IsActive = _isActive;
         }

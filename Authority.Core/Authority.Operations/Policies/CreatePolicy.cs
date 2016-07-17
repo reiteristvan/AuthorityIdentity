@@ -25,10 +25,7 @@ namespace Authority.Operations.Policies
             Domain domain = await Context.Domains
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
 
-            if (domain == null)
-            {
-                throw new RequirementFailedException(PolicyErrorCodes.DomainNotFound);
-            }
+            Require(() => domain != null, PolicyErrorCodes.DomainNotFound);
 
             Policy policy = new Policy
             {

@@ -56,8 +56,8 @@ namespace Authority.Operations.Account
                 }));
             }
 
-            await Check(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
-            await Check(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
+            await Require(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
+            await Require(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
 
             Domain domain = await Context.Domains
                 .Include(p => p.Policies)

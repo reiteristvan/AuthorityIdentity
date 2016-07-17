@@ -24,18 +24,12 @@ namespace Authority.Operations.Account
         {
             Domain domain = await Context.Domains.FirstOrDefaultAsync(p => p.Id == _domainId);
 
-            if (_activationCode == Guid.Empty || domain == null || !domain.IsActive)
-            {
-                throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
-            }
+            Require(() => _activationCode != Guid.Empty && domain != null && domain.IsActive, AccountErrorCodes.FailedActivation);
 
             _user = await Context.Users
                 .FirstOrDefaultAsync(u => u.DomainId == domain.Id && u.PendingRegistrationId == _activationCode);
 
-            if (_user == null || !_user.IsPending)
-            {
-                throw new RequirementFailedException(AccountErrorCodes.FailedActivation);
-            }
+            Require(() => _user != null && _user.IsPending, AccountErrorCodes.FailedActivation);
 
             _user.PendingRegistrationId = Guid.Empty;
             _user.IsPending = false;

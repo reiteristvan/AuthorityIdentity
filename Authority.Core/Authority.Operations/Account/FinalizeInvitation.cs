@@ -38,18 +38,18 @@ namespace Authority.Operations.Account
         {
             Invite invite = await Context.Invites.FirstOrDefaultAsync(i => i.Id == _invitationCode);
 
-            Check(() => invite != null, AccountErrorCodes.InviteNotFound);
-            Check(() => invite.Accepted == false, AccountErrorCodes.InviteAlreadyAccepted);
-            Check(() => invite.Expire == null || (invite.Expire != null && invite.Expire >= DateTimeOffset.UtcNow), AccountErrorCodes.InviteExpired);
+            Require(() => invite != null, AccountErrorCodes.InviteNotFound);
+            Require(() => invite.Accepted == false, AccountErrorCodes.InviteAlreadyAccepted);
+            Require(() => invite.Expire == null || (invite.Expire != null && invite.Expire >= DateTimeOffset.UtcNow), AccountErrorCodes.InviteExpired);
 
             Domain domain = await Context.Domains.FirstOrDefaultAsync(d => d.Id == invite.DomainId);
 
-            Check(() => domain != null && domain.IsActive, AccountErrorCodes.DomainNotAvailable);
+            Require(() => domain != null && domain.IsActive, AccountErrorCodes.DomainNotAvailable);
 
             User user = await Context.Users.FirstOrDefaultAsync(u => u.DomainId == domain.Id && u.Email == _email);
 
-            Check(() => user == null, AccountErrorCodes.InviteAlreadyAccepted);
-            await Check(() => IsUsernameAvailable(domain.Id), AccountErrorCodes.UsernameNotAvailable);
+            Require(() => user == null, AccountErrorCodes.InviteAlreadyAccepted);
+            await Require(() => IsUsernameAvailable(domain.Id), AccountErrorCodes.UsernameNotAvailable);
 
             _email = invite.Email;
             invite.Accepted = true;

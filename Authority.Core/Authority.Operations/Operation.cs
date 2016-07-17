@@ -19,7 +19,7 @@ namespace Authority.Operations
 
         protected ISafeAuthorityContext Context { get { return _authorityContext; } }
 
-        public async Task Check(Func<Task<bool>> condition, int errorCode)
+        public async Task Require(Func<Task<bool>> condition, int errorCode)
         {
             if (!await condition())
             {
@@ -29,7 +29,7 @@ namespace Authority.Operations
             }
         }
 
-        public void Check(Func<bool> condition, int errorCode)
+        public void Require(Func<bool> condition, int errorCode)
         {
             if (!condition())
             {
