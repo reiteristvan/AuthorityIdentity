@@ -56,6 +56,11 @@ namespace Authority.Operations.Account
                 }));
             }
 
+            if (Authority.PasswordValidator != null)
+            {
+                Require(() => Authority.PasswordValidator.Validate(_password), AccountErrorCodes.PasswordInvalid);
+            }
+
             await Require(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
             await Require(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
 

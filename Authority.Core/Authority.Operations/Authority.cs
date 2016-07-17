@@ -6,6 +6,7 @@ using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Configuration;
 using Authority.Operations.Observers;
+using Authority.Operations.Security;
 using Serilog;
 
 namespace Authority.Operations
@@ -16,6 +17,7 @@ namespace Authority.Operations
 
         public static ILogger Logger { get; set; }
 
+        public static IPasswordValidator PasswordValidator { get; set; }
         public static IAuthorityEmailService EmailService { get; set; }
         public static List<IAccountObserver> Observers { get; internal set; } 
 

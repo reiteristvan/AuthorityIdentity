@@ -11,5 +11,6 @@
         public static int InviteNotFound = 1005;
         public static int InviteExpired = 1006;
         public static int InviteAlreadyAccepted = 1007;
+        public static int PasswordInvalid = 1008;
     }
 }

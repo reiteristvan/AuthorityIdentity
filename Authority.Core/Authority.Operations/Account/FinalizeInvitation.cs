@@ -51,6 +51,11 @@ namespace Authority.Operations.Account
             Require(() => user == null, AccountErrorCodes.InviteAlreadyAccepted);
             await Require(() => IsUsernameAvailable(domain.Id), AccountErrorCodes.UsernameNotAvailable);
 
+            if (Authority.PasswordValidator != null)
+            {
+                Require(() => Authority.PasswordValidator.Validate(_password), AccountErrorCodes.PasswordInvalid);
+            }
+
             _email = invite.Email;
             invite.Accepted = true;
 
