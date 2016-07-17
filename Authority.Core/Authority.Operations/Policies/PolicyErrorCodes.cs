@@ -4,5 +4,6 @@
     {
         public const int UnAuthorizedAccess = 4000;
         public const int DomainNotFound = 4001;
+        public const int DefaultAlreadyExists = 4002;
     }
 }

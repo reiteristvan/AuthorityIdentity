@@ -11,13 +11,15 @@ namespace Authority.Operations.Policies
         private readonly Guid _domainId;
         private readonly string _name;
         private readonly bool _defaultPolicy;
+        private readonly bool _replaceDefault;
 
-        public CreatePolicy(IAuthorityContext AuthorityContext, Guid domainId, string name, bool defaultPolicy = false)
+        public CreatePolicy(IAuthorityContext AuthorityContext, Guid domainId, string name, bool defaultPolicy = false, bool replaceDefault = false)
             : base(AuthorityContext)
         {
             _domainId = domainId;
             _name = name;
             _defaultPolicy = defaultPolicy;
+            _replaceDefault = replaceDefault;
         }
 
         public override async Task<Policy> Do()
@@ -33,6 +35,22 @@ namespace Authority.Operations.Policies
                 DomainId= _domainId,
                 Default = _defaultPolicy
             };
+
+            if (_defaultPolicy)
+            {
+                Policy defaultPolicy = await Context.Policies
+                    .FirstOrDefaultAsync(p => p.DomainId == domain.Id && p.Default);
+
+                if (defaultPolicy != null)
+                {
+                    if (!_replaceDefault)
+                    {
+                        throw new RequirementFailedException(PolicyErrorCodes.DefaultAlreadyExists);
+                    }
+
+                    defaultPolicy.Default = false;
+                }
+            }
 
             Context.Policies.Add(policy);
 
