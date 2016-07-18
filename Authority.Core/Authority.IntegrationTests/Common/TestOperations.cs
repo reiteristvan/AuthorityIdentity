@@ -53,7 +53,7 @@ namespace Authority.IntegrationTests.Common
         {
             User user = await RegisterUser(context, domainId, password);
 
-            ActivateUser activation = new ActivateUser(context, domainId, user.PendingRegistrationId);
+            ActivateUser activation = new ActivateUser(context, user.PendingRegistrationId);
             await activation.Do();
             await activation.CommitAsync();
 
