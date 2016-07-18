@@ -1,3 +1,4 @@
 ﻿{
-  "logTarget" :  "file"
+  "logTarget": "file",
+  "domainMode":  "single"
 }

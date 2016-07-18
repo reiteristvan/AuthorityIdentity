@@ -64,7 +64,7 @@ namespace Authority.Operations
             switch (configuration.LogTarget)
             {
                 case LogTargetConstants.EventLog:
-                    loggerConfiguration = loggerConfiguration.WriteTo.EventLog("Authority");
+                    loggerConfiguration = loggerConfiguration.WriteTo.EventLog(EventLogName);
                     break;
                 case LogTargetConstants.File:
                     loggerConfiguration = loggerConfiguration.WriteTo.RollingFile(@"log-{Date}.txt");
@@ -80,7 +80,7 @@ namespace Authority.Operations
         {
             AuthorityContext context = new AuthorityContext();
 
-            if (Configuration.Mode == ModeConstants.Server)
+            if (Configuration.DomainMode == DomainModeConstants.Multi)
             {
                 return;
             }

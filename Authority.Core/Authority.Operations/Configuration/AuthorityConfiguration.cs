@@ -9,10 +9,10 @@ namespace Authority.Operations.Configuration
         public const string File = "file";
     }
 
-    internal sealed class ModeConstants
+    internal sealed class DomainModeConstants
     {
         public const string Single = "single";
-        public const string Server = "server";
+        public const string Multi = "multi";
     }
 
     public sealed class AuthorityConfiguration
@@ -24,7 +24,7 @@ namespace Authority.Operations.Configuration
                 return new AuthorityConfiguration
                 {
                     LogTarget = LogTargetConstants.File,
-                    Mode = ModeConstants.Single
+                    DomainMode = DomainModeConstants.Single
                 };
             }
         }
@@ -42,7 +42,7 @@ namespace Authority.Operations.Configuration
         [JsonProperty("logTarget")]
         public string LogTarget { get; set; }
 
-        [JsonProperty("mode")]
-        public string Mode { get; set; }
+        [JsonProperty("domainMode")]
+        public string DomainMode { get; set; }
     }
 }
