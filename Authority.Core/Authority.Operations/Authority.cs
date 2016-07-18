@@ -16,10 +16,10 @@ namespace Authority.Operations
     {
         static Authority()
         {
-            Users = new UserServices();
+            Users = new UserService();
         }
 
-        public static UserServices Users { get; }
+        public static UserService Users { get; }
 
         private const string EventLogName = "AuthorityLogs";
 
