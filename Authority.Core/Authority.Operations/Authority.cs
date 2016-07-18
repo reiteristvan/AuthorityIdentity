@@ -7,12 +7,20 @@ using Authority.EntityFramework;
 using Authority.Operations.Configuration;
 using Authority.Operations.Observers;
 using Authority.Operations.Security;
+using Authority.Operations.Services;
 using Serilog;
 
 namespace Authority.Operations
 {
     public sealed class Authority
     {
+        static Authority()
+        {
+            Users = new UserServices();
+        }
+
+        public static UserServices Users { get; }
+
         private const string EventLogName = "AuthorityLogs";
 
         public static ILogger Logger { get; set; }
