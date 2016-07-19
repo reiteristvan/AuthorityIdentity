@@ -15,6 +15,8 @@ namespace Authority.Operations.Services
     public interface IAsyncUserService
     {
         Task<User> RegisterAsync(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
+        Task AcivateAsync(Guid activationCode);
+        Task<LoginResult> LoginAsync(string email, string password, Guid domainId = new Guid());
     }
 
     public sealed class UserService : IUserService, IAsyncUserService
@@ -36,14 +38,7 @@ namespace Authority.Operations.Services
             // it is single domain mode OR the user's domain will be the first one
             if (domainId == Guid.Empty)
             {
-                Domain domain = _context.Domains.FirstOrDefault();
-
-                if (domain == null)
-                {
-                    throw new InvalidOperationException("No domain exists");
-                }
-
-                domainId = domain.Id;
+                domainId = GetDomainId();
             }
 
             RegisterUser registerOperation = new RegisterUser(_context, domainId, email, username, password, needToActivate);
@@ -51,6 +46,39 @@ namespace Authority.Operations.Services
             await registerOperation.CommitAsync();
 
             return user;
+        }
+
+        public async Task AcivateAsync(Guid activationCode)
+        {
+            ActivateUser activateOperation = new ActivateUser(_context, activationCode);
+            await activateOperation.Do();
+            await activateOperation.CommitAsync();
+        }
+
+        public async Task<LoginResult> LoginAsync(string email, string password, Guid domainId = new Guid())
+        {
+            if (domainId == Guid.Empty)
+            {
+                domainId = GetDomainId();
+            }
+
+            LoginUser loginOperation = new LoginUser(_context, domainId, email, password);
+            LoginResult result = await loginOperation.Do();
+            await loginOperation.CommitAsync();
+
+            return result;
+        }
+
+        private Guid GetDomainId()
+        {
+            Domain domain = _context.Domains.FirstOrDefault();
+
+            if (domain == null)
+            {
+                throw new InvalidOperationException("No domain exists");
+            }
+
+            return domain.Id;
         }
     }
 }
