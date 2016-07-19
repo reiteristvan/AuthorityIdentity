@@ -90,6 +90,7 @@
     <Compile Include="OperationWithNoReturn.cs" />
     <Compile Include="OperationWithReturnValue.cs" />
     <Compile Include="Policies\CreatePolicy.cs" />
+    <Compile Include="Policies\DeletePolicy.cs" />
     <Compile Include="Policies\PolicyErrorCodes.cs" />
     <Compile Include="Domains\CreateClaimForDomain.cs" />
     <Compile Include="Domains\CreateDomain.cs" />

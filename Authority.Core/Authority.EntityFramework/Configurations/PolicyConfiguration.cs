@@ -16,6 +16,7 @@ namespace Authority.EntityFramework.Configurations
             Property(p => p.Default).IsRequired();
 
             HasMany(p => p.Claims);
+            HasMany(p => p.Users);
         }
     }
 }
