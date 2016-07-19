@@ -9,17 +9,12 @@ namespace Authority.Operations.Services
 {
     public interface IUserService
     {
-        
-    }
-
-    public interface IAsyncUserService
-    {
         Task<User> RegisterAsync(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
         Task AcivateAsync(Guid activationCode);
         Task<LoginResult> LoginAsync(string email, string password, Guid domainId = new Guid());
     }
 
-    public sealed class UserService : IUserService, IAsyncUserService
+    public sealed class UserService : IUserService
     {
         private readonly IAuthorityContext _context;
 
