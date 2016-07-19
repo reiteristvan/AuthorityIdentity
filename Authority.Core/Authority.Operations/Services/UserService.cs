@@ -9,9 +9,10 @@ namespace Authority.Operations.Services
 {
     public interface IUserService
     {
-        Task<User> RegisterAsync(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
-        Task AcivateAsync(Guid activationCode);
-        Task<LoginResult> LoginAsync(string email, string password, Guid domainId = new Guid());
+        Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
+        Task Acivate(Guid activationCode);
+        Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
+        Task Delete(Guid domainId, string email);
     }
 
     public sealed class UserService : IUserService
@@ -23,7 +24,7 @@ namespace Authority.Operations.Services
             _context = new AuthorityContext();
         }
 
-        public async Task<User> RegisterAsync(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
+        public async Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -43,14 +44,14 @@ namespace Authority.Operations.Services
             return user;
         }
 
-        public async Task AcivateAsync(Guid activationCode)
+        public async Task Acivate(Guid activationCode)
         {
             ActivateUser activateOperation = new ActivateUser(_context, activationCode);
             await activateOperation.Do();
             await activateOperation.CommitAsync();
         }
 
-        public async Task<LoginResult> LoginAsync(string email, string password, Guid domainId = new Guid())
+        public async Task<LoginResult> Login(string email, string password, Guid domainId = new Guid())
         {
             if (domainId == Guid.Empty)
             {
@@ -62,6 +63,18 @@ namespace Authority.Operations.Services
             await loginOperation.CommitAsync();
 
             return result;
+        }
+
+        public async Task Delete(Guid domainId, string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("Invalid email");
+            }
+
+            DeleteUser deleteOperation = new DeleteUser(_context, domainId, email);
+            await deleteOperation.Do();
+            await deleteOperation.CommitAsync();
         }
 
         private Guid GetDomainId()
