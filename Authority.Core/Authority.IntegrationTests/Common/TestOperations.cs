@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using Authority.DomainModel;
@@ -58,6 +59,19 @@ namespace Authority.IntegrationTests.Common
             await activation.CommitAsync();
 
             return user;
+        }
+
+        public static async Task<List<User>> CreateUsers(AuthorityContext context, Guid domainId, int numberOfUsers = 10)
+        {
+            List<User> users = new List<User>();
+
+            for (int i = 0; i < numberOfUsers; ++i)
+            {
+                User user = await RegisterAndActivateUser(context, domainId, RandomData.RandomString());
+                users.Add(user);
+            }
+
+            return users;
         }
     }
 }

@@ -21,7 +21,13 @@ namespace Authority.IntegrationTests.Common
             where TEntity : EntityBase
         {
             IEnumerable<DbEntityEntry> entries = context.ChangeTracker.Entries();
-            DbEntityEntry entry = entries.First(e => (e.Entity as EntityBase).Id == id);
+            DbEntityEntry entry = entries.FirstOrDefault(e => (e.Entity as EntityBase).Id == id);
+
+            if (entry == null)
+            {
+                return null;
+            }
+
             entry.Reload();
             return entry.Entity as TEntity;
         }
