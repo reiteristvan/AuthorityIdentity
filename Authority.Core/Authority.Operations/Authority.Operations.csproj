@@ -57,6 +57,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -77,6 +78,7 @@
     <Compile Include="Account\LoginUser.cs" />
     <Compile Include="Account\RegisterUser.cs" />
     <Compile Include="Authority.cs" />
+    <Compile Include="AuthorityContextProvider.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="IAuthorityEmailService.cs" />

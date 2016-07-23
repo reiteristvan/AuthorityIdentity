@@ -17,13 +17,6 @@ namespace Authority.Operations.Services
 
     public sealed class UserService : IUserService
     {
-        private readonly IAuthorityContext _context;
-
-        public UserService()
-        {
-            _context = new AuthorityContext();
-        }
-
         public async Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -31,13 +24,15 @@ namespace Authority.Operations.Services
                 throw new ArgumentException("One or more argument is invalid");
             }
 
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
             // it is single domain mode OR the user's domain will be the first one
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId();
+                domainId = GetDomainId(context);
             }
 
-            RegisterUser registerOperation = new RegisterUser(_context, domainId, email, username, password, needToActivate);
+            RegisterUser registerOperation = new RegisterUser(context, domainId, email, username, password, needToActivate);
             User user = await registerOperation.Do();
             await registerOperation.CommitAsync();
 
@@ -46,19 +41,22 @@ namespace Authority.Operations.Services
 
         public async Task Acivate(Guid activationCode)
         {
-            ActivateUser activateOperation = new ActivateUser(_context, activationCode);
+            IAuthorityContext context = AuthorityContextProvider.Create();
+            ActivateUser activateOperation = new ActivateUser(context, activationCode);
             await activateOperation.Do();
             await activateOperation.CommitAsync();
         }
 
         public async Task<LoginResult> Login(string email, string password, Guid domainId = new Guid())
         {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId();
+                domainId = GetDomainId(context);
             }
 
-            LoginUser loginOperation = new LoginUser(_context, domainId, email, password);
+            LoginUser loginOperation = new LoginUser(context, domainId, email, password);
             LoginResult result = await loginOperation.Do();
             await loginOperation.CommitAsync();
 
@@ -72,14 +70,15 @@ namespace Authority.Operations.Services
                 throw new ArgumentException("Invalid email");
             }
 
-            DeleteUser deleteOperation = new DeleteUser(_context, domainId, email);
+            IAuthorityContext context = AuthorityContextProvider.Create();
+            DeleteUser deleteOperation = new DeleteUser(context, domainId, email);
             await deleteOperation.Do();
             await deleteOperation.CommitAsync();
         }
 
-        private Guid GetDomainId()
+        private Guid GetDomainId(IAuthorityContext context)
         {
-            Domain domain = _context.Domains.FirstOrDefault();
+            Domain domain = context.Domains.FirstOrDefault();
 
             if (domain == null)
             {
