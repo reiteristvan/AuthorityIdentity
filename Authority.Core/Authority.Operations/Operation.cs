@@ -2,7 +2,6 @@
 using System.Data;
 using System.Threading.Tasks;
 using Authority.EntityFramework;
-using Serilog.Events;
 
 namespace Authority.Operations
 {
@@ -23,7 +22,11 @@ namespace Authority.Operations
         {
             if (!await condition())
             {
-                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", errorCode);
+                if (Authority.Logger != null)
+                {
+                    Authority.Logger.Error(string.Format("Operation failed - {0}", errorCode));
+                }
+
                 _authorityContext.RollbackTransaction();
                 throw new RequirementFailedException(errorCode);
             }
@@ -33,7 +36,11 @@ namespace Authority.Operations
         {
             if (!condition())
             {
-                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", errorCode);
+                if (Authority.Logger != null)
+                {
+                    Authority.Logger.Error(string.Format("Operation failed - {0}", errorCode));
+                }
+
                 _authorityContext.RollbackTransaction();
                 throw new RequirementFailedException(errorCode);
             }
@@ -48,7 +55,11 @@ namespace Authority.Operations
             }
             catch (Exception e)
             {
-                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", e.StackTrace);
+                if (Authority.Logger != null)
+                {
+                    Authority.Logger.Error("Operation failed", e);
+                }
+
                 _authorityContext.RollbackTransaction();
                 throw;
             }
@@ -63,7 +74,11 @@ namespace Authority.Operations
             }
             catch (Exception e)
             {
-                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0}", e.StackTrace);
+                if (Authority.Logger != null)
+                {
+                    Authority.Logger.Error("Operation failed", e);
+                }
+
                 _authorityContext.RollbackTransaction();
                 throw;
             }

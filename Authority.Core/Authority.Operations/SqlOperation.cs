@@ -2,7 +2,6 @@
 using System.Data;
 using System.Threading.Tasks;
 using Authority.EntityFramework;
-using Serilog.Events;
 
 namespace Authority.Operations
 {
@@ -28,7 +27,7 @@ namespace Authority.Operations
             catch (Exception e)
             {
                 Context.RollbackTransaction();
-                Authority.Logger.Write(LogEventLevel.Error, "Operation failed - {0} - {1}", e.Message, e.StackTrace);
+                Authority.Logger.Error("Operation failed", e);
                 throw;
             }
 
