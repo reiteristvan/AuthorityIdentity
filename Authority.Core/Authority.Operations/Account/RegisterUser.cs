@@ -56,9 +56,10 @@ namespace Authority.Operations.Account
                 }));
             }
 
-            if (Authority.PasswordValidator != null)
+            IPasswordValidator passwordValidator;
+            if (Authority.PasswordValidators.TryGetValue(_domainId, out passwordValidator))
             {
-                Require(() => Authority.PasswordValidator.Validate(_password), AccountErrorCodes.PasswordInvalid);
+                Require(() => passwordValidator.Validate(_password), AccountErrorCodes.PasswordInvalid);
             }
 
             await Require(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);

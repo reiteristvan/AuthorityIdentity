@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Authority.DomainModel;
 using Authority.EntityFramework;
@@ -21,7 +22,7 @@ namespace Authority.Operations
 
         public static IAuthorityLogger Logger { get; set; }
 
-        public static IPasswordValidator PasswordValidator { get; set; }
+        public static Dictionary<Guid, IPasswordValidator> PasswordValidators { get; set; }
         public static IAuthorityEmailService EmailService { get; set; }
         public static List<IAccountObserver> Observers { get; internal set; } 
 
@@ -29,6 +30,7 @@ namespace Authority.Operations
 
         public static void Init()
         {
+            PasswordValidators = new Dictionary<Guid, IPasswordValidator>();
             Observers = new List<IAccountObserver>();
             Observers.Add(new LoggingObserver());
 
