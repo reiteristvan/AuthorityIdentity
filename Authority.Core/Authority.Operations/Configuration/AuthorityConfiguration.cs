@@ -1,18 +1,9 @@
-﻿using System;
-using Newtonsoft.Json;
-
-namespace Authority.Operations.Configuration
+﻿namespace Authority.Operations.Configuration
 {
-    internal sealed class LogTargetConstants
+    public enum DomainMode
     {
-        public const string EventLog = "eventLog";
-        public const string File = "file";
-    }
-
-    internal sealed class DomainModeConstants
-    {
-        public const string Single = "single";
-        public const string Multi = "multi";
+        Single,
+        Multi
     }
 
     public sealed class AuthorityConfiguration
@@ -23,26 +14,11 @@ namespace Authority.Operations.Configuration
             {
                 return new AuthorityConfiguration
                 {
-                    LogTarget = LogTargetConstants.File,
-                    DomainMode = DomainModeConstants.Single
+                    DomainMode = DomainMode.Single
                 };
             }
         }
 
-        public static AuthorityConfiguration FromJson(string json)
-        {
-            if (string.IsNullOrEmpty(json))
-            {
-                throw new ArgumentException("Invalid configuration JSON");
-            }
-
-            return JsonConvert.DeserializeObject<AuthorityConfiguration>(json);
-        }
-
-        [JsonProperty("logTarget")]
-        public string LogTarget { get; set; }
-
-        [JsonProperty("domainMode")]
-        public string DomainMode { get; set; }
+        public DomainMode DomainMode { get; set; }
     }
 }
