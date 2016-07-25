@@ -47,6 +47,8 @@ namespace Authority.Operations
             }
 
             List<Domain> domains = context.Domains.ToList();
+
+
         }
     }
 }
