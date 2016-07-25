@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
@@ -9,6 +10,8 @@ namespace Authority.Operations.Services
 {
     public interface IUserService
     {
+        Task<User> FindByEmail(string email, Guid domainId = new Guid());
+        Task<User> FindById(Guid id, Guid domainId = new Guid());
         Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
         Task Acivate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
@@ -17,6 +20,45 @@ namespace Authority.Operations.Services
 
     public sealed class UserService : IUserService
     {
+        public async Task<User> FindByEmail(string email, Guid domainId = new Guid())
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentException("Email");
+            }
+
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            if (domainId == Guid.Empty)
+            {
+                domainId = GetDomainId(context);
+            }
+
+            User user = await context.Users
+                .Include(u => u.Policies)
+                .Include(u => u.Policies.Select(p => p.Claims))
+                .FirstOrDefaultAsync(u => u.Email == email && u.DomainId == domainId);
+
+            return user;
+        }
+
+        public async Task<User> FindById(Guid id, Guid domainId = new Guid())
+        {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            if (domainId == Guid.Empty)
+            {
+                domainId = GetDomainId(context);
+            }
+
+            User user = await context.Users
+                .Include(u => u.Policies)
+                .Include(u => u.Policies.Select(p => p.Claims))
+                .FirstOrDefaultAsync(u => u.Id == id && u.DomainId == domainId);
+
+            return user;
+        }
+
         public async Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
@@ -74,6 +116,11 @@ namespace Authority.Operations.Services
             DeleteUser deleteOperation = new DeleteUser(context, domainId, email);
             await deleteOperation.Do();
             await deleteOperation.CommitAsync();
+        }
+
+        public async Task SetStatus(Guid id)
+        {
+            
         }
 
         private Guid GetDomainId(IAuthorityContext context)
