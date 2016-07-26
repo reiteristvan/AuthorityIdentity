@@ -15,7 +15,7 @@ namespace Authority.EntityFramework.Configurations
             Property(p => p.Name).IsRequired();
             Property(p => p.Default).IsRequired();
 
-            HasMany(p => p.Claims);
+            HasMany(p => p.Claims).WithMany(c => c.Policies);
             HasMany(p => p.Users);
         }
     }

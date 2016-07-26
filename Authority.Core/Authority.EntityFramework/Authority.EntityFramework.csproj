@@ -81,6 +81,10 @@
     <Compile Include="Migrations\201607160800482_AddedExpirationToInvitation.Designer.cs">
       <DependentUpon>201607160800482_AddedExpirationToInvitation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607261620385_FixPolicyClaimRelationship.cs" />
+    <Compile Include="Migrations\201607261620385_FixPolicyClaimRelationship.Designer.cs">
+      <DependentUpon>201607261620385_FixPolicyClaimRelationship.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607160800482_AddedExpirationToInvitation.resx">
       <DependentUpon>201607160800482_AddedExpirationToInvitation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607261620385_FixPolicyClaimRelationship.resx">
+      <DependentUpon>201607261620385_FixPolicyClaimRelationship.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

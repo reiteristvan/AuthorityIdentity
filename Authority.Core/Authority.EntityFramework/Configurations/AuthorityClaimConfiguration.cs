@@ -15,6 +15,8 @@ namespace Authority.EntityFramework.Configurations
             Property(c => c.Issuer).IsRequired().HasMaxLength(256);
             Property(c => c.Type).IsRequired().HasMaxLength(256);
             Property(c => c.Value).IsRequired().HasMaxLength(512);
+
+            HasMany(c => c.Policies);
         }
     }
 }
