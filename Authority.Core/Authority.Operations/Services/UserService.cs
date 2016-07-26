@@ -31,7 +31,7 @@ namespace Authority.Operations.Services
 
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId(context);
+                domainId = GetDomainId();
             }
 
             User user = await context.Users
@@ -44,12 +44,12 @@ namespace Authority.Operations.Services
 
         public async Task<User> FindById(Guid id, Guid domainId = new Guid())
         {
-            IAuthorityContext context = AuthorityContextProvider.Create();
-
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId(context);
+                domainId = GetDomainId();
             }
+
+            IAuthorityContext context = AuthorityContextProvider.Create();
 
             User user = await context.Users
                 .Include(u => u.Policies)
@@ -66,14 +66,12 @@ namespace Authority.Operations.Services
                 throw new ArgumentException("One or more argument is invalid");
             }
 
-            IAuthorityContext context = AuthorityContextProvider.Create();
-
-            // it is single domain mode OR the user's domain will be the first one
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId(context);
+                domainId = GetDomainId();
             }
 
+            IAuthorityContext context = AuthorityContextProvider.Create();
             RegisterUser registerOperation = new RegisterUser(context, domainId, email, username, password, needToActivate);
             User user = await registerOperation.Do();
             await registerOperation.CommitAsync();
@@ -91,12 +89,12 @@ namespace Authority.Operations.Services
 
         public async Task<LoginResult> Login(string email, string password, Guid domainId = new Guid())
         {
-            IAuthorityContext context = AuthorityContextProvider.Create();
-
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId(context);
+                domainId = GetDomainId();
             }
+
+            IAuthorityContext context = AuthorityContextProvider.Create();
 
             LoginUser loginOperation = new LoginUser(context, domainId, email, password);
             LoginResult result = await loginOperation.Do();
@@ -123,15 +121,14 @@ namespace Authority.Operations.Services
             
         }
 
-        private Guid GetDomainId(IAuthorityContext context)
+        private Guid GetDomainId()
         {
-            Domain domain = context.Domains.FirstOrDefault();
-
-            if (domain == null)
+            if (!Authority.Domains.All().Any())
             {
-                throw new InvalidOperationException("No domain exists");
+                throw new InvalidOperationException("No domain found");
             }
 
+            Domain domain = Authority.Domains.All().First();
             return domain.Id;
         }
     }

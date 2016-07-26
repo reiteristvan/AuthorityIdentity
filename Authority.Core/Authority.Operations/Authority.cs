@@ -16,9 +16,11 @@ namespace Authority.Operations
         {
             Configuration = AuthorityConfiguration.Default;
             Users = new UserService();
+            Domains = new DomainService();
         }
 
-        public static UserService Users { get; }
+        public static IUserService Users { get; }
+        public static IDomainService Domains { get; }
 
         public static IAuthorityLogger Logger { get; set; }
 
@@ -39,16 +41,14 @@ namespace Authority.Operations
 
         private static void SetupEnvironment()
         {
+            (Domains as IInternalDomainService).LoadDomains();
+
             AuthorityContext context = new AuthorityContext();
 
             if (Configuration.DomainMode == DomainMode.Multi)
             {
                 return;
             }
-
-            List<Domain> domains = context.Domains.ToList();
-
-
         }
     }
 }
