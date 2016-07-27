@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Authority.DomainModel;
-using Authority.EntityFramework;
 using Authority.Operations.Configuration;
 using Authority.Operations.Observers;
 using Authority.Operations.Security;
@@ -43,12 +43,19 @@ namespace Authority.Operations
         {
             (Domains as IInternalDomainService).LoadDomains();
 
-            AuthorityContext context = new AuthorityContext();
-
             if (Configuration.DomainMode == DomainMode.Multi)
             {
                 return;
             }
+
+            List<Domain> domains = Domains.All();
+
+            if (domains.Any())
+            {
+                return;
+            }
+
+            Guid domainId = Domains.Create(DomainService.MasterDomainName).Result;
         }
     }
 }

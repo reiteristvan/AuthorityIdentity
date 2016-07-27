@@ -1,13 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
+using Authority.Operations.Configuration;
+using Authority.Operations.Products;
 
 namespace Authority.Operations.Services
 {
     public interface IDomainService
     {
         List<Domain> All();
+        Task<Guid> Create(string name);
     }
 
     internal interface IInternalDomainService
@@ -17,6 +22,8 @@ namespace Authority.Operations.Services
 
     public sealed class DomainService : IDomainService, IInternalDomainService
     {
+        public const string MasterDomainName = "master";
+
         private readonly List<Domain> _domains;
         private readonly object _domainLock;
         private bool? _changed;
@@ -31,7 +38,22 @@ namespace Authority.Operations.Services
         public List<Domain> All()
         {
             ((IInternalDomainService) this).LoadDomains();
-            return _domains;
+            return Authority.Configuration.DomainMode == DomainMode.Multi ?
+                _domains : 
+                _domains.Where(d => d.Name.Equals(MasterDomainName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
+
+        public async Task<Guid> Create(string name)
+        {
+            using (AuthorityContext context = AuthorityContextProvider.Create())
+            {
+                CreateDomain create = new CreateDomain(context, name);
+                Guid domainId = await create.Do();
+                await create.CommitAsync();
+
+                _changed = true;
+                return domainId;
+            }
         }
 
         void IInternalDomainService.LoadDomains()

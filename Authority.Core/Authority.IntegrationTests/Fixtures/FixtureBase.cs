@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using Authority.DomainModel;
 using Authority.EntityFramework;
 
 namespace Authority.IntegrationTests.Fixtures
@@ -9,8 +11,10 @@ namespace Authority.IntegrationTests.Fixtures
         {
             Operations.Authority.Init();
             Context = new AuthorityContext();
+            Domain = Operations.Authority.Domains.All().First();
         }
 
+        public Domain Domain { get; private set; }
         public AuthorityContext Context { get; private set; }
 
         /// <summary>
