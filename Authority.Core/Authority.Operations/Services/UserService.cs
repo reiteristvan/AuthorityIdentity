@@ -15,7 +15,7 @@ namespace Authority.Operations.Services
         Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
         Task Acivate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
-        Task Delete(Guid domainId, string email);
+        Task Delete(Guid userId);
     }
 
     public sealed class UserService : IUserService
@@ -98,15 +98,10 @@ namespace Authority.Operations.Services
             return result;
         }
 
-        public async Task Delete(Guid domainId, string email)
+        public async Task Delete(Guid userId)
         {
-            if (string.IsNullOrEmpty(email))
-            {
-                throw new ArgumentException("Invalid email");
-            }
-
             IAuthorityContext context = AuthorityContextProvider.Create();
-            DeleteUser deleteOperation = new DeleteUser(context, domainId, email);
+            DeleteUser deleteOperation = new DeleteUser(context, userId);
             await deleteOperation.Do();
             await deleteOperation.CommitAsync();
         }

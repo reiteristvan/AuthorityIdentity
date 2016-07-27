@@ -26,7 +26,7 @@ namespace Authority.IntegrationTests.Accounts
                 _fixture.Domain.Id,
                 RandomData.RandomString());
 
-            DeleteUser operation = new DeleteUser(_fixture.Context, _fixture.Domain.Id, user.Email);
+            DeleteUser operation = new DeleteUser(_fixture.Context, user.Id);
             await operation.Do();
             await operation.CommitAsync();
 

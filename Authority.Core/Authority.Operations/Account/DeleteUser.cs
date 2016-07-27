@@ -8,19 +8,17 @@ namespace Authority.Operations.Account
 {
     public sealed class DeleteUser : OperationWithNoReturnAsync
     {
-        private readonly Guid _domainId;
-        private readonly string _email;
+        private readonly Guid _userId;
 
-        public DeleteUser(IAuthorityContext authorityContext, Guid domainId, string email) 
+        public DeleteUser(IAuthorityContext authorityContext, Guid userId) 
             : base(authorityContext)
         {
-            _domainId = domainId;
-            _email = email;
+            _userId = userId;
         }
 
         public override async Task Do()
         {
-            User user = await Context.Users.FirstOrDefaultAsync(u => u.DomainId == _domainId && u.Email == _email);
+            User user = await Context.Users.FirstOrDefaultAsync(u => u.Id == _userId);
 
             Require(() => user != null, AccountErrorCodes.UserNotFound);
 
