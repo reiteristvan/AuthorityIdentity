@@ -11,7 +11,7 @@ namespace Authority.Operations.Services
     public interface IUserService
     {
         Task<User> FindByEmail(string email, Guid domainId = new Guid());
-        Task<User> FindById(Guid id, Guid domainId = new Guid());
+        Task<User> FindById(Guid id);
         Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
         Task Acivate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
@@ -42,19 +42,14 @@ namespace Authority.Operations.Services
             return user;
         }
 
-        public async Task<User> FindById(Guid id, Guid domainId = new Guid())
+        public async Task<User> FindById(Guid id)
         {
-            if (domainId == Guid.Empty)
-            {
-                domainId = GetDomainId();
-            }
-
             IAuthorityContext context = AuthorityContextProvider.Create();
 
             User user = await context.Users
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
-                .FirstOrDefaultAsync(u => u.Id == id && u.DomainId == domainId);
+                .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
         }
