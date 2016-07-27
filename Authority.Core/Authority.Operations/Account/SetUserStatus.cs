@@ -8,21 +8,19 @@ namespace Authority.Operations.Account
 {
     public sealed class SetUserStatus : OperationWithNoReturnAsync
     {
-        private readonly Guid _domainId;
-        private readonly string _email;
+        private readonly Guid _userId;
         private readonly bool _isActive;
 
-        public SetUserStatus(IAuthorityContext authorityContext, Guid domainId, string email, bool isActive) 
+        public SetUserStatus(IAuthorityContext authorityContext, Guid userId, bool isActive) 
             : base(authorityContext)
         {
-            _domainId = domainId;
-            _email = email;
+            _userId = userId;
             _isActive = isActive;
         }
 
         public override async Task Do()
         {
-            User user = await Context.Users.FirstOrDefaultAsync(u => u.DomainId == _domainId && u.Email == _email);
+            User user = await Context.Users.FirstOrDefaultAsync(u => u.Id == _userId);
 
             Require(() => user != null, AccountErrorCodes.UserNotFound);
 

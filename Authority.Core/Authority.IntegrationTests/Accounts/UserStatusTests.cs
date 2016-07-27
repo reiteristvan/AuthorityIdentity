@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
 using Authority.IntegrationTests.Fixtures;
@@ -23,11 +24,11 @@ namespace Authority.IntegrationTests.Accounts
             User user = await TestOperations.RegisterAndActivateUser(_fixture.Context, _fixture.Domain.Id, RandomData.RandomString());
 
             const bool isActive = false;
-            SetUserStatus operation = new SetUserStatus(_fixture.Context, _fixture.Domain.Id, user.Email, isActive);
+            SetUserStatus operation = new SetUserStatus(_fixture.Context, user.Id, isActive);
             await operation.Do();
             await operation.CommitAsync();
 
-            user = _fixture.Context.ReloadEntity<User>(user.Id); // it's a cheat, Id is not the PK
+            user = _fixture.Context.ReloadEntity<User>(user.Id);
 
             Assert.Equal(isActive, user.IsActive);
         }
@@ -37,7 +38,7 @@ namespace Authority.IntegrationTests.Accounts
         {
             await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
             {
-                SetUserStatus operation = new SetUserStatus(_fixture.Context, _fixture.Domain.Id, RandomData.Email(), true);
+                SetUserStatus operation = new SetUserStatus(_fixture.Context, Guid.NewGuid(), true);
                 await operation.Do();
                 await operation.CommitAsync();
             },
