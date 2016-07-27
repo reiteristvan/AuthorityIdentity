@@ -1,4 +1,6 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Infrastructure.Annotations;
+using System.Data.Entity.ModelConfiguration;
 using Authority.DomainModel;
 
 namespace Authority.EntityFramework.Configurations
@@ -10,6 +12,10 @@ namespace Authority.EntityFramework.Configurations
             ToTable(User.TableName);
 
             HasKey(e => new { e.DomainId, e.Email });
+
+            Property(u => u.Id)
+                .IsRequired()
+                .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute("IX_Authority.Users_Id")));
 
             Property(u => u.DomainId).IsRequired();
             Property(u => u.Email).IsRequired().HasMaxLength(128);

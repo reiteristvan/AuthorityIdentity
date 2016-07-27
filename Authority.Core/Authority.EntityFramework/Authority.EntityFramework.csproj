@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201607261620385_FixPolicyClaimRelationship.Designer.cs">
       <DependentUpon>201607261620385_FixPolicyClaimRelationship.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607270724540_AddIndexToUserId.cs" />
+    <Compile Include="Migrations\201607270724540_AddIndexToUserId.Designer.cs">
+      <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -122,6 +126,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607261620385_FixPolicyClaimRelationship.resx">
       <DependentUpon>201607261620385_FixPolicyClaimRelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607270724540_AddIndexToUserId.resx">
+      <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
