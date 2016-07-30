@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Account;
+using Authority.Operations.Claims;
 using Authority.Operations.Policies;
 using Authority.Operations.Products;
 
@@ -35,6 +36,16 @@ namespace Authority.IntegrationTests.Common
             await operation.CommitAsync();
 
             return policy;
+        }
+
+        public static async Task<AuthorityClaim> CreateClaim(AuthorityContext context, Guid domainId,
+            string friendlyName, string issuer, string type, string value)
+        {
+            CreateClaim create = new CreateClaim(context, domainId, friendlyName, issuer, type, value);
+            AuthorityClaim claim = await create.Do();
+            await create.CommitAsync();
+
+            return claim;
         }
 
         public static async Task<User> RegisterUser(AuthorityContext context, Guid domainId, string password = "")
