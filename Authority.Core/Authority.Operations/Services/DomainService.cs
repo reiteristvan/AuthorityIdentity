@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
@@ -12,6 +13,7 @@ namespace Authority.Operations.Services
     public interface IDomainService
     {
         List<Domain> All();
+        Task<Domain> FindById(Guid domainId, bool includePolicyDetails = false);
         Task<Guid> Create(string name);
         Task Delete(Guid domainId);
     }
@@ -42,6 +44,25 @@ namespace Authority.Operations.Services
             return Authority.Configuration.DomainMode == DomainMode.Multi ?
                 _domains : 
                 _domains.Where(d => d.Name.Equals(MasterDomainName, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
+
+        public async Task<Domain> FindById(Guid domainId, bool includePolicyDetails = false)
+        {
+            using (AuthorityContext context = new AuthorityContext())
+            {
+                IQueryable<Domain> query = context.Domains
+                    .Include(d => d.Claims)
+                    .Include(d => d.Policies);
+
+                if (includePolicyDetails)
+                {
+                    query = query.Include(d => d.Policies.Select(p => p.Claims));
+                }
+
+                Domain domain = await query.FirstOrDefaultAsync(d => d.Id == domainId);
+
+                return domain;
+            }
         }
 
         public async Task<Guid> Create(string name)
