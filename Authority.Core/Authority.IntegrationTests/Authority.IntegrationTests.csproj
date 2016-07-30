@@ -75,21 +75,19 @@
     <Compile Include="Accounts\LoginTests.cs" />
     <Compile Include="Accounts\RegistrationTests.cs" />
     <Compile Include="Accounts\UserStatusTests.cs" />
+    <Compile Include="AuthorityTestContext.cs" />
     <Compile Include="Claims\CreateTests.cs" />
     <Compile Include="Common\AssertExtensions.cs" />
     <Compile Include="Common\DbContextExtensions.cs" />
     <Compile Include="Common\TestOperations.cs" />
     <Compile Include="Domains\CreateDomainTests.cs" />
     <Compile Include="Domains\DeleteDomainTests.cs" />
-    <Compile Include="Fixtures\AccountTestFixture.cs" />
-    <Compile Include="Fixtures\FixtureBase.cs" />
-    <Compile Include="Fixtures\PolicyTestFixture.cs" />
-    <Compile Include="Fixtures\SimpleFixture.cs" />
     <Compile Include="Policies\CreateTest.cs" />
     <Compile Include="Policies\DefaultPolicyTests.cs" />
     <Compile Include="Policies\DeleteTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomData.cs" />
+    <Compile Include="TestLogger.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Authority.DomainModel\Authority.DomainModel.csproj">

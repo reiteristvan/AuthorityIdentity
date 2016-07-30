@@ -2,47 +2,48 @@
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.IntegrationTests.Fixtures;
 using Authority.Operations;
 using Authority.Operations.Account;
 using Xunit;
 
 namespace Authority.IntegrationTests.Accounts
 {
-    public sealed class UserStatusTests : IClassFixture<AccountTestFixture>
+    public sealed class UserStatusTests
     {
-        private readonly AccountTestFixture _fixture;
-
-        public UserStatusTests(AccountTestFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
         [Fact]
         public async Task SetStatusShouldSucceed()
         {
-            User user = await TestOperations.RegisterAndActivateUser(_fixture.Context, _fixture.Domain.Id, RandomData.RandomString());
+            using (AuthorityTestContext testContext = new AuthorityTestContext())
+            {
+                User user = await TestOperations.RegisterAndActivateUser(
+                    testContext.Context, 
+                    testContext.Domain.Id,
+                    RandomData.RandomString());
 
-            const bool isActive = false;
-            SetUserStatus operation = new SetUserStatus(_fixture.Context, user.Id, isActive);
-            await operation.Do();
-            await operation.CommitAsync();
+                const bool isActive = false;
+                SetUserStatus operation = new SetUserStatus(testContext.Context, user.Id, isActive);
+                await operation.Do();
+                await operation.CommitAsync();
 
-            user = _fixture.Context.ReloadEntity<User>(user.Id);
+                user = testContext.Context.ReloadEntity<User>(user.Id);
 
-            Assert.Equal(isActive, user.IsActive);
+                Assert.Equal(isActive, user.IsActive);
+            }
         }
 
         [Fact]
         public async Task SetStatusUserNotExistsShouldFail()
         {
-            await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
+            using (AuthorityTestContext testContext = new AuthorityTestContext())
             {
-                SetUserStatus operation = new SetUserStatus(_fixture.Context, Guid.NewGuid(), true);
-                await operation.Do();
-                await operation.CommitAsync();
-            },
-            exception => exception.ErrorCode == AccountErrorCodes.UserNotFound);
+                await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
+                {
+                    SetUserStatus operation = new SetUserStatus(testContext.Context, Guid.NewGuid(), true);
+                    await operation.Do();
+                    await operation.CommitAsync();
+                },
+                exception => exception.ErrorCode == AccountErrorCodes.UserNotFound);
+            }
         }
     }
 }

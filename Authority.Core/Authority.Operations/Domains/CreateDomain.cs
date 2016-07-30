@@ -19,7 +19,6 @@ namespace Authority.Operations.Products
         public override async Task<Guid> Do()
         {
             await Require(() => IsNameAvailable(_name), DomainErrorCodes.NameNotAvailable);
-
             Domain domain = new Domain
             {
                 Name = _name,
@@ -27,7 +26,6 @@ namespace Authority.Operations.Products
             };
 
             Context.Domains.Add(domain);
-
             return domain.Id;
         }
 

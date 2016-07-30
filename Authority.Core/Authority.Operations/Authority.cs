@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.Operations.Configuration;
 using Authority.Operations.Observers;
@@ -30,13 +29,25 @@ namespace Authority.Operations
 
         public static AuthorityConfiguration Configuration { get; set; }
 
+        internal static bool Initialized = false;
+        internal static object LockObject = new object();
         public static void Init()
         {
-            PasswordValidators = new Dictionary<Guid, IPasswordValidator>();
-            Observers = new List<IAccountObserver>();
-            Observers.Add(new LoggingObserver());
+            lock (LockObject)
+            {
+                if (Initialized)
+                {
+                    return;
+                }
 
-            SetupEnvironment();
+                PasswordValidators = new Dictionary<Guid, IPasswordValidator>();
+                Observers = new List<IAccountObserver>();
+                Observers.Add(new LoggingObserver());
+
+                SetupEnvironment();
+
+                Initialized = true;
+            }
         }
 
         private static void SetupEnvironment()

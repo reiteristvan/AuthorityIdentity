@@ -13,6 +13,7 @@ namespace Authority.Operations.Services
     {
         List<Domain> All();
         Task<Guid> Create(string name);
+        Task Delete(Guid domainId);
     }
 
     internal interface IInternalDomainService
@@ -50,9 +51,17 @@ namespace Authority.Operations.Services
                 CreateDomain create = new CreateDomain(context, name);
                 Guid domainId = await create.Do();
                 await create.CommitAsync();
-
                 _changed = true;
                 return domainId;
+            }
+        }
+
+        public async Task Delete(Guid domainId)
+        {
+            using (AuthorityContext context = AuthorityContextProvider.Create())
+            {
+                DeleteDomain delete = new DeleteDomain(context, domainId);
+                await delete.Execute();
             }
         }
 

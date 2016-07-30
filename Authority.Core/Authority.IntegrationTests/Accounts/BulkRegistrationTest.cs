@@ -1,43 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Authority.IntegrationTests.Fixtures;
 using Authority.Operations.Account;
 using Xunit;
 
 namespace Authority.IntegrationTests.Accounts
 {
-    public sealed class BulkRegistrationTest : IClassFixture<AccountTestFixture>
+    public sealed class BulkRegistrationTest
     {
-        private readonly AccountTestFixture _fixture;
-
-        public BulkRegistrationTest(AccountTestFixture fixture)
-        {
-            _fixture = fixture;
-        }
-
-        [Fact]
+        [Fact(Skip = "100 users takes ~30 seconds")]
         public async Task BulkRegisterShouldSucceed()
         {
-            List<BulkRegistrationData> registrationDataList = new List<BulkRegistrationData>();
-
-            for (int i = 0; i < 100; ++i)
+            using (AuthorityTestContext testContext = new AuthorityTestContext())
             {
-                BulkRegistrationData registrationData = new BulkRegistrationData
+                List<BulkRegistrationData> registrationDataList = new List<BulkRegistrationData>();
+
+                for (int i = 0; i < 100; ++i)
                 {
-                    DomainId = _fixture.Domain.Id,
-                    Email = RandomData.Email(),
-                    Password = RandomData.RandomString(12, true),
-                    Username = RandomData.RandomString()
-                };
+                    BulkRegistrationData registrationData = new BulkRegistrationData
+                    {
+                        DomainId = testContext.Domain.Id,
+                        Email = RandomData.Email(),
+                        Password = RandomData.RandomString(12, true),
+                        Username = RandomData.RandomString()
+                    };
 
-                registrationDataList.Add(registrationData);
+                    registrationDataList.Add(registrationData);
+                }
+
+                BulkUserRegistration operation = new BulkUserRegistration(testContext.Context, registrationDataList, true);
+                await operation.Execute();
             }
-
-            BulkUserRegistration operation = new BulkUserRegistration(_fixture.Context, registrationDataList, true);
-            await operation.Execute();
         }
     }
 }
