@@ -77,6 +77,7 @@
     <Compile Include="Operation.cs" />
     <Compile Include="OperationWithNoReturn.cs" />
     <Compile Include="OperationWithReturnValue.cs" />
+    <Compile Include="Policies\AddClaimsToPolicy.cs" />
     <Compile Include="Policies\CreatePolicy.cs" />
     <Compile Include="Policies\DeletePolicy.cs" />
     <Compile Include="Policies\PolicyErrorCodes.cs" />
