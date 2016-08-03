@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
@@ -19,14 +17,30 @@ namespace Authority.Operations.Policies
             : base(authorityContext)
         {
             _policyId = policyId;
-            _claims = claims;
+            _claims = claims.Distinct();
         }
 
         public override async Task Do()
         {
-            Policy policy = await Context.Policies.FirstOrDefaultAsync(p => p.Id == _policyId);
+            Policy policy = await Context.Policies
+                .Include(p => p.Claims)
+                .FirstOrDefaultAsync(p => p.Id == _policyId);
 
             Require(() => policy != null, PolicyErrorCodes.PolicyNotFound);
+
+            Domain domain = await Context.Domains
+                .Include(d => d.Claims)
+                .FirstOrDefaultAsync(d => d.Id == policy.DomainId);
+
+            Require(() => _claims.All(id => domain.Claims.Any(c => c.Id == id)), PolicyErrorCodes.ClaimNotExists);
+
+            IEnumerable<Guid> claimsToAdd = _claims.Where(id => !policy.Claims.Any(cl => cl.Id == id));
+            List<AuthorityClaim> claims = Context.Claims.Where(c => claimsToAdd.Contains(c.Id)).ToList();
+
+            foreach (AuthorityClaim claim in claims)
+            {
+                policy.Claims.Add(claim);
+            }
         }
     }
 }
