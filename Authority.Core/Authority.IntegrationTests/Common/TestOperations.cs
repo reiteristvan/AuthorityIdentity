@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
@@ -83,6 +84,45 @@ namespace Authority.IntegrationTests.Common
             }
 
             return users;
+        }
+
+        public static async Task CreateComplexSetup(AuthorityContext context, Guid domainId)
+        {
+            Random random = new Random();
+
+            List<AuthorityClaim> claims = new List<AuthorityClaim>();
+            for (int i = 0; i < 30; ++i)
+            {
+                AuthorityClaim claim = await CreateClaim(context, domainId, RandomData.RandomString(), RandomData.RandomString(),
+                            RandomData.RandomString(), RandomData.RandomString());
+                claims.Add(claim);
+            }
+
+            List<Policy> policies = new List<Policy>();
+            for (int i = 0; i < 20; ++i)
+            {
+                Policy policy = await CreatePolicy(context, domainId, RandomData.RandomString(), false);
+                policies.Add(policy);
+
+                List<AuthorityClaim> claimsToAdd = new List<AuthorityClaim>();
+                for (int j = 0; j < 10; ++j)
+                {
+                    claimsToAdd.Add(claims[random.Next(0, claims.Count)]);
+                }
+
+                AddClaimsToPolicy addClaims = new AddClaimsToPolicy(context, policy.Id, claimsToAdd.Select(c => c.Id));
+                await addClaims.Do();
+                await addClaims.CommitAsync();
+            }
+
+            List<User> users = await CreateUsers(context, domainId, 20);
+            for (int i = 0; i < users.Count; ++i)
+            {
+                Policy policyToAdd = policies[random.Next(0, policies.Count)];
+                AddUserToPolicy addToPolicy = new AddUserToPolicy(context, users[i].Id, policyToAdd.Id);
+                await addToPolicy.Do();
+                await addToPolicy.CommitAsync();
+            }
         }
     }
 }

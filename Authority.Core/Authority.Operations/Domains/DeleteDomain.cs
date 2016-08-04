@@ -28,6 +28,10 @@ namespace Authority.Operations.Products
             }
 
             await Context.Database.ExecuteSqlCommandAsync(
+                "delete from Authority.Claims where Domain_Id = @DomainId", 
+                new SqlParameter("@DomainId", _domainId));
+
+            await Context.Database.ExecuteSqlCommandAsync(
                 "delete from Authority.Users where DomainId = @DomainId",
                 new SqlParameter("@DomainId", _domainId));
 

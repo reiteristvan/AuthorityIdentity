@@ -42,9 +42,7 @@ namespace Authority.IntegrationTests.Domains
                 // TODO: bulk register
                 for (int i = 0; i < 100; ++i)
                 {
-                    await
-                        TestOperations.RegisterAndActivateUser(testContext.Context, domainId,
-                            RandomData.RandomString(12, true));
+                    await TestOperations.RegisterAndActivateUser(testContext.Context, domainId, RandomData.RandomString(12, true));
                 }
 
                 DeleteDomain deleteOperation = new DeleteDomain(testContext.Context, domainId);
@@ -56,6 +54,31 @@ namespace Authority.IntegrationTests.Domains
 
                 List<User> users = testContext.Context.Users
                     .Where(u => u.DomainId == domainId)
+                    .ToList();
+
+                Assert.False(users.Any());
+            }
+        }
+
+        [Fact]
+        public async Task DeleteDomainWithComplexSetupShouldSucceed()
+        {
+            using (AuthorityTestContext testContext = new AuthorityTestContext())
+            {
+                // Arrange
+                await TestOperations.CreateComplexSetup(testContext.Context, testContext.Domain.Id);
+
+                // Act
+                DeleteDomain deleteOperation = new DeleteDomain(testContext.Context, testContext.Domain.Id);
+                await deleteOperation.Execute();
+
+                // Assert
+                Domain domain = await testContext.Context.Domains.FirstOrDefaultAsync(d => d.Id == testContext.Domain.Id);
+
+                Assert.Null(domain);
+
+                List<User> users = testContext.Context.Users
+                    .Where(u => u.DomainId == testContext.Domain.Id)
                     .ToList();
 
                 Assert.False(users.Any());

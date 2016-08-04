@@ -79,6 +79,7 @@
     <Compile Include="Claims\CreateTests.cs" />
     <Compile Include="Common\AssertExtensions.cs" />
     <Compile Include="Common\DbContextExtensions.cs" />
+    <Compile Include="Common\TestDomain.cs" />
     <Compile Include="Common\TestOperations.cs" />
     <Compile Include="Domains\CreateDomainTests.cs" />
     <Compile Include="Domains\DeleteDomainTests.cs" />
