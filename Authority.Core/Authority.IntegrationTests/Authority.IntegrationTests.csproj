@@ -83,6 +83,7 @@
     <Compile Include="Domains\CreateDomainTests.cs" />
     <Compile Include="Domains\DeleteDomainTests.cs" />
     <Compile Include="Policies\AddClaimsToPolicyTests.cs" />
+    <Compile Include="Policies\AddUserToPolicyTests.cs" />
     <Compile Include="Policies\CreateTest.cs" />
     <Compile Include="Policies\DefaultPolicyTests.cs" />
     <Compile Include="Policies\DeleteTests.cs" />
