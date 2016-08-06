@@ -88,6 +88,7 @@
     <Compile Include="Policies\CreateTest.cs" />
     <Compile Include="Policies\DefaultPolicyTests.cs" />
     <Compile Include="Policies\DeleteTests.cs" />
+    <Compile Include="Policies\RemoveUserFromPolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomData.cs" />
     <Compile Include="TestLogger.cs" />
