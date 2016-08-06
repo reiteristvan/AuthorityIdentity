@@ -8,16 +8,16 @@ using Authority.EntityFramework;
 
 namespace Authority.Operations.Policies
 {
-    public sealed class AddClaimsToPolicy : OperationWithNoReturnAsync
+    public sealed class RemoveClaimsFromPolicy : OperationWithNoReturnAsync
     {
         private readonly Guid _policyId;
         private readonly IEnumerable<Guid> _claims;
 
-        public AddClaimsToPolicy(IAuthorityContext authorityContext, Guid policyId, IEnumerable<Guid> claims) 
+        public RemoveClaimsFromPolicy(IAuthorityContext authorityContext, Guid policyId, IEnumerable<Guid> claims) 
             : base(authorityContext)
         {
             _policyId = policyId;
-            _claims = claims.Distinct();
+            _claims = claims;
         }
 
         public override async Task Do()
@@ -34,12 +34,12 @@ namespace Authority.Operations.Policies
 
             Require(() => _claims.All(id => domain.Claims.Any(c => c.Id == id)), PolicyErrorCodes.ClaimNotExists);
 
-            IEnumerable<Guid> claimsToAdd = _claims.Where(id => policy.Claims.All(cl => cl.Id != id));
-            List<AuthorityClaim> claims = Context.Claims.Where(c => claimsToAdd.Contains(c.Id)).ToList();
+            IEnumerable<Guid> claimsToRemove = _claims.Where(id => policy.Claims.Any(cl => cl.Id == id));
+            List<AuthorityClaim> claims = Context.Claims.Where(c => claimsToRemove.Contains(c.Id)).ToList();
 
             foreach (AuthorityClaim claim in claims)
             {
-                policy.Claims.Add(claim);
+                policy.Claims.Remove(claim);
             }
         }
     }

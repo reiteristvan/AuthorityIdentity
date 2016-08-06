@@ -10,19 +10,18 @@ using Xunit;
 
 namespace Authority.IntegrationTests.Policies
 {
-    public sealed class AddClaimsToPolicyTests
+    public sealed class RemoveClaimsFromPolicyTests
     {
         [Fact]
-        public async Task AddClaimsToPolicyShouldSucceed()
+        public async Task RemoveClaimsFromPolicyShouldSucceed()
         {
             using (AuthorityTestContext testContext = new AuthorityTestContext())
             {
                 // Arrange
-                const int numberOfClaims = 100;
                 List<AuthorityClaim> claims = new List<AuthorityClaim>();
-                for (int i = 0; i < numberOfClaims; ++i)
+                for (int i = 0; i < 100; ++i)
                 {
-                    CreateClaim createClaim = new CreateClaim(testContext.Context, testContext.Domain.Id, 
+                    CreateClaim createClaim = new CreateClaim(testContext.Context, testContext.Domain.Id,
                         RandomData.RandomString(), RandomData.RandomString(), RandomData.RandomString(), RandomData.RandomString());
                     AuthorityClaim claim = await createClaim.Do();
                     await createClaim.CommitAsync();
@@ -34,17 +33,21 @@ namespace Authority.IntegrationTests.Policies
                 Policy policy = await createPolicy.Do();
                 await createPolicy.CommitAsync();
 
-                // Act
                 AddClaimsToPolicy addClaims = new AddClaimsToPolicy(testContext.Context, policy.Id, claims.Select(c => c.Id));
                 await addClaims.Do();
                 await addClaims.CommitAsync();
+
+                // Act
+                RemoveClaimsFromPolicy removeClaims = new RemoveClaimsFromPolicy(testContext.Context, policy.Id, claims.Select(c => c.Id));
+                await removeClaims.Do();
+                await removeClaims.CommitAsync();
 
                 // Assert
                 Guid policyId = policy.Id;
                 policy = await testContext.Context.Policies.Include(p => p.Claims).FirstOrDefaultAsync(p => p.Id == policyId);
 
                 Assert.NotNull(policy);
-                Assert.True(policy.Claims.Count == numberOfClaims);
+                Assert.True(policy.Claims.Count == 0);
             }
         }
     }
