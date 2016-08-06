@@ -81,7 +81,53 @@ namespace Authority.IntegrationTests.Domains
                     .Where(u => u.DomainId == testContext.Domain.Id)
                     .ToList();
 
-                Assert.False(users.Any());
+                Assert.Empty(users);
+            }
+        }
+
+        [Fact]
+        public async Task DeleteDomainInMultiDomainSetupShouldSucceed()
+        {
+            using (AuthorityTestContext testContext = new AuthorityTestContext())
+            {
+                // Arrange
+                const int numberOfDomains = 12;
+                const int numberOfClaims = 32;
+                const int numberOfPolicies = 22;
+                const int numberOfUsers = 22;
+                const int numberOfPolicyClaimAssociations = 12;
+
+                await TestOperations.CreateMultiDomainSetup(testContext.Context, numberOfDomains, numberOfClaims, numberOfPolicies, numberOfUsers, numberOfPolicyClaimAssociations);
+
+                // Act
+                DeleteDomain deleteOperation = new DeleteDomain(testContext.Context, testContext.Domain.Id);
+                await deleteOperation.Execute();
+
+                // Assert
+                Domain domain = await testContext.Context.Domains.FirstOrDefaultAsync(d => d.Id == testContext.Domain.Id);
+
+                Assert.Null(domain);
+
+                List<User> users = testContext.Context.Users
+                    .Where(u => u.DomainId == testContext.Domain.Id)
+                    .ToList();
+
+                Assert.Empty(users);
+
+                List<Domain> existingDomains = testContext.Context.Domains
+                    .Include(d => d.Claims)
+                    .Include(d => d.Policies)
+                    .Include(d => d.Policies.Select(p => p.Claims))
+                    .ToList();
+
+                Assert.NotEmpty(existingDomains);
+
+                foreach (Domain existingDomain in existingDomains)
+                {
+                    Assert.Equal(existingDomain.Policies.Count, numberOfPolicies);
+                    Assert.Equal(existingDomain.Claims.Count, numberOfClaims);
+                    Assert.True(existingDomain.Policies.All(p => p.Claims.Count == numberOfPolicyClaimAssociations));
+                }
             }
         }
     }

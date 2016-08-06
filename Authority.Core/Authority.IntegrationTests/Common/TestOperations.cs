@@ -86,12 +86,12 @@ namespace Authority.IntegrationTests.Common
             return users;
         }
 
-        public static async Task CreateComplexSetup(AuthorityContext context, Guid domainId)
+        public static async Task CreateComplexSetup(AuthorityContext context, Guid domainId, int numberOfClaims = 30, int numberOfPolicies = 20, int numberOfUsers = 20, int numberOfPolicyClaimAssociation = 10)
         {
             Random random = new Random();
 
             List<AuthorityClaim> claims = new List<AuthorityClaim>();
-            for (int i = 0; i < 30; ++i)
+            for (int i = 0; i < numberOfClaims; ++i)
             {
                 AuthorityClaim claim = await CreateClaim(context, domainId, RandomData.RandomString(), RandomData.RandomString(),
                             RandomData.RandomString(), RandomData.RandomString());
@@ -99,29 +99,34 @@ namespace Authority.IntegrationTests.Common
             }
 
             List<Policy> policies = new List<Policy>();
-            for (int i = 0; i < 20; ++i)
+            for (int i = 0; i < numberOfPolicies; ++i)
             {
-                Policy policy = await CreatePolicy(context, domainId, RandomData.RandomString(), false);
+                Policy policy = await CreatePolicy(context, domainId, RandomData.RandomString());
                 policies.Add(policy);
 
-                List<AuthorityClaim> claimsToAdd = new List<AuthorityClaim>();
-                for (int j = 0; j < 10; ++j)
-                {
-                    claimsToAdd.Add(claims[random.Next(0, claims.Count)]);
-                }
+                List<AuthorityClaim> claimsToAdd = claims.Take(numberOfPolicyClaimAssociation).ToList();
 
                 AddClaimsToPolicy addClaims = new AddClaimsToPolicy(context, policy.Id, claimsToAdd.Select(c => c.Id));
                 await addClaims.Do();
                 await addClaims.CommitAsync();
             }
 
-            List<User> users = await CreateUsers(context, domainId, 20);
-            for (int i = 0; i < users.Count; ++i)
+            List<User> users = await CreateUsers(context, domainId, numberOfUsers);
+            foreach (User user in users)
             {
                 Policy policyToAdd = policies[random.Next(0, policies.Count)];
-                AddUserToPolicy addToPolicy = new AddUserToPolicy(context, users[i].Id, policyToAdd.Id);
+                AddUserToPolicy addToPolicy = new AddUserToPolicy(context, user.Id, policyToAdd.Id);
                 await addToPolicy.Do();
                 await addToPolicy.CommitAsync();
+            }
+        }
+
+        public static async Task CreateMultiDomainSetup(AuthorityContext context, int numberOfDomains, int numberOfClaims = 30, int numberOfPolicies = 20, int numberOfUsers = 20, int numberOfPolicyClaimAssociation = 10)
+        {
+            for (int i = 0; i < numberOfDomains; ++i)
+            {
+                Domain domain = await CreateDomain(context);
+                await CreateComplexSetup(context, domain.Id, numberOfClaims, numberOfPolicies, numberOfUsers, numberOfPolicyClaimAssociation);
             }
         }
     }
