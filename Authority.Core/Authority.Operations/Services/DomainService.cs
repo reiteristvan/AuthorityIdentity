@@ -12,7 +12,7 @@ namespace Authority.Operations.Services
 {
     public interface IDomainService
     {
-        List<Domain> All();
+        List<Domain> All(bool forceReload = false);
         Task<Domain> FindById(Guid domainId, bool includePolicyDetails = false);
         Task<Guid> Create(string name);
         Task Delete(Guid domainId);
@@ -20,7 +20,7 @@ namespace Authority.Operations.Services
 
     internal interface IInternalDomainService
     {
-        void LoadDomains();
+        void LoadDomains(bool forceReload);
     }
 
     public sealed class DomainService : IDomainService, IInternalDomainService
@@ -38,9 +38,9 @@ namespace Authority.Operations.Services
             _changed = null;
         }
 
-        public List<Domain> All()
+        public List<Domain> All(bool forceReload = false)
         {
-            ((IInternalDomainService) this).LoadDomains();
+            ((IInternalDomainService) this).LoadDomains(forceReload);
             return Authority.DomainMode == DomainMode.Multi ?
                 _domains : 
                 _domains.Where(d => d.Name.Equals(MasterDomainName, StringComparison.InvariantCultureIgnoreCase)).ToList();
@@ -83,14 +83,16 @@ namespace Authority.Operations.Services
             {
                 DeleteDomain delete = new DeleteDomain(context, domainId);
                 await delete.Execute();
+
+                _changed = true;
             }
         }
 
-        void IInternalDomainService.LoadDomains()
+        void IInternalDomainService.LoadDomains(bool forceReload)
         {
             lock (_domainLock)
             {
-                if (_changed.HasValue && !_changed.Value)
+                if (_changed.HasValue && !_changed.Value && !forceReload)
                 {
                     return;
                 }

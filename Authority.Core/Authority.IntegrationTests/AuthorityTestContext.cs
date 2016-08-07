@@ -34,9 +34,10 @@ namespace Authority.IntegrationTests
 
         public void Dispose()
         {
-            foreach (Domain domain in Operations.Authority.Domains.All())
+            // in this case 'forceReload' needs to set to True as tests does not use the service interface
+            foreach (Domain domain in Operations.Authority.Domains.All(true))
             {
-                Operations.Authority.Domains.Delete(domain.Id);
+                Operations.Authority.Domains.Delete(domain.Id).Wait();
             }
         }
     }

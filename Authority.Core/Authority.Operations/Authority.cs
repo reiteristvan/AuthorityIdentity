@@ -60,7 +60,7 @@ namespace Authority.Operations
 
         private static void SetupEnvironment(DomainMode domainMode)
         {
-            (Domains as IInternalDomainService).LoadDomains();
+            (Domains as IInternalDomainService).LoadDomains(true);
 
             if (domainMode == DomainMode.Multi)
             {
