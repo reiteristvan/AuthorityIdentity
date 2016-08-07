@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Configuration;
+using Authority.Operations.Observers;
 
 namespace Authority.IntegrationTests
 {
@@ -10,13 +12,14 @@ namespace Authority.IntegrationTests
     {
         static AuthorityTestContext()
         {
-            Operations.Authority.Configuration = new AuthorityConfiguration
+            AuthorityConfiguration configuration = new AuthorityConfiguration
             {
-                DomainMode = DomainMode.Multi
+                DomainMode = DomainMode.Multi,
+                Logger = new TestLogger(),
+                Observers = new List<IAccountObserver> {  new LoggingObserver() }
             };
 
-            Operations.Authority.Logger = new TestLogger();
-            Operations.Authority.Init();
+            Operations.Authority.Init(configuration);
         }
 
         public AuthorityTestContext()
@@ -31,7 +34,10 @@ namespace Authority.IntegrationTests
 
         public void Dispose()
         {
-            Operations.Authority.Domains.Delete(Domain.Id);
+            foreach (Domain domain in Operations.Authority.Domains.All())
+            {
+                Operations.Authority.Domains.Delete(domain.Id);
+            }
         }
     }
 }

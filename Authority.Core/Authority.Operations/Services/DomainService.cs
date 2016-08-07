@@ -41,7 +41,7 @@ namespace Authority.Operations.Services
         public List<Domain> All()
         {
             ((IInternalDomainService) this).LoadDomains();
-            return Authority.Configuration.DomainMode == DomainMode.Multi ?
+            return Authority.DomainMode == DomainMode.Multi ?
                 _domains : 
                 _domains.Where(d => d.Name.Equals(MasterDomainName, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
