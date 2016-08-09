@@ -89,10 +89,6 @@
     <Compile Include="Migrations\201607270724540_AddIndexToUserId.Designer.cs">
       <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201608041745470_AddCascadeDeleteConstraintToPolicyClaimLinkerTable.cs" />
-    <Compile Include="Migrations\201608041745470_AddCascadeDeleteConstraintToPolicyClaimLinkerTable.Designer.cs">
-      <DependentUpon>201608041745470_AddCascadeDeleteConstraintToPolicyClaimLinkerTable.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -133,9 +129,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607270724540_AddIndexToUserId.resx">
       <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608041745470_AddCascadeDeleteConstraintToPolicyClaimLinkerTable.resx">
-      <DependentUpon>201608041745470_AddCascadeDeleteConstraintToPolicyClaimLinkerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

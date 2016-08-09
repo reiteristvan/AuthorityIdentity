@@ -20,11 +20,19 @@ namespace Authority.Operations.Products
         protected override async Task Do()
         {
             Domain domain = await Context.Domains
+                .Include(d => d.Policies)
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
             
             if (domain == null)
             {
                 throw new RequirementFailedException(DomainErrorCodes.DomainNotExists, _domainId.ToString());
+            }
+
+            foreach (Policy policy in domain.Policies)
+            {
+                await Context.Database.ExecuteSqlCommandAsync(
+                    "delete from dbo.PolicyAuthorityClaims where Policy_Id = @PolicyId",
+                    new SqlParameter("@PolicyId", policy.Id));
             }
 
             await Context.Database.ExecuteSqlCommandAsync(
