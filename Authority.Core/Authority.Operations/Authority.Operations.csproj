@@ -65,6 +65,7 @@
     <Compile Include="AuthorityContextProvider.cs" />
     <Compile Include="Claims\ClaimErrorCodes.cs" />
     <Compile Include="Claims\CreateClaim.cs" />
+    <Compile Include="Claims\DeleteClaim.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="IAuthorityEmailService.cs" />

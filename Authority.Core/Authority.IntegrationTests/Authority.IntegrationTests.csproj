@@ -77,6 +77,7 @@
     <Compile Include="Accounts\UserStatusTests.cs" />
     <Compile Include="AuthorityTestContext.cs" />
     <Compile Include="Claims\CreateTests.cs" />
+    <Compile Include="Claims\DeleteTests.cs" />
     <Compile Include="Common\AssertExtensions.cs" />
     <Compile Include="Common\DbContextExtensions.cs" />
     <Compile Include="Common\TestDomain.cs" />
