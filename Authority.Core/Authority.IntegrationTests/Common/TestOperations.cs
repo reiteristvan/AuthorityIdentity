@@ -7,6 +7,7 @@ using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Account;
 using Authority.Operations.Claims;
+using Authority.Operations.Groups;
 using Authority.Operations.Policies;
 using Authority.Operations.Products;
 
@@ -23,6 +24,19 @@ namespace Authority.IntegrationTests.Common
             Domain product = await context.Domains.FirstOrDefaultAsync(p => p.Id == productId);
 
             return product;
+        }
+
+        public static async Task<Group> CreateGroup(
+            AuthorityContext context,
+            Guid domainId,
+            string name,
+            bool defaultGroup = false)
+        {
+            CreateGroup createGroup = new CreateGroup(context, domainId,name, defaultGroup);
+            Group group = await createGroup.Do();
+            await createGroup.CommitAsync();
+
+            return group;
         }
 
         public static async Task<Policy> CreatePolicy(
@@ -62,8 +76,13 @@ namespace Authority.IntegrationTests.Common
             return user;
         }
 
-        public static async Task<User> RegisterAndActivateUser(AuthorityContext context, Guid domainId, string password)
+        public static async Task<User> RegisterAndActivateUser(AuthorityContext context, Guid domainId, string password = "")
         {
+            if (string.IsNullOrEmpty(password))
+            {
+                password = RandomData.RandomString();
+            }
+
             User user = await RegisterUser(context, domainId, password);
 
             ActivateUser activation = new ActivateUser(context, user.PendingRegistrationId);

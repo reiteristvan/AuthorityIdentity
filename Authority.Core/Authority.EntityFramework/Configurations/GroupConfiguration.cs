@@ -13,7 +13,6 @@ namespace Authority.EntityFramework.Configurations
 
             Property(g => g.DomainId).IsRequired();
             Property(g => g.Name).IsRequired().HasMaxLength(256);
-            Property(g => g.UserCount).IsRequired();
             Property(g => g.Default).IsRequired();
             Property(g => g.IsActive).IsRequired();
 

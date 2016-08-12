@@ -68,6 +68,7 @@
     <Compile Include="Claims\DeleteClaim.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Groups\AddUserToGroup.cs" />
     <Compile Include="Groups\CreateGroup.cs" />
     <Compile Include="Groups\GroupErrorCodes.cs" />
     <Compile Include="IAuthorityEmailService.cs" />

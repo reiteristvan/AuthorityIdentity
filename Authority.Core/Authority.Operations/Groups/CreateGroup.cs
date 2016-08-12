@@ -47,7 +47,6 @@ namespace Authority.Operations.Groups
                 DomainId = domain.Id,
                 IsActive = true,
                 Name = _name,
-                UserCount = 0,
                 Default = _defaultGroup
             };
 

@@ -15,7 +15,6 @@ namespace Authority.DomainModel
 
         public Guid DomainId { get; set; }
         public string Name { get; set; }
-        public int UserCount { get; set; }
         public bool IsActive { get; set; }
         public bool Default { get; set; }
 

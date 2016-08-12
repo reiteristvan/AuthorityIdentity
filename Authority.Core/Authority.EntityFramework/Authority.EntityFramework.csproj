@@ -102,6 +102,10 @@
     <Compile Include="Migrations\201608120815414_DomainHasGroups.Designer.cs">
       <DependentUpon>201608120815414_DomainHasGroups.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201608121628455_RemoveUserCountFromGroup.cs" />
+    <Compile Include="Migrations\201608121628455_RemoveUserCountFromGroup.Designer.cs">
+      <DependentUpon>201608121628455_RemoveUserCountFromGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -151,6 +155,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608120815414_DomainHasGroups.resx">
       <DependentUpon>201608120815414_DomainHasGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608121628455_RemoveUserCountFromGroup.resx">
+      <DependentUpon>201608121628455_RemoveUserCountFromGroup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
