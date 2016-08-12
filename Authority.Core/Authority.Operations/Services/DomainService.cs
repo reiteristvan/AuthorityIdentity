@@ -51,6 +51,7 @@ namespace Authority.Operations.Services
             using (AuthorityContext context = new AuthorityContext())
             {
                 IQueryable<Domain> query = context.Domains
+                    .Include(d => d.Groups)
                     .Include(d => d.Claims)
                     .Include(d => d.Policies);
 

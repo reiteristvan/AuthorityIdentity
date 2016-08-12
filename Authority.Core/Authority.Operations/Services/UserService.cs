@@ -35,6 +35,7 @@ namespace Authority.Operations.Services
             }
 
             User user = await context.Users
+                .Include(u => u.Groups)
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
                 .FirstOrDefaultAsync(u => u.Email == email && u.DomainId == domainId);
@@ -47,6 +48,7 @@ namespace Authority.Operations.Services
             IAuthorityContext context = AuthorityContextProvider.Create();
 
             User user = await context.Users
+                .Include(u => u.Groups)
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
                 .FirstOrDefaultAsync(u => u.Id == id);
