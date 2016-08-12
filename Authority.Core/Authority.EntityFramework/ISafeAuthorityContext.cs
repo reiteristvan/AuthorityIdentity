@@ -12,6 +12,7 @@ namespace Authority.EntityFramework
         DbSet<AuthorityClaim> Claims { get; set; }
         DbSet<Policy> Policies { get; set; }
         DbSet<Invite> Invites { get; set; }
+        DbSet<Group> Groups { get; set; }
         Database Database { get; }
         DbChangeTracker ChangeTracker { get; }
         DbContextConfiguration Configuration { get; }

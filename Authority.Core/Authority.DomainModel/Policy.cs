@@ -11,6 +11,7 @@ namespace Authority.DomainModel
         {
             Claims = new HashSet<AuthorityClaim>();
             Users = new HashSet<User>();
+            Groups = new HashSet<Group>();
         }
 
         public Guid DomainId { get; set; }
@@ -18,6 +19,7 @@ namespace Authority.DomainModel
         public bool Default { get; set; }
 
         public ICollection<AuthorityClaim> Claims { get; set; }
-        public ICollection<User> Users { get; set; } 
+        public ICollection<User> Users { get; set; }
+        public ICollection<Group> Groups { get; set; }  
     }
 }

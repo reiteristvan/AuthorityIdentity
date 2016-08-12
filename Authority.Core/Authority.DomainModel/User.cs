@@ -9,6 +9,7 @@ namespace Authority.DomainModel
 
         public User()
         {
+            Groups = new HashSet<Group>();
             Policies = new HashSet<Policy>();
         }
 
@@ -36,6 +37,7 @@ namespace Authority.DomainModel
 
         public bool IsActive { get; set; }
 
-        public ICollection<Policy> Policies { get; set; } 
+        public ICollection<Group> Groups { get; set; } 
+        public ICollection<Policy> Policies { get; set; }
     }
 }

@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="AuthorityContext.cs" />
     <Compile Include="Configurations\AuthorityClaimConfiguration.cs" />
+    <Compile Include="Configurations\GroupConfiguration.cs" />
     <Compile Include="Configurations\InviteConfiguration.cs" />
     <Compile Include="Configurations\PolicyConfiguration.cs" />
     <Compile Include="Configurations\DomainConfiguration.cs" />
@@ -88,6 +89,14 @@
     <Compile Include="Migrations\201607270724540_AddIndexToUserId.cs" />
     <Compile Include="Migrations\201607270724540_AddIndexToUserId.Designer.cs">
       <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608120754396_AddedTheConceptOfGroups.cs" />
+    <Compile Include="Migrations\201608120754396_AddedTheConceptOfGroups.Designer.cs">
+      <DependentUpon>201608120754396_AddedTheConceptOfGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608120803439_GroupsHasPolicies.cs" />
+    <Compile Include="Migrations\201608120803439_GroupsHasPolicies.Designer.cs">
+      <DependentUpon>201608120803439_GroupsHasPolicies.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -129,6 +138,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201607270724540_AddIndexToUserId.resx">
       <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608120754396_AddedTheConceptOfGroups.resx">
+      <DependentUpon>201608120754396_AddedTheConceptOfGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608120803439_GroupsHasPolicies.resx">
+      <DependentUpon>201608120803439_GroupsHasPolicies.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

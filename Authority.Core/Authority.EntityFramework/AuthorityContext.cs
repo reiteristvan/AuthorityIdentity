@@ -25,6 +25,7 @@ namespace Authority.EntityFramework
         public DbSet<Policy> Policies { get; set; } 
         public DbSet<AuthorityClaim> Claims { get; set; } 
         public DbSet<Invite> Invites { get; set; }
+        public DbSet<Group> Groups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -35,6 +36,7 @@ namespace Authority.EntityFramework
             modelBuilder.Configurations.Add(new AuthorityClaimConfiguration());
             modelBuilder.Configurations.Add(new PolicyConfiguration());
             modelBuilder.Configurations.Add(new InviteConfiguration());
+            modelBuilder.Configurations.Add(new GroupConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

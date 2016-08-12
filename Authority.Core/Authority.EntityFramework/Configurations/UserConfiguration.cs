@@ -27,6 +27,7 @@ namespace Authority.EntityFramework.Configurations
             Property(d => d.IsActive).IsRequired();
             Property(d => d.PendingRegistrationId).IsRequired();
 
+            HasMany(u => u.Groups).WithMany(g => g.Users);
             HasMany(u => u.Policies).WithMany(p => p.Users);
         }
     }
