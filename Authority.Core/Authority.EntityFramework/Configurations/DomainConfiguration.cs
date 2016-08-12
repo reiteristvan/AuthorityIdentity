@@ -11,11 +11,12 @@ namespace Authority.EntityFramework.Configurations
 
             HasKey(e => e.Id);
 
-            Property(p => p.Name).IsRequired().HasMaxLength(128);
-            Property(p => p.IsActive).IsRequired();
+            Property(d => d.Name).IsRequired().HasMaxLength(128);
+            Property(d => d.IsActive).IsRequired();
 
-            HasMany(p => p.Policies).WithRequired().WillCascadeOnDelete(true);
-            HasMany(p => p.Claims).WithOptional().WillCascadeOnDelete(true);
+            HasMany(d => d.Groups).WithRequired().WillCascadeOnDelete(true);
+            HasMany(d => d.Policies).WithRequired().WillCascadeOnDelete(true);
+            HasMany(d => d.Claims).WithOptional().WillCascadeOnDelete(true);
         }
     }
 }

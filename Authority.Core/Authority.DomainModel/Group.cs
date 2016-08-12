@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Authority.DomainModel
 {
@@ -12,6 +13,7 @@ namespace Authority.DomainModel
             Policies = new HashSet<Policy>();
         }
 
+        public Guid DomainId { get; set; }
         public string Name { get; set; }
         public int UserCount { get; set; }
         public bool IsActive { get; set; }

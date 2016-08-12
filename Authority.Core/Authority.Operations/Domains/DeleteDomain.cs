@@ -20,6 +20,7 @@ namespace Authority.Operations.Products
         protected override async Task Do()
         {
             Domain domain = await Context.Domains
+                .Include(d => d.Groups)
                 .Include(d => d.Policies)
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
             
@@ -27,6 +28,14 @@ namespace Authority.Operations.Products
             {
                 throw new RequirementFailedException(DomainErrorCodes.DomainNotExists, _domainId.ToString());
             }
+
+            await Context.Database.ExecuteSqlCommandAsync(
+                "delete from dbo.UserGroups where User_DomainId = @DomainId",
+                new SqlParameter("@DomainId", domain.Id));
+
+            await Context.Database.ExecuteSqlCommandAsync(
+                "delete from Authority.Groups where DomainId = @DomainId",
+                new SqlParameter("@DomainId", domain.Id));
 
             foreach (Policy policy in domain.Policies)
             {

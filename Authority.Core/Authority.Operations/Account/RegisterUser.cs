@@ -66,8 +66,9 @@ namespace Authority.Operations.Account
             await Require(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
 
             Domain domain = await Context.Domains
-                .Include(p => p.Policies)
-                .FirstOrDefaultAsync(p => p.Id == _domainId);
+                .Include(d => d.Groups)
+                .Include(d => d.Policies)
+                .FirstOrDefaultAsync(d => d.Id == _domainId);
 
             byte[] passwordBytes = Encoding.UTF8.GetBytes(_password);
             byte[] saltBytes = _passwordService.CreateSalt();
@@ -94,6 +95,13 @@ namespace Authority.Operations.Account
             if (defaultPolicy != null)
             {
                 _user.Policies.Add(defaultPolicy);
+            }
+
+            Group defaultGroup = domain.Groups.FirstOrDefault(g => g.Default);
+
+            if (defaultGroup != null)
+            {
+                _user.Groups.Add(defaultGroup);
             }
 
             return _user;
