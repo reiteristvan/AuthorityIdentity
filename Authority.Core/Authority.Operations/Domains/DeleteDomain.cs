@@ -26,7 +26,7 @@ namespace Authority.Operations.Products
             
             if (domain == null)
             {
-                throw new RequirementFailedException(DomainErrorCodes.DomainNotExists, _domainId.ToString());
+                throw new RequirementFailedException(ErrorCodes.DomainNotExists, _domainId.ToString());
             }
 
             await Context.Database.ExecuteSqlCommandAsync(

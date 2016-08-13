@@ -22,7 +22,7 @@ namespace Authority.Operations.Account
         {
             User user = await Context.Users.FirstOrDefaultAsync(u => u.Id == _userId);
 
-            Require(() => user != null, AccountErrorCodes.UserNotFound);
+            Require(() => user != null, ErrorCodes.UserNotFound);
 
             user.IsActive = _isActive;
         }

@@ -31,7 +31,7 @@ namespace Authority.Operations.Claims
                 .Include(d => d.Claims)
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
 
-            Require(() => domain.Claims.All(c => c.FriendlyName != _friendlyName), ClaimErrorCodes.NameNotAvailable);
+            Require(() => domain.Claims.All(c => c.FriendlyName != _friendlyName), ErrorCodes.ClaimNameNotAvailable);
 
             AuthorityClaim claim = new AuthorityClaim
             {

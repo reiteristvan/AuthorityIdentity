@@ -25,12 +25,12 @@ namespace Authority.Operations.Groups
                 .Include(u => u.Groups)
                 .FirstOrDefaultAsync(u => u.Id == _userId);
 
-            Require(() => user != null, GroupErrorCodes.UserNotFound);
+            Require(() => user != null, ErrorCodes.UserNotFound);
 
             Group group = await Context.Groups.FirstOrDefaultAsync(g => g.Id == _groupId);
 
-            Require(() => group != null, GroupErrorCodes.GroupNotFound);
-            Require(() => group.DomainId == user.DomainId, GroupErrorCodes.DomainNotFound);
+            Require(() => group != null, ErrorCodes.GroupNotFound);
+            Require(() => group.DomainId == user.DomainId, ErrorCodes.DomainNotFound);
 
             if (user.Groups.Any(g => g.Id == group.Id))
             {

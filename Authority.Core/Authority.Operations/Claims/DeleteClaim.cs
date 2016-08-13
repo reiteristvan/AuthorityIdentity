@@ -25,11 +25,11 @@ namespace Authority.Operations.Claims
                 .Include(d => d.Claims)
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
 
-            Require(() => domain != null, ClaimErrorCodes.DomainNotFound);
+            Require(() => domain != null, ErrorCodes.DomainNotFound);
 
             AuthorityClaim claim = domain.Claims.FirstOrDefault(c => c.Id == _claimId);
 
-            Require(() => claim != null, ClaimErrorCodes.ClaimNotFound);
+            Require(() => claim != null, ErrorCodes.ClaimNotFound);
 
             Context.Claims.Remove(claim);
         }

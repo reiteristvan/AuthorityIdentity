@@ -26,13 +26,13 @@ namespace Authority.Operations.Policies
                 .Include(p => p.Claims)
                 .FirstOrDefaultAsync(p => p.Id == _policyId);
 
-            Require(() => policy != null, PolicyErrorCodes.PolicyNotFound);
+            Require(() => policy != null, ErrorCodes.PolicyNotFound);
 
             Domain domain = await Context.Domains
                 .Include(d => d.Claims)
                 .FirstOrDefaultAsync(d => d.Id == policy.DomainId);
 
-            Require(() => _claims.All(id => domain.Claims.Any(c => c.Id == id)), PolicyErrorCodes.ClaimNotExists);
+            Require(() => _claims.All(id => domain.Claims.Any(c => c.Id == id)), ErrorCodes.ClaimNotFound);
 
             IEnumerable<Guid> claimsToAdd = _claims.Where(id => policy.Claims.All(cl => cl.Id != id));
             List<AuthorityClaim> claims = Context.Claims.Where(c => claimsToAdd.Contains(c.Id)).ToList();

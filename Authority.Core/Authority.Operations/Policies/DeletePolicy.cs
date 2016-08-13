@@ -20,7 +20,7 @@ namespace Authority.Operations.Policies
         {
             Policy policy = await Context.Policies.FirstOrDefaultAsync(p => p.Id == _policyId);
 
-            Require(() => policy != null, PolicyErrorCodes.PolicyNotFound);
+            Require(() => policy != null, ErrorCodes.PolicyNotFound);
 
             Context.Policies.Remove(policy);
         }

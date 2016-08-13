@@ -38,23 +38,23 @@ namespace Authority.Operations.Account
         {
             Invite invite = await Context.Invites.FirstOrDefaultAsync(i => i.Id == _invitationCode);
 
-            Require(() => invite != null, AccountErrorCodes.InviteNotFound);
-            Require(() => invite.Accepted == false, AccountErrorCodes.InviteAlreadyAccepted);
-            Require(() => invite.Expire == null || (invite.Expire != null && invite.Expire >= DateTimeOffset.UtcNow), AccountErrorCodes.InviteExpired);
+            Require(() => invite != null, ErrorCodes.InviteNotFound);
+            Require(() => invite.Accepted == false, ErrorCodes.InviteAlreadyAccepted);
+            Require(() => invite.Expire == null || (invite.Expire != null && invite.Expire >= DateTimeOffset.UtcNow), ErrorCodes.InviteExpired);
 
             Domain domain = await Context.Domains.FirstOrDefaultAsync(d => d.Id == invite.DomainId);
 
-            Require(() => domain != null && domain.IsActive, AccountErrorCodes.DomainNotAvailable);
+            Require(() => domain != null && domain.IsActive, ErrorCodes.DomainNotAvailable);
 
             User user = await Context.Users.FirstOrDefaultAsync(u => u.DomainId == domain.Id && u.Email == _email);
 
-            Require(() => user == null, AccountErrorCodes.InviteAlreadyAccepted);
-            await Require(() => IsUsernameAvailable(domain.Id), AccountErrorCodes.UsernameNotAvailable);
+            Require(() => user == null, ErrorCodes.InviteAlreadyAccepted);
+            await Require(() => IsUsernameAvailable(domain.Id), ErrorCodes.UsernameNotAvailable);
 
             IPasswordValidator passwordValidator;
             if (Authority.PasswordValidators.TryGetValue(invite.DomainId, out passwordValidator))
             {
-                Require(() => passwordValidator.Validate(_password), AccountErrorCodes.PasswordInvalid);
+                Require(() => passwordValidator.Validate(_password), ErrorCodes.PasswordInvalid);
             }
 
             _email = invite.Email;

@@ -18,7 +18,7 @@ namespace Authority.Operations.Products
 
         public override async Task<Guid> Do()
         {
-            await Require(() => IsNameAvailable(_name), DomainErrorCodes.NameNotAvailable);
+            await Require(() => IsNameAvailable(_name), ErrorCodes.DomainNameNotAvailable);
             Domain domain = new Domain
             {
                 Name = _name,

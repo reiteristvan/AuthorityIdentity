@@ -44,7 +44,7 @@ namespace IdentityServer.IntegrationTests.Accounts
                     RegisterUser second = new RegisterUser(testContext.Context, testContext.Domain.Id, email, username, password);
                     await second.Do();
                 },
-                exception => exception.ErrorCode == AccountErrorCodes.EmailAlreadyExists);
+                exception => exception.ErrorCode == ErrorCodes.EmailAlreadyExists);
             }
         }
 
@@ -67,7 +67,7 @@ namespace IdentityServer.IntegrationTests.Accounts
                     RegisterUser second = new RegisterUser(testContext.Context, testContext.Domain.Id, userEmail, username, password);
                     await second.Do();
                 },
-                exception => exception.ErrorCode == AccountErrorCodes.UsernameNotAvailable);
+                exception => exception.ErrorCode == ErrorCodes.UsernameNotAvailable);
             }
         }
     }

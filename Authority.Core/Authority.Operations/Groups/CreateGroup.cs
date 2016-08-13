@@ -36,11 +36,11 @@ namespace Authority.Operations.Groups
             Domain domain = await Context.Domains
                 .FirstOrDefaultAsync(d => d.Id == _domainId);
 
-            Require(() => domain != null, GroupErrorCodes.DomainNotFound);
+            Require(() => domain != null, ErrorCodes.DomainNotFound);
 
             Group existing = await Context.Groups.FirstOrDefaultAsync(g => g.Name == _name && g.DomainId == domain.Id);
 
-            Require(() => existing == null, GroupErrorCodes.GroupNameAlreadyExists);
+            Require(() => existing == null, ErrorCodes.GroupNameNotAvailable);
 
             Group group = new Group
             {
@@ -58,7 +58,7 @@ namespace Authority.Operations.Groups
                 {
                     if (!_replaceDefault)
                     {
-                        throw new RequirementFailedException(GroupErrorCodes.DefaultAlreadyExists);
+                        throw new RequirementFailedException(ErrorCodes.DefaultGroupAlreadyExists);
                     }
 
                     defaultGroup.Default = false;
@@ -73,7 +73,7 @@ namespace Authority.Operations.Groups
                 {
                     if (user.DomainId != domain.Id)
                     {
-                        throw new RequirementFailedException(GroupErrorCodes.DomainNotFound);
+                        throw new RequirementFailedException(ErrorCodes.DomainNotFound);
                     }
 
                     group.Users.Add(user);

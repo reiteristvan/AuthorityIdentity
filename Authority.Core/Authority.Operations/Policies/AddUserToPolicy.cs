@@ -25,12 +25,12 @@ namespace Authority.Operations.Policies
                 .Include(u => u.Policies)
                 .FirstOrDefaultAsync(u => u.Id == _userId);
 
-            Require(() => user != null, PolicyErrorCodes.UnAuthorizedAccess);
+            Require(() => user != null, ErrorCodes.UserNotFound);
 
             Policy policy = await Context.Policies.FirstOrDefaultAsync(p => p.Id == _policyId);
 
-            Require(() => policy != null, PolicyErrorCodes.PolicyNotFound);
-            Require(() => policy.DomainId == user.DomainId, PolicyErrorCodes.UnAuthorizedAccess);
+            Require(() => policy != null, ErrorCodes.PolicyNotFound);
+            Require(() => policy.DomainId == user.DomainId, ErrorCodes.DomainNotFound);
 
             if (user.Policies.Any(p => p.Id == _policyId))
             {

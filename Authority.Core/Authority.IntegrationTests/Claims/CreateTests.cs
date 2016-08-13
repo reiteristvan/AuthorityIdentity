@@ -65,7 +65,7 @@ namespace Authority.IntegrationTests.Claims
                     AuthorityClaim claim = await create.Do();
                     await create.CommitAsync();
                 }, 
-                ex => ex.ErrorCode == ClaimErrorCodes.NameNotAvailable);
+                ex => ex.ErrorCode == ErrorCodes.ClaimNameNotAvailable);
             }
         }
     }

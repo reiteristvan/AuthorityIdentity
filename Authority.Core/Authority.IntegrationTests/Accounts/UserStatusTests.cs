@@ -42,7 +42,7 @@ namespace Authority.IntegrationTests.Accounts
                     await operation.Do();
                     await operation.CommitAsync();
                 },
-                exception => exception.ErrorCode == AccountErrorCodes.UserNotFound);
+                exception => exception.ErrorCode == ErrorCodes.UserNotFound);
             }
         }
     }

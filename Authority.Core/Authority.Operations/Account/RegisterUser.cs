@@ -59,11 +59,11 @@ namespace Authority.Operations.Account
             IPasswordValidator passwordValidator;
             if (Authority.PasswordValidators.TryGetValue(_domainId, out passwordValidator))
             {
-                Require(() => passwordValidator.Validate(_password), AccountErrorCodes.PasswordInvalid);
+                Require(() => passwordValidator.Validate(_password), ErrorCodes.PasswordInvalid);
             }
 
-            await Require(() => IsUserExist(), AccountErrorCodes.EmailAlreadyExists);
-            await Require(() => IsUsernameAvailable(), AccountErrorCodes.UsernameNotAvailable);
+            await Require(() => IsUserExist(), ErrorCodes.EmailAlreadyExists);
+            await Require(() => IsUsernameAvailable(), ErrorCodes.UsernameNotAvailable);
 
             Domain domain = await Context.Domains
                 .Include(d => d.Groups)

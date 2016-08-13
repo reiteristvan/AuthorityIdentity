@@ -51,7 +51,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\AccountErrorCodes.cs" />
     <Compile Include="Account\BulkUserRegistration.cs" />
     <Compile Include="Account\DeleteUser.cs" />
     <Compile Include="Account\FinalizeInvitation.cs" />
@@ -63,14 +62,13 @@
     <Compile Include="Account\RegisterUser.cs" />
     <Compile Include="Authority.cs" />
     <Compile Include="AuthorityContextProvider.cs" />
-    <Compile Include="Claims\ClaimErrorCodes.cs" />
     <Compile Include="Claims\CreateClaim.cs" />
     <Compile Include="Claims\DeleteClaim.cs" />
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
+    <Compile Include="ErrorCodes.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Groups\AddUserToGroup.cs" />
     <Compile Include="Groups\CreateGroup.cs" />
-    <Compile Include="Groups\GroupErrorCodes.cs" />
     <Compile Include="IAuthorityEmailService.cs" />
     <Compile Include="IAuthorityLogger.cs" />
     <Compile Include="Observers\IAccountObserver.cs" />
@@ -85,10 +83,8 @@
     <Compile Include="Policies\AddUserToPolicy.cs" />
     <Compile Include="Policies\CreatePolicy.cs" />
     <Compile Include="Policies\DeletePolicy.cs" />
-    <Compile Include="Policies\PolicyErrorCodes.cs" />
     <Compile Include="Domains\CreateDomain.cs" />
     <Compile Include="Domains\DeleteDomain.cs" />
-    <Compile Include="Domains\DomainErrorCodes.cs" />
     <Compile Include="Policies\RemoveClaimsFromPolicy.cs" />
     <Compile Include="Policies\RemoveUserFromPolicy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

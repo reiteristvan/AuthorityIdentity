@@ -97,7 +97,7 @@ namespace Authority.IntegrationTests.Accounts
                         password);
                     await finalizeOperation.Do();
                     await finalizeOperation.CommitAsync();
-                }, ex => ex.ErrorCode == AccountErrorCodes.InviteExpired);
+                }, ex => ex.ErrorCode == ErrorCodes.InviteExpired);
             }
         }
     }

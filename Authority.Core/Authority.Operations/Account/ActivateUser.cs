@@ -23,11 +23,11 @@ namespace Authority.Operations.Account
             _user = await Context.Users
                 .FirstOrDefaultAsync(u => u.PendingRegistrationId == _activationCode);
 
-            Require(() => _user != null && _user.IsPending, AccountErrorCodes.FailedActivation);
+            Require(() => _user != null && _user.IsPending, ErrorCodes.FailedActivation);
 
             Domain domain = await Context.Domains.FirstOrDefaultAsync(p => p.Id == _user.DomainId);
 
-            Require(() => _activationCode != Guid.Empty && domain != null && domain.IsActive, AccountErrorCodes.FailedActivation);
+            Require(() => _activationCode != Guid.Empty && domain != null && domain.IsActive, ErrorCodes.FailedActivation);
 
             _user.PendingRegistrationId = Guid.Empty;
             _user.IsPending = false;

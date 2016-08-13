@@ -51,7 +51,7 @@ namespace Authority.IntegrationTests.Domains
                     Guid newId = await createAgain.Do();
                     await createAgain.CommitAsync();
                 },
-                    ex => ex.ErrorCode == DomainErrorCodes.NameNotAvailable);
+                    ex => ex.ErrorCode == ErrorCodes.ClaimNameNotAvailable);
             }
         }
     }
