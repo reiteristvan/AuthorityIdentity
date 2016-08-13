@@ -19,6 +19,7 @@ namespace Authority.Operations
         internal static DomainMode DomainMode { get; set; }
         public static IUserService Users { get; internal set; }
         public static IDomainService Domains { get; internal set; }
+        public static IPolicyService Policies { get; internal set; }
 
         public static IAuthorityLogger Logger { get; internal set; }
 
@@ -46,6 +47,7 @@ namespace Authority.Operations
 
                 Users = new UserService();
                 Domains = new DomainService();
+                Policies = new PolicyService();
 
                 Logger = configuration.Logger;
                 PasswordValidators = configuration.PasswordValidators ?? new Dictionary<Guid, IPasswordValidator>();

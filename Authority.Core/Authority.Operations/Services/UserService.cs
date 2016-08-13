@@ -39,7 +39,7 @@ namespace Authority.Operations.Services
 
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId();
+                domainId = Common.GetDomainId();
             }
 
             User user = await context.Users
@@ -73,7 +73,7 @@ namespace Authority.Operations.Services
 
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId();
+                domainId = Common.GetDomainId();
             }
 
             IAuthorityContext context = AuthorityContextProvider.Create();
@@ -96,7 +96,7 @@ namespace Authority.Operations.Services
         {
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId();
+                domainId = Common.GetDomainId();
             }
 
             IAuthorityContext context = AuthorityContextProvider.Create();
@@ -151,7 +151,7 @@ namespace Authority.Operations.Services
         {
             if (domainId == Guid.Empty)
             {
-                domainId = GetDomainId();
+                domainId = Common.GetDomainId();
             }
 
             IAuthorityContext context = AuthorityContextProvider.Create();
@@ -168,23 +168,6 @@ namespace Authority.Operations.Services
             FinalizeInvitation finalizeInvitation = new FinalizeInvitation(context, invitationCode, username, password);
             await finalizeInvitation.Do();
             await finalizeInvitation.CommitAsync();
-        }
-
-        /// <summary>
-        /// This function retrieves the FIRST domain in the list if there was no domain id provided to the function
-        /// It can be used in single-domain scenarios
-        /// Do not use it in multi-domain scenarios
-        /// </summary>
-        /// <returns>The id of the first domain in the list</returns>
-        private Guid GetDomainId()
-        {
-            if (!Authority.Domains.All().Any())
-            {
-                throw new InvalidOperationException("No domain found");
-            }
-
-            Domain domain = Authority.Domains.All().First();
-            return domain.Id;
         }
     }
 }
