@@ -88,6 +88,7 @@
     <Compile Include="Groups\AddUsersToGroupTests.cs" />
     <Compile Include="Groups\CreateTests.cs" />
     <Compile Include="Groups\DefaultGroupTests.cs" />
+    <Compile Include="Groups\DeleteTests.cs" />
     <Compile Include="Policies\AddClaimsToPolicyTests.cs" />
     <Compile Include="Policies\AddUserToPolicyTests.cs" />
     <Compile Include="Policies\CreateTest.cs" />
