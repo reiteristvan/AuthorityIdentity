@@ -84,7 +84,7 @@
     <Compile Include="Common\TestOperations.cs" />
     <Compile Include="Domains\CreateDomainTests.cs" />
     <Compile Include="Domains\DeleteDomainTests.cs" />
-    <Compile Include="Groups\AddUserToGroupTests.cs" />
+    <Compile Include="Groups\AddUsersToGroupTests.cs" />
     <Compile Include="Groups\CreateTests.cs" />
     <Compile Include="Groups\DefaultGroupTests.cs" />
     <Compile Include="Policies\AddClaimsToPolicyTests.cs" />

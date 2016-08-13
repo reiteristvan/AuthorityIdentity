@@ -67,7 +67,7 @@
     <Compile Include="Configuration\AuthorityConfiguration.cs" />
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
-    <Compile Include="Groups\AddUserToGroup.cs" />
+    <Compile Include="Groups\AddUsersToGroup.cs" />
     <Compile Include="Groups\CreateGroup.cs" />
     <Compile Include="IAuthorityEmailService.cs" />
     <Compile Include="IAuthorityLogger.cs" />

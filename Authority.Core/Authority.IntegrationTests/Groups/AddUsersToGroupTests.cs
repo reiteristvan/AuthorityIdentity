@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,42 +10,41 @@ using Xunit;
 
 namespace Authority.IntegrationTests.Groups
 {
-    public sealed class AddUserToGroupTests
+    public sealed class AddUsersToGroupTests
     {
         [Fact]
-        public async Task AddUserToGroupShouldSucceed()
+        public async Task AddUsersToGroupShouldSucceed()
         {
             using (AuthorityTestContext testContext = new AuthorityTestContext())
             {
                 // Arrange
+                const int numberOfUsers = 10;
                 Group group = await TestOperations.CreateGroup(testContext.Context, testContext.Domain.Id, RandomData.RandomString());
-                User user = await TestOperations.RegisterAndActivateUser(testContext.Context, testContext.Domain.Id);
+                List<User> users = await TestOperations.CreateUsers(testContext.Context, testContext.Domain.Id, numberOfUsers);
 
                 // Act
-                AddUserToGroup addToGroup = new AddUserToGroup(testContext.Context, user.Id, group.Id);
+                AddUsersToGroup addToGroup = new AddUsersToGroup(testContext.Context, users.Select(u => u.Id), group.Id);
                 await addToGroup.Do();
                 await addToGroup.CommitAsync();
 
                 // Assert
                 Guid groupId = group.Id;
-                Guid userId = user.Id;
+                IEnumerable<Guid> userIds = users.Select(u => u.Id);
 
                 group = await testContext.Context.Groups
                     .Include(g => g.Users)
                     .FirstOrDefaultAsync(g => g.Id == groupId);
 
-                user = await testContext.Context.Users
+                users = testContext.Context.Users
                     .Include(u => u.Groups)
-                    .FirstOrDefaultAsync(u => u.Id == userId);
+                    .Where(u => userIds.Contains(u.Id)).ToList();
 
                 Assert.NotNull(group);
-                Assert.NotNull(user);
+                Assert.NotNull(users);
+                Assert.Equal(numberOfUsers, users.Count);
 
-                Assert.Equal(1, user.Groups.Count);
-                Assert.Equal(1, group.Users.Count);
-
-                Assert.True(user.Groups.First().Id == groupId);
-                Assert.True(group.Users.First().Id == userId);
+                Assert.Equal(numberOfUsers, group.Users.Count);
+                Assert.True(users.All(u => u.Groups.Count == 1));
             }
         }
     }
