@@ -23,7 +23,7 @@ namespace Authority.IntegrationTests.Groups
                 List<User> users = await TestOperations.CreateUsers(testContext.Context, testContext.Domain.Id, numberOfUsers);
 
                 // Act
-                AddUsersToGroup addToGroup = new AddUsersToGroup(testContext.Context, users.Select(u => u.Id), group.Id);
+                AddUsersToGroup addToGroup = new AddUsersToGroup(testContext.Context, group.Id, users.Select(u => u.Id));
                 await addToGroup.Do();
                 await addToGroup.CommitAsync();
 

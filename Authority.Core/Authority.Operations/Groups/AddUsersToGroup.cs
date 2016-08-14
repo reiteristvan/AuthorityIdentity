@@ -13,7 +13,7 @@ namespace Authority.Operations.Groups
         private readonly IEnumerable<Guid> _userIdList;
         private readonly Guid _groupId;
 
-        public AddUsersToGroup(IAuthorityContext authorityContext, IEnumerable<Guid> userIdList, Guid groupId) 
+        public AddUsersToGroup(IAuthorityContext authorityContext, Guid groupId, IEnumerable<Guid> userIdList) 
             : base(authorityContext)
         {
             _userIdList = userIdList;

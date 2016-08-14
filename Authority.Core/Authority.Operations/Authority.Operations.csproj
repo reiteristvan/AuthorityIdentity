@@ -72,6 +72,7 @@
     <Compile Include="Groups\AddUsersToGroup.cs" />
     <Compile Include="Groups\CreateGroup.cs" />
     <Compile Include="Groups\DeleteGroup.cs" />
+    <Compile Include="Groups\RemoveUsersFromGroup.cs" />
     <Compile Include="IAuthorityEmailService.cs" />
     <Compile Include="IAuthorityLogger.cs" />
     <Compile Include="Observers\IAccountObserver.cs" />
