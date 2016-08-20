@@ -97,6 +97,7 @@
     <Compile Include="SafeOperation.cs" />
     <Compile Include="Security\IPasswordValidator.cs" />
     <Compile Include="Security\PasswordService.cs" />
+    <Compile Include="Services\ClaimService.cs" />
     <Compile Include="Services\Common.cs" />
     <Compile Include="Services\DomainService.cs" />
     <Compile Include="Services\PolicyService.cs" />

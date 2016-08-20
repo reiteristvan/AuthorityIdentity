@@ -29,7 +29,7 @@ namespace Authority.IntegrationTests.Claims
                 await create.CommitAsync();
 
                 // Act
-                DeleteClaim delete = new DeleteClaim(context, domainId, claim.Id);
+                DeleteClaim delete = new DeleteClaim(context, claim.Id);
                 await delete.Do();
                 await delete.CommitAsync();
 
