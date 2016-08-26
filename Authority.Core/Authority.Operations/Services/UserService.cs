@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
 using Authority.Operations.Account;
-using Authority.Operations.Policies;
 
 namespace Authority.Operations.Services
 {
     public interface IUserService
     {
+        List<User> All(Guid domainId = new Guid());
         Task<User> FindByEmail(string email, Guid domainId = new Guid());
         Task<User> FindById(Guid id);
         Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
@@ -19,8 +19,6 @@ namespace Authority.Operations.Services
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
         Task Delete(Guid userId);
         Task SetStatus(Guid userId, bool isActive);
-        Task AddToPolicy(Guid userId, Guid policyId);
-        Task RemoveFromPolicy(Guid userId, Guid policyId);
         Task BulkRegistration(List<BulkRegistrationData> registrationData, bool shouldActivate = false);
         Guid Invite(string email, DateTimeOffset? expireOn = null, Guid domainId = new Guid());
         Task FinalizeInvitation(Guid invitationCode, string username, string password);
@@ -28,6 +26,19 @@ namespace Authority.Operations.Services
 
     public sealed class UserService : IUserService
     {
+        public List<User> All(Guid domainId = new Guid())
+        {
+            if (domainId == Guid.Empty)
+            {
+                domainId = Common.GetDomainId();
+            }
+
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            List<User> users = context.Users.Where(u => u.DomainId == domainId).ToList();
+            return users;
+        }
+
         public async Task<User> FindByEmail(string email, Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email))
@@ -44,6 +55,7 @@ namespace Authority.Operations.Services
 
             User user = await context.Users
                 .Include(u => u.Groups)
+                .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
                 .FirstOrDefaultAsync(u => u.Email == email && u.DomainId == domainId);
@@ -57,6 +69,7 @@ namespace Authority.Operations.Services
 
             User user = await context.Users
                 .Include(u => u.Groups)
+                .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
                 .FirstOrDefaultAsync(u => u.Id == id);
@@ -122,22 +135,6 @@ namespace Authority.Operations.Services
             SetUserStatus setStatus = new SetUserStatus(context, userId, isActive);
             await setStatus.Do();
             await setStatus.CommitAsync();
-        }
-
-        public async Task AddToPolicy(Guid userId, Guid policyId)
-        {
-            IAuthorityContext context = AuthorityContextProvider.Create();
-            AddUserToPolicy addToPolicy = new AddUserToPolicy(context, userId, policyId);
-            await addToPolicy.Do();
-            await addToPolicy.CommitAsync();
-        }
-
-        public async Task RemoveFromPolicy(Guid userId, Guid policyId)
-        {
-            IAuthorityContext context = AuthorityContextProvider.Create();
-            RemoveUserFromPolicy removeFromPolicy = new RemoveUserFromPolicy(context, userId, policyId);
-            await removeFromPolicy.Do();
-            await removeFromPolicy.CommitAsync();
         }
 
         public async Task BulkRegistration(List<BulkRegistrationData> registrationData, bool shouldActivate = false)

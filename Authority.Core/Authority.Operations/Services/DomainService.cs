@@ -38,6 +38,12 @@ namespace Authority.Operations.Services
             _changed = null;
         }
 
+        /// <summary>
+        /// Loads and returns all domain from the database. 
+        /// Unless there is a change (delete, create) then subsequent calls serviced from memory.
+        /// </summary>
+        /// <param name="forceReload">Forcing the function to reload domains from the database</param>
+        /// <returns>List of domains</returns>
         public List<Domain> All(bool forceReload = false)
         {
             ((IInternalDomainService) this).LoadDomains(forceReload);
@@ -46,6 +52,12 @@ namespace Authority.Operations.Services
                 _domains.Where(d => d.Name.Equals(MasterDomainName, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
+        /// <summary>
+        /// Loads a domain from the database. It will include all navigation properties too (Groups, Policies, Claims)
+        /// </summary>
+        /// <param name="domainId">Id of the domain</param>
+        /// <param name="includePolicyDetails">If true the Policy entities will contains claim data too. By default false.</param>
+        /// <returns>The domain identified by the id parameter</returns>
         public async Task<Domain> FindById(Guid domainId, bool includePolicyDetails = false)
         {
             using (AuthorityContext context = new AuthorityContext())
@@ -66,6 +78,11 @@ namespace Authority.Operations.Services
             }
         }
 
+        /// <summary>
+        /// Creates a new domain
+        /// </summary>
+        /// <param name="name">Name of the domain, must be unique</param>
+        /// <returns>The Id of the new domain</returns>
         public async Task<Guid> Create(string name)
         {
             using (AuthorityContext context = AuthorityContextProvider.Create())
@@ -78,6 +95,11 @@ namespace Authority.Operations.Services
             }
         }
 
+        /// <summary>
+        /// Deletes a domain. This call will permanently deletes all data related to the domain (users, groups, policies, claims)
+        /// </summary>
+        /// <param name="domainId">Id of the domain</param>
+        /// <returns></returns>
         public async Task Delete(Guid domainId)
         {
             using (AuthorityContext context = AuthorityContextProvider.Create())
