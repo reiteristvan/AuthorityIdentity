@@ -37,7 +37,7 @@ namespace Authority.Operations.Groups
             {
                 if (user.Groups.Any(g => g.Id == group.Id))
                 {
-                    return;
+                    continue;
                 }
 
                 user.Groups.Add(group);
