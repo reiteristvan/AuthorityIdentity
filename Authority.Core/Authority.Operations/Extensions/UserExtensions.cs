@@ -15,7 +15,14 @@ namespace Authority.Operations.Extensions
         /// <summary>
         /// Take claims which are both inherited from groups and owned through policies
         /// </summary>
-        Intersect = 1
+        Intersect = 1,
+
+        Custom = 2
+    }
+
+    public interface IClaimStrategy
+    {
+        List<AuthorityClaim> Collect(List<AuthorityClaim> ownedClaims, List<AuthorityClaim> inheritedClaims);
     }
 
     public static class UserExtensions
@@ -56,8 +63,9 @@ namespace Authority.Operations.Extensions
         /// </summary>
         /// <param name="user">A user instance</param>
         /// <param name="strategy">The strategy by which claims are collected</param>
+        /// <param name="customStrategy">Custom claim collector strategy</param>
         /// <returns></returns>
-        public static List<AuthorityClaim> EffectiveClaims(this User user, EffectiveClaimStrategy strategy = EffectiveClaimStrategy.Union)
+        public static List<AuthorityClaim> EffectiveClaims(this User user, EffectiveClaimStrategy strategy = EffectiveClaimStrategy.Union, IClaimStrategy customStrategy = null)
         {
             List<AuthorityClaim> ownedClaims = user.OwnedClaims();
 
@@ -84,6 +92,8 @@ namespace Authority.Operations.Extensions
                     return UnionStrategy(ownedClaims, groupClaims);
                 case EffectiveClaimStrategy.Intersect:
                     return IntersectStrategy(ownedClaims, groupClaims);
+                case EffectiveClaimStrategy.Custom:
+                    return customStrategy.Collect(ownedClaims, groupClaims);
             }
 
             throw new ArgumentException("Unknown claim strategy");
