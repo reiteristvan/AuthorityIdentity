@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Dapper, Version=1.50.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.1.50.2\lib\net451\Dapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -83,6 +87,7 @@
     <Compile Include="Common\DbContextExtensions.cs" />
     <Compile Include="Common\TestDomain.cs" />
     <Compile Include="Common\TestOperations.cs" />
+    <Compile Include="DapperMigration\DatabaseInitializeTests.cs" />
     <Compile Include="Domains\CreateDomainTests.cs" />
     <Compile Include="Domains\DeleteDomainTests.cs" />
     <Compile Include="Groups\AddPolicyTests.cs" />
@@ -104,6 +109,10 @@
     <Compile Include="TestLogger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Authority.DataAccess\Authority.DataAccess.csproj">
+      <Project>{c2da1005-abac-48da-8ef3-e53fefa0f2db}</Project>
+      <Name>Authority.DataAccess</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Authority.DomainModel\Authority.DomainModel.csproj">
       <Project>{1fa094f2-153a-4378-9ad6-5831ba75f7e3}</Project>
       <Name>Authority.DomainModel</Name>
@@ -111,6 +120,10 @@
     <ProjectReference Include="..\Authority.EntityFramework\Authority.EntityFramework.csproj">
       <Project>{7a73f2f0-6134-4530-b457-c39c3c030ed1}</Project>
       <Name>Authority.EntityFramework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Authority.Models\Authority.Models.csproj">
+      <Project>{637d81da-ca07-4666-a23d-fe3724dc78ae}</Project>
+      <Name>Authority.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\Authority.Operations\Authority.Operations.csproj">
       <Project>{0ab076b7-5ed6-4eb0-b5b3-435e181f7d4f}</Project>
