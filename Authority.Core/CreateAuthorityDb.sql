@@ -1,12 +1,7 @@
-﻿namespace Authority.DataAccess.Scripts
-{
-    public static class InitializeScripts
-    {
-        public const string CheckIfDbExists = @"SELECT * FROM INFORMATION_SCHEMA.TABLES where TABLE_SCHEMA = 'Authority' and TABLE_NAME = 'Users'";
-
-        public const string CreateTables = @"
+﻿
 set ansi_nulls on
 set quoted_identifier on
+go
 
 -- drop tables
 if OBJECT_ID(N'Authority.UserPolicies', N'U') is not null
@@ -67,6 +62,7 @@ end
 
 -- create schema
 exec sp_executesql N'create schema Authority'
+go
 
 -- create tables
 create table [Authority].[Domains]
@@ -87,6 +83,7 @@ create table [Authority].[Domains]
 		ALLOW_PAGE_LOCKS = ON
 	) on [Primary]
 )
+go
 
 create table [Authority].[Users]
 (
@@ -120,6 +117,7 @@ create table [Authority].[Users]
 		references [Authority].[Domains] ([Id])
 		on delete cascade
 )
+go
 
 create table [Authority].[Policies]
 (
@@ -143,6 +141,7 @@ create table [Authority].[Policies]
 		references [Authority].[Domains] ([Id])
 		on delete cascade
 )
+go
 
 create table [Authority].[Claims]
 (
@@ -168,6 +167,7 @@ create table [Authority].[Claims]
 		references [Authority].[Domains] ([Id])
 		on delete cascade
 )
+go
 
 create table [Authority].[Groups]
 (
@@ -192,6 +192,7 @@ create table [Authority].[Groups]
 		references [Authority].[Domains] ([Id])
 		on delete cascade
 )
+go
 
 create table [Authority].[Invites]
 (
@@ -217,6 +218,7 @@ create table [Authority].[Invites]
 		references [Authority].[Domains] ([Id])
 		on delete cascade
 )
+go
 
 create table [Authority].[UserPolicies]
 (
@@ -247,6 +249,7 @@ create table [Authority].[UserPolicies]
 
 alter table [Authority].[UserPolicies] check constraint [FK_UserPolicies_Policy_Id]
 alter table [Authority].[UserPolicies] check constraint [FK_UserPolicies_User]
+go
 
 create table [Authority].[UserGroups]
 (
@@ -277,6 +280,7 @@ create table [Authority].[UserGroups]
 
 alter table [Authority].[UserGroups] check constraint [FK_UserGroups_Group_Id]
 alter table [Authority].[UserGroups] check constraint [FK_UserGroups_User]
+go
 
 create table [Authority].[GroupPolicies]
 (
@@ -305,6 +309,7 @@ create table [Authority].[GroupPolicies]
 
 alter table [Authority].[GroupPolicies] check constraint [FK_GroupPolicies_Group_Id]
 alter table [Authority].[GroupPolicies] check constraint [FK_GroupPolicies_Policy_Id]
+go
 
 create table [Authority].[PolicyClaims]
 (
@@ -332,6 +337,5 @@ create table [Authority].[PolicyClaims]
 )
 
 alter table [Authority].[PolicyClaims] check constraint [FK_PolicyClaims_Policy_Id]
-alter table [Authority].[PolicyClaims] check constraint [FK_GroupPolicies_Claim_Id]";
-    }
-}
+alter table [Authority].[PolicyClaims] check constraint [FK_GroupPolicies_Claim_Id]
+go

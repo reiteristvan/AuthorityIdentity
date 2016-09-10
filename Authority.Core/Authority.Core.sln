@@ -15,6 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.Models", "Authori
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.DataAccess", "Authority.DataAccess\Authority.DataAccess.csproj", "{C2DA1005-ABAC-48DA-8EF3-E53FEFA0F2DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{EAC62F3A-D301-4566-B51F-A0494C5564EF}"
+	ProjectSection(SolutionItems) = preProject
+		CreateAuthorityDb.sql = CreateAuthorityDb.sql
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

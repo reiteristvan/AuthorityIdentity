@@ -49,7 +49,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\RepositoryBase.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Scripts\Create.cs" />
     <Compile Include="Scripts\InitializeScripts.cs" />
   </ItemGroup>
   <ItemGroup>
