@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Dapper;
 
 namespace Authority.DataAccess.Repositories
 {
@@ -28,11 +23,6 @@ namespace Authority.DataAccess.Repositories
         protected void CloseTransaction()
         {
             _transaction?.Commit();
-        }
-
-        public T Query<T>(string sql)
-        {
-            return default(T);
         }
 
         public void Dispose()

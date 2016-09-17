@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Authority.Models.UserModels;
+using Dapper;
 
 namespace Authority.DataAccess.Repositories
 {
@@ -16,10 +17,26 @@ namespace Authority.DataAccess.Repositories
 
     public sealed class UserRepository : RepositoryBase, IUserRepository
     {
-        public UserDetail FindById(Guid userId)
+        public User FindById(Guid userId)
         {
-            string sql = "select * from Authority.Users";
-            return new UserDetail();
+            string sql = @"
+select DomainId, Email, Username, PasswordHash, Salt, IsPending, PendingRegistrationId, IsActive, Id, LastLogin 
+from Authority.Users
+where Id = @Id";
+
+            User user = Connection.QueryFirst<User>(sql, new {Id = userId});
+            return user;
+        }
+
+        public UserDetail FindByIdWithSecurityEntries(Guid userId)
+        {
+            string sql = @"
+select DomainId, Email, Username, PasswordHash, Salt, IsPending, PendingRegistrationId, IsActive, Id, LastLogin 
+from Authority.Users
+where Id = @Id";
+
+            UserDetail user = Connection.QueryFirst<UserDetail>(sql, new { Id = userId });
+            return user;
         }
     }
 }
