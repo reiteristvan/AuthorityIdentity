@@ -15,7 +15,7 @@ namespace Authority.Operations.Services
         Task<User> FindByEmail(string email, Guid domainId = new Guid());
         Task<User> FindById(Guid id);
         Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
-        Task Acivate(Guid activationCode);
+        Task Activate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
         Task Delete(Guid userId);
         Task SetStatus(Guid userId, bool isActive);
@@ -97,7 +97,7 @@ namespace Authority.Operations.Services
             return user;
         }
 
-        public async Task Acivate(Guid activationCode)
+        public async Task Activate(Guid activationCode)
         {
             IAuthorityContext context = AuthorityContextProvider.Create();
             ActivateUser activateOperation = new ActivateUser(context, activationCode);
