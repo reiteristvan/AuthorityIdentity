@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
-using Authority.IntegrationTests;
 using Authority.IntegrationTests.Common;
-using Authority.Operations;
-using Authority.Operations.Account;
+using Authority.Account;
 using Xunit;
 
-namespace IdentityServer.IntegrationTests.Accounts
+namespace Authority.IntegrationTests.Accounts
 {
     public sealed class RegistrationTests
     {

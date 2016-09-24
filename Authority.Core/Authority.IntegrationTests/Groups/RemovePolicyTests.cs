@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations.Groups;
+using Authority.Groups;
 using Xunit;
 
 namespace Authority.IntegrationTests.Groups

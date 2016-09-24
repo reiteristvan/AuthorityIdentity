@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.DomainModel", "Au
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.EntityFramework", "Authority.EntityFramework\Authority.EntityFramework.csproj", "{7A73F2F0-6134-4530-B457-C39C3C030ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.Operations", "Authority.Operations\Authority.Operations.csproj", "{0AB076B7-5ED6-4EB0-B5B3-435E181F7D4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority", "Authority\Authority.csproj", "{0AB076B7-5ED6-4EB0-B5B3-435E181F7D4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.IntegrationTests", "Authority.IntegrationTests\Authority.IntegrationTests.csproj", "{8C7AFD60-182C-422C-AD5A-A078B72EC00B}"
 EndProject

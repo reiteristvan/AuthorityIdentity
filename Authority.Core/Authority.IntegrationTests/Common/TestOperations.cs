@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.EntityFramework;
-using Authority.Operations.Account;
-using Authority.Operations.Claims;
-using Authority.Operations.Groups;
-using Authority.Operations.Policies;
-using Authority.Operations.Products;
+using Authority.Account;
+using Authority.Claims;
+using Authority.Groups;
+using Authority.Policies;
+using Authority.Products;
 
 namespace Authority.IntegrationTests.Common
 {

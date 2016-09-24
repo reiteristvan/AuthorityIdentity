@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations.Products;
+using Authority.Products;
 using Xunit;
 
 namespace Authority.IntegrationTests.Domains

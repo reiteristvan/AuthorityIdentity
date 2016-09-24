@@ -3,8 +3,8 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations;
-using Authority.Operations.Products;
+using Authority;
+using Authority.Products;
 using Xunit;
 
 namespace Authority.IntegrationTests.Domains
@@ -51,7 +51,7 @@ namespace Authority.IntegrationTests.Domains
                     Guid newId = await createAgain.Do();
                     await createAgain.CommitAsync();
                 },
-                    ex => ex.ErrorCode == ErrorCodes.ClaimNameNotAvailable);
+                    ex => ex.ErrorCode == ErrorCodes.DomainNameNotAvailable);
             }
         }
     }

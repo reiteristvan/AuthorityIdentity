@@ -125,9 +125,9 @@
       <Project>{637d81da-ca07-4666-a23d-fe3724dc78ae}</Project>
       <Name>Authority.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Authority.Operations\Authority.Operations.csproj">
+    <ProjectReference Include="..\Authority\Authority.csproj">
       <Project>{0ab076b7-5ed6-4eb0-b5b3-435e181f7d4f}</Project>
-      <Name>Authority.Operations</Name>
+      <Name>Authority</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

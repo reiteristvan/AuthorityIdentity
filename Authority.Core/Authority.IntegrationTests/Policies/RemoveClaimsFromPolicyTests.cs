@@ -4,8 +4,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using Authority.DomainModel;
-using Authority.Operations.Claims;
-using Authority.Operations.Policies;
+using Authority.Claims;
+using Authority.Policies;
 using Xunit;
 
 namespace Authority.IntegrationTests.Policies

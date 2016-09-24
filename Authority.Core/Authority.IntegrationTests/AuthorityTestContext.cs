@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Authority.Configuration;
 using Authority.DomainModel;
 using Authority.EntityFramework;
-using Authority.Operations.Configuration;
-using Authority.Operations.Observers;
+using Authority.Observers;
 
 namespace Authority.IntegrationTests
 {
@@ -19,14 +19,14 @@ namespace Authority.IntegrationTests
                 Observers = new List<IAccountObserver> {  new LoggingObserver() }
             };
 
-            Operations.Authority.Init(configuration);
+            Authority.Init(configuration);
         }
 
         public AuthorityTestContext()
         {
             Context = new AuthorityContext();
-            Guid domainId = Operations.Authority.Domains.Create(RandomData.RandomString()).Result;
-            Domain = Operations.Authority.Domains.All().First(d => d.Id == domainId);
+            Guid domainId = Authority.Domains.Create(RandomData.RandomString()).Result;
+            Domain = Authority.Domains.All().First(d => d.Id == domainId);
         }
 
         public AuthorityContext Context { get; set; }
@@ -35,9 +35,9 @@ namespace Authority.IntegrationTests
         public void Dispose()
         {
             // in this case 'forceReload' needs to set to True as tests does not use the service interface
-            foreach (Domain domain in Operations.Authority.Domains.All(true))
+            foreach (Domain domain in Authority.Domains.All(true))
             {
-                Operations.Authority.Domains.Delete(domain.Id).Wait();
+                Authority.Domains.Delete(domain.Id).Wait();
             }
         }
     }

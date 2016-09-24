@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations.Policies;
+using Authority.Policies;
 using Xunit;
 
 namespace Authority.IntegrationTests.Policies

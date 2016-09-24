@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Authority.Operations;
+using Authority;
 
 namespace Authority.IntegrationTests
 {

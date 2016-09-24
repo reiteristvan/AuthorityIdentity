@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations.Claims;
+using Authority.Claims;
 using Xunit;
 
 namespace Authority.IntegrationTests.Claims

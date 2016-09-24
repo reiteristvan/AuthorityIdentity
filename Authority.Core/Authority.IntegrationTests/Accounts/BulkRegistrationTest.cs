@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Authority.Operations.Account;
+using Authority.Account;
 using Xunit;
 
 namespace Authority.IntegrationTests.Accounts

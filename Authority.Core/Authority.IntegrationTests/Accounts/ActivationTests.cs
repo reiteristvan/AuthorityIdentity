@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Authority.Account;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations.Account;
 using Xunit;
 
 namespace Authority.IntegrationTests.Accounts

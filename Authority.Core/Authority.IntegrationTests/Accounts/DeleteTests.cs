@@ -3,7 +3,7 @@ using System.Data.Entity;
 using System.Threading.Tasks;
 using Authority.DomainModel;
 using Authority.IntegrationTests.Common;
-using Authority.Operations.Account;
+using Authority.Account;
 using Xunit;
 
 namespace Authority.IntegrationTests.Accounts
