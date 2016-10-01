@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Authority.Account;
-using Authority.DomainModel;
-using Authority.IntegrationTests.Common;
+using AuthorityIdentity.Account;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.IntegrationTests.Common;
 using Xunit;
 
-namespace Authority.IntegrationTests.Accounts
+namespace AuthorityIdentity.IntegrationTests.Accounts
 {
     public sealed class ActivationTests
     {

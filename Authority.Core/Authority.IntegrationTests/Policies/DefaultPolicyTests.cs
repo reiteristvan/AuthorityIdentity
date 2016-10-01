@@ -2,12 +2,12 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.IntegrationTests.Common;
-using Authority.Policies;
+using AuthorityIdentity.Policies;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.IntegrationTests.Common;
 using Xunit;
 
-namespace Authority.IntegrationTests.Policies
+namespace AuthorityIdentity.IntegrationTests.Policies
 {
     public sealed class DefaultPolicyTests
     {

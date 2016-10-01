@@ -1,2 +1,0 @@
-﻿Add-Migration -Project Authority.EntityFramework "MigrationName"
-Update-Database -Project Authority.EntityFramework -Verbose

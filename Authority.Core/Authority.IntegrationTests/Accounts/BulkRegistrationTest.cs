@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Authority.Account;
+using AuthorityIdentity.Account;
 using Xunit;
 
-namespace Authority.IntegrationTests.Accounts
+namespace AuthorityIdentity.IntegrationTests.Accounts
 {
     public sealed class BulkRegistrationTest
     {

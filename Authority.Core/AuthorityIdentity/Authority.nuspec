@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Authority</id>
+    <version>0.5.7</version>
+    <title>$title$</title>
+    <authors>Istvan Reiter</authors>
+    <owners>Istvan Reiter</owners>
+    <projectUrl>https://github.com/reiteristvan/Authority.Core</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Authority</description>
+	
+	<dependencies>
+		<dependency id="EntityFramework" version="6.1.3" />
+	</dependencies>
+  </metadata>
+  
+  <files>
+	<file src="bin\Debug\AuthorityIdentity.dll" target="lib" />
+	<file src="bin\Debug\AuthorityIdentity.DomainModel.dll" target="lib" />
+	<file src="bin\Debug\AuthorityIdentity.EntityFramework.dll" target="lib" />
+  </files>
+</package>

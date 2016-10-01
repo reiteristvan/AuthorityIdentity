@@ -1,13 +1,14 @@
-﻿using Xunit;
+﻿using Authority.DataAccess;
+using Xunit;
 
-namespace Authority.IntegrationTests.DapperMigration
+namespace AuthorityIdentity.IntegrationTests.DapperMigration
 {
     public sealed class DatabaseInitializeTests
     {
         [Fact]
         public void InitializeShouldCreateDatabase()
         {
-            DataAccess.DataAccess.Initialize();
+            DataAccess.Initialize();
         }
     }
 }

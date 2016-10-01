@@ -189,3 +189,4 @@ _Pvt_Extensions/
 ModelManifest.xml
 /Authority/.vs/config/applicationhost.config
 /Authority.Core/packages
+*.nupkg

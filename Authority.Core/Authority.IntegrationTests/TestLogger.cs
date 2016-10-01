@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Authority;
 
-namespace Authority.IntegrationTests
+namespace AuthorityIdentity.IntegrationTests
 {
     public sealed class TestLogger : IAuthorityLogger
     {

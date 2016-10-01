@@ -2,12 +2,12 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.IntegrationTests.Common;
-using Authority.Groups;
+using AuthorityIdentity.Groups;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.IntegrationTests.Common;
 using Xunit;
 
-namespace Authority.IntegrationTests.Groups
+namespace AuthorityIdentity.IntegrationTests.Groups
 {
     public sealed class CreateTests
     {

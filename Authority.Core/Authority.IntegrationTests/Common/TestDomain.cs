@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Authority.DomainModel;
+using AuthorityIdentity.DomainModel;
 
-namespace Authority.IntegrationTests.Common
+namespace AuthorityIdentity.IntegrationTests.Common
 {
     public sealed class TestDomain
     {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.IntegrationTests.Common;
-using Authority.Products;
+using AuthorityIdentity.Domains;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.IntegrationTests.Common;
 using Xunit;
 
-namespace Authority.IntegrationTests.Domains
+namespace AuthorityIdentity.IntegrationTests.Domains
 {
     public sealed class DeleteDomainTests
     {

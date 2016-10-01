@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.EntityFramework;
-using Authority.Account;
-using Authority.Claims;
-using Authority.Groups;
-using Authority.Policies;
-using Authority.Products;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.EntityFramework;
+using AuthorityIdentity.Account;
+using AuthorityIdentity.Claims;
+using AuthorityIdentity.Domains;
+using AuthorityIdentity.Groups;
+using AuthorityIdentity.Policies;
 
-namespace Authority.IntegrationTests.Common
+namespace AuthorityIdentity.IntegrationTests.Common
 {
     public static class TestOperations
     {

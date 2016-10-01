@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Authority.Configuration;
-using Authority.DomainModel;
-using Authority.EntityFramework;
-using Authority.Observers;
+using AuthorityIdentity.Configuration;
+using AuthorityIdentity.Observers;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.EntityFramework;
 
-namespace Authority.IntegrationTests
+namespace AuthorityIdentity.IntegrationTests
 {
     public sealed class AuthorityTestContext : IDisposable
     {

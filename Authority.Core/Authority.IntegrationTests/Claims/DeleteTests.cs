@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.EntityFramework;
-using Authority.IntegrationTests.Common;
-using Authority.Claims;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.EntityFramework;
+using AuthorityIdentity.IntegrationTests.Common;
+using AuthorityIdentity.Claims;
 using Xunit;
 
-namespace Authority.IntegrationTests.Claims
+namespace AuthorityIdentity.IntegrationTests.Claims
 {
     public sealed class DeleteTests
     {

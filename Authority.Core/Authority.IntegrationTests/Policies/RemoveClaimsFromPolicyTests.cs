@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.Claims;
-using Authority.Policies;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.Claims;
+using AuthorityIdentity.Policies;
 using Xunit;
 
-namespace Authority.IntegrationTests.Policies
+namespace AuthorityIdentity.IntegrationTests.Policies
 {
     public sealed class RemoveClaimsFromPolicyTests
     {

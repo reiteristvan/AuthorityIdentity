@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Authority.DomainModel;
-using Authority.IntegrationTests.Common;
-using Authority;
-using Authority.Products;
+using AuthorityIdentity.DomainModel;
+using AuthorityIdentity.IntegrationTests.Common;
+using AuthorityIdentity.Domains;
 using Xunit;
 
-namespace Authority.IntegrationTests.Domains
+namespace AuthorityIdentity.IntegrationTests.Domains
 {
     public sealed class CreateDomainTests
     {

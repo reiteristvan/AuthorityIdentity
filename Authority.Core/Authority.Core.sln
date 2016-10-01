@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.DomainModel", "Authority.DomainModel\Authority.DomainModel.csproj", "{1FA094F2-153A-4378-9AD6-5831BA75F7E3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorityIdentity.DomainModel", "AuthorityIdentity.DomainModel\AuthorityIdentity.DomainModel.csproj", "{1FA094F2-153A-4378-9AD6-5831BA75F7E3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.EntityFramework", "Authority.EntityFramework\Authority.EntityFramework.csproj", "{7A73F2F0-6134-4530-B457-C39C3C030ED1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorityIdentity.EntityFramework", "AuthorityIdentity.EntityFramework\AuthorityIdentity.EntityFramework.csproj", "{7A73F2F0-6134-4530-B457-C39C3C030ED1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority", "Authority\Authority.csproj", "{0AB076B7-5ED6-4EB0-B5B3-435E181F7D4F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorityIdentity", "AuthorityIdentity\AuthorityIdentity.csproj", "{0AB076B7-5ED6-4EB0-B5B3-435E181F7D4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Authority.IntegrationTests", "Authority.IntegrationTests\Authority.IntegrationTests.csproj", "{8C7AFD60-182C-422C-AD5A-A078B72EC00B}"
 EndProject

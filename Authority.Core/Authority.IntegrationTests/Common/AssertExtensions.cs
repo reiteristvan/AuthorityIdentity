@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xunit;
 
-namespace Authority.IntegrationTests.Common
+namespace AuthorityIdentity.IntegrationTests.Common
 {
     public static class AssertExtensions
     {
