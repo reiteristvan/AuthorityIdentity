@@ -21,11 +21,13 @@ namespace AuthorityIdentity.EntityFramework.Configurations
             Property(u => u.Email).IsRequired().HasMaxLength(128);
             Property(u => u.Username).IsRequired().HasMaxLength(64);
             Property(u => u.LastLogin).IsRequired();
-            Property(d => d.PasswordHash).IsRequired().HasMaxLength(128);
-            Property(d => d.Salt).IsRequired().HasMaxLength(128);
-            Property(d => d.IsPending).IsRequired();
-            Property(d => d.IsActive).IsRequired();
-            Property(d => d.PendingRegistrationId).IsRequired();
+            Property(u => u.PasswordHash).IsRequired().HasMaxLength(128);
+            Property(u => u.Salt).IsRequired().HasMaxLength(128);
+            Property(u => u.IsPending).IsRequired();
+            Property(u => u.IsActive).IsRequired();
+            Property(u => u.PendingRegistrationId).IsRequired();
+            Property(u => u.IsTwoFactorEnabled).IsRequired();
+            Property(u => u.TwoFactorToken).IsRequired();
 
             HasMany(u => u.Groups).WithMany(g => g.Users);
             HasMany(u => u.Policies).WithMany(p => p.Users);

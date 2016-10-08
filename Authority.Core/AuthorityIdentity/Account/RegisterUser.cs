@@ -85,7 +85,9 @@ namespace AuthorityIdentity.Account
                 IsPending = _needToActivate,
                 PendingRegistrationId = _needToActivate ? Guid.NewGuid() : Guid.Empty,
                 IsActive = true,
-                IsExternal = false
+                IsExternal = false,
+                IsTwoFactorEnabled = false,
+                TwoFactorToken = ""
             };
 
             Context.Users.Add(_user);

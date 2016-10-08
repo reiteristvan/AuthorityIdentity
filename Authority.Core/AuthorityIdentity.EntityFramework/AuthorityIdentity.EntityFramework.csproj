@@ -106,6 +106,10 @@
     <Compile Include="Migrations\201608121628455_RemoveUserCountFromGroup.Designer.cs">
       <DependentUpon>201608121628455_RemoveUserCountFromGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610080903059_TwoFactorAdded.cs" />
+    <Compile Include="Migrations\201610080903059_TwoFactorAdded.Designer.cs">
+      <DependentUpon>201610080903059_TwoFactorAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608121628455_RemoveUserCountFromGroup.resx">
       <DependentUpon>201608121628455_RemoveUserCountFromGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610080903059_TwoFactorAdded.resx">
+      <DependentUpon>201610080903059_TwoFactorAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

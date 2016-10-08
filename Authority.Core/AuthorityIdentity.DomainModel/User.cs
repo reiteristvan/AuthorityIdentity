@@ -37,6 +37,10 @@ namespace AuthorityIdentity.DomainModel
 
         public bool IsActive { get; set; }
 
+        public bool IsTwoFactorEnabled { get; set; }
+
+        public string TwoFactorToken { get; set; }
+
         public ICollection<Group> Groups { get; set; } 
         public ICollection<Policy> Policies { get; set; }
     }
