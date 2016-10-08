@@ -87,7 +87,9 @@ namespace AuthorityIdentity.Account
                 IsActive = true,
                 IsExternal = false,
                 IsTwoFactorEnabled = false,
-                TwoFactorToken = ""
+                TwoFactorToken = "",
+                TwoFactorType = TwoFactorType.Other,
+                TwoFactorTarget = ""
             };
 
             Context.Users.Add(_user);

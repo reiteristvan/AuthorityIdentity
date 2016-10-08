@@ -26,7 +26,11 @@ namespace AuthorityIdentity
 
         public static Dictionary<Guid, IPasswordValidator> PasswordValidators { get; internal set; }
         public static IAuthorityEmailService EmailService { get; internal set; }
-        public static List<IAccountObserver> Observers { get; internal set; } 
+        public static List<IAccountObserver> Observers { get; internal set; }
+
+        public static bool IsTwoFactorEnabled { get; internal set; }
+        public static TwoFactorMode TwoFactorMode { get; internal set; }
+        public static ITwoFactorService TwoFactorService { get; internal set; }
 
         internal static bool Initialized;
         internal static object LockObject = new object();
@@ -55,6 +59,16 @@ namespace AuthorityIdentity
                 PasswordValidators = configuration.PasswordValidators ?? new Dictionary<Guid, IPasswordValidator>();
                 Observers = configuration.Observers ?? new List<IAccountObserver>();
                 EmailService = configuration.EmailService;
+
+                IsTwoFactorEnabled = configuration.TwoFactorAuthenticationEnabled;
+
+                if (IsTwoFactorEnabled && configuration.TwoFactorService == null)
+                {
+                    throw new ArgumentException("Provide the two factor service object");
+                }
+
+                TwoFactorMode = configuration.TwoFactorMode;
+                TwoFactorService = configuration.TwoFactorService;
 
                 SetupEnvironment(configuration.DomainMode);
 

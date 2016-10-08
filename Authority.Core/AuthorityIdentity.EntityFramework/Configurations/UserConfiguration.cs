@@ -28,6 +28,8 @@ namespace AuthorityIdentity.EntityFramework.Configurations
             Property(u => u.PendingRegistrationId).IsRequired();
             Property(u => u.IsTwoFactorEnabled).IsRequired();
             Property(u => u.TwoFactorToken).IsRequired();
+            Property(u => u.TwoFactorType).IsRequired();
+            Property(u => u.TwoFactorTarget).IsRequired();
 
             HasMany(u => u.Groups).WithMany(g => g.Users);
             HasMany(u => u.Policies).WithMany(p => p.Users);

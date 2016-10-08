@@ -11,6 +11,12 @@ namespace AuthorityIdentity.Configuration
         Multi
     }
 
+    public enum TwoFactorMode
+    {
+        Optional,
+        Strict
+    }
+
     public sealed class AuthorityConfiguration
     {
         public static AuthorityConfiguration Default
@@ -23,7 +29,10 @@ namespace AuthorityIdentity.Configuration
                     Logger = null,
                     PasswordValidators = new Dictionary<Guid, IPasswordValidator>(),
                     EmailService = null,
-                    Observers = new List<IAccountObserver> {  new LoggingObserver() }
+                    Observers = new List<IAccountObserver> {  new LoggingObserver() },
+                    TwoFactorAuthenticationEnabled = false,
+                    TwoFactorMode = TwoFactorMode.Optional,
+                    TwoFactorService = null
                 };
             }
         }
@@ -34,5 +43,9 @@ namespace AuthorityIdentity.Configuration
         public Dictionary<Guid, IPasswordValidator> PasswordValidators { get; set; }
         public IAuthorityEmailService EmailService { get; set; }
         public List<IAccountObserver> Observers { get; set; }
+        public ITwoFactorService TwoFactorService { get; set; }
+
+        public bool TwoFactorAuthenticationEnabled { get; set; }
+        public TwoFactorMode TwoFactorMode { get; set; }
     }
 }

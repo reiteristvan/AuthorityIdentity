@@ -3,6 +3,14 @@ using System.Collections.Generic;
 
 namespace AuthorityIdentity.DomainModel
 {
+    public enum TwoFactorType
+    {
+        Email = 1,
+        Text = 2,
+        App = 3,
+        Other = 4
+    }
+
     public class User : EntityBase
     {
         public const string TableName = "Authority.Users";
@@ -40,6 +48,10 @@ namespace AuthorityIdentity.DomainModel
         public bool IsTwoFactorEnabled { get; set; }
 
         public string TwoFactorToken { get; set; }
+
+        public TwoFactorType TwoFactorType { get; set; }
+
+        public string TwoFactorTarget { get; set; }
 
         public ICollection<Group> Groups { get; set; } 
         public ICollection<Policy> Policies { get; set; }
