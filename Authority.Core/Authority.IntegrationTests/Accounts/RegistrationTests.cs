@@ -16,8 +16,15 @@ namespace AuthorityIdentity.IntegrationTests.Accounts
                 string username = RandomData.RandomString();
                 string password = RandomData.RandomString(12, true);
 
-                RegisterUser operation = new RegisterUser(testContext.Context, testContext.Domain.Id, email, username,
-                    password);
+                RegisterUserModel model = new RegisterUserModel
+                {
+                    DomainId = testContext.Domain.Id,
+                    Email = email,
+                    Username = username,
+                    Password = password,
+                    NeedToActivate = false
+                };
+                RegisterUser operation = new RegisterUser(testContext.Context, model);
                 await operation.Do();
                 await operation.CommitAsync();
             }
@@ -32,14 +39,22 @@ namespace AuthorityIdentity.IntegrationTests.Accounts
                 string username = RandomData.RandomString();
                 string password = RandomData.RandomString(12, true);
 
-                RegisterUser first = new RegisterUser(testContext.Context, testContext.Domain.Id, email, username, password);
+                RegisterUserModel model = new RegisterUserModel
+                {
+                    DomainId = testContext.Domain.Id,
+                    Email = email,
+                    Username = username,
+                    Password = password,
+                    NeedToActivate = false
+                };
+                RegisterUser first = new RegisterUser(testContext.Context, model);
                 await first.Do();
 
                 await first.CommitAsync();
 
                 await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
                 {
-                    RegisterUser second = new RegisterUser(testContext.Context, testContext.Domain.Id, email, username, password);
+                    RegisterUser second = new RegisterUser(testContext.Context, model);
                     await second.Do();
                 },
                 exception => exception.ErrorCode == ErrorCodes.EmailAlreadyExists);
@@ -55,14 +70,23 @@ namespace AuthorityIdentity.IntegrationTests.Accounts
                 string username = RandomData.RandomString();
                 string password = RandomData.RandomString(12, true);
 
-                RegisterUser first = new RegisterUser(testContext.Context, testContext.Domain.Id, email, username, password);
+                RegisterUserModel model = new RegisterUserModel
+                {
+                    DomainId = testContext.Domain.Id,
+                    Email = email,
+                    Username = username,
+                    Password = password,
+                    NeedToActivate = false
+                };
+                RegisterUser first = new RegisterUser(testContext.Context, model);
                 await first.Do();
                 await first.CommitAsync();
 
                 await AssertExtensions.ThrowAsync<RequirementFailedException>(async () =>
                 {
                     string userEmail = RandomData.Email();
-                    RegisterUser second = new RegisterUser(testContext.Context, testContext.Domain.Id, userEmail, username, password);
+                    model.Email = userEmail; // it should be immutable, but it is a test :)
+                    RegisterUser second = new RegisterUser(testContext.Context, model);
                     await second.Do();
                 },
                 exception => exception.ErrorCode == ErrorCodes.UsernameNotAvailable);

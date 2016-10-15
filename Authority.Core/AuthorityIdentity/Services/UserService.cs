@@ -90,7 +90,16 @@ namespace AuthorityIdentity.Services
             }
 
             IAuthorityContext context = AuthorityContextProvider.Create();
-            RegisterUser registerOperation = new RegisterUser(context, domainId, email, username, password, needToActivate);
+            RegisterUserModel model = new RegisterUserModel
+            {
+                DomainId    = domainId,
+                Email = email,
+                Username = username,
+                Password = password,
+                NeedToActivate = needToActivate
+            };
+
+            RegisterUser registerOperation = new RegisterUser(context, model);
             User user = await registerOperation.Do();
             await registerOperation.CommitAsync();
 

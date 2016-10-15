@@ -69,7 +69,16 @@ namespace AuthorityIdentity.IntegrationTests.Common
             string username = RandomData.RandomString();
             password = string.IsNullOrEmpty(password) ? RandomData.RandomString(12, true) : password;
 
-            RegisterUser operation = new RegisterUser(context, domainId, email, username, password);
+            RegisterUserModel model = new RegisterUserModel
+            {
+                DomainId = domainId,
+                Email = email,
+                Username = username,
+                Password = password,
+                NeedToActivate = false
+            };
+
+            RegisterUser operation = new RegisterUser(context, model);
             User user = await operation.Do();
             await operation.CommitAsync();
 

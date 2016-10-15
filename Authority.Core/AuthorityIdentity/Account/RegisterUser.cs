@@ -10,39 +10,47 @@ using AuthorityIdentity.EntityFramework;
 
 namespace AuthorityIdentity.Account
 {
+    public sealed class RegisterUserModel
+    {
+        public Guid DomainId { get; set; }
+        public string Email { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public bool NeedToActivate { get; set; }
+
+        public bool IsValid()
+        {
+            return DomainId != Guid.Empty && 
+                    !string.IsNullOrEmpty(Email) && 
+                    !string.IsNullOrEmpty(Username) &&
+                    !string.IsNullOrEmpty(Password);
+        }
+    }
+
     public sealed class RegisterUser : OperationWithReturnValueAsync<User>
     {
-        private readonly Guid _domainId;
-        private readonly string _email;
-        private readonly string _username;
-        private readonly string _password;
-        private readonly bool _needToActivate;
+        private readonly RegisterUserModel _model;
         private readonly PasswordService _passwordService;
         private User _user;
 
-        public RegisterUser(IAuthorityContext authorityContext, 
-            Guid domainId, string email, string username, string password, bool needToActivate = true)
+        public RegisterUser(IAuthorityContext authorityContext, RegisterUserModel model)
             : base(authorityContext)
         {
-            _domainId = domainId;
-            _email = email;
-            _username = username;
-            _password = password;
-            _needToActivate = needToActivate;
+            _model = model;
             _passwordService = new PasswordService();
         }
 
         private async Task<bool> IsUserExist()
         {
             User user = await Context.Users
-                .FirstOrDefaultAsync(u => u.Email == _email && u.DomainId == _domainId);
+                .FirstOrDefaultAsync(u => u.Email == _model.Email && u.DomainId == _model.DomainId);
             return user == null;
         }
 
         private async Task<bool> IsUsernameAvailable()
         {
             User user = await Context.Users
-                .FirstOrDefaultAsync(p => p.Username == _username && p.DomainId == _domainId);
+                .FirstOrDefaultAsync(p => p.Username == _model.Username && p.DomainId == _model.DomainId);
             return user == null;
         }
 
@@ -52,14 +60,14 @@ namespace AuthorityIdentity.Account
             {
                 Authority.Observers.ForEach(o => o.OnRegistering(new RegistrationInfo
                 {
-                    Email = _email, DomainId = _domainId, Username = _username
+                    Email = _model.Email, DomainId = _model.DomainId, Username = _model.Username
                 }));
             }
 
             IPasswordValidator passwordValidator;
-            if (Authority.PasswordValidators.TryGetValue(_domainId, out passwordValidator))
+            if (Authority.PasswordValidators.TryGetValue(_model.DomainId, out passwordValidator))
             {
-                Require(() => passwordValidator.Validate(_password), ErrorCodes.PasswordInvalid);
+                Require(() => passwordValidator.Validate(_model.Password), ErrorCodes.PasswordInvalid);
             }
 
             await Require(() => IsUserExist(), ErrorCodes.EmailAlreadyExists);
@@ -68,22 +76,22 @@ namespace AuthorityIdentity.Account
             Domain domain = await Context.Domains
                 .Include(d => d.Groups)
                 .Include(d => d.Policies)
-                .FirstOrDefaultAsync(d => d.Id == _domainId);
+                .FirstOrDefaultAsync(d => d.Id == _model.DomainId);
 
-            byte[] passwordBytes = Encoding.UTF8.GetBytes(_password);
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(_model.Password);
             byte[] saltBytes = _passwordService.CreateSalt();
             byte[] hashBytes = _passwordService.CreateHash(passwordBytes, saltBytes);
 
             _user = new User
             {
                 DomainId = domain.Id,
-                Email = _email,
-                Username = _username,
+                Email = _model.Email,
+                Username = _model.Username,
                 LastLogin = DateTimeOffset.MinValue,
                 Salt = Convert.ToBase64String(saltBytes),
                 PasswordHash = Convert.ToBase64String(hashBytes),
-                IsPending = _needToActivate,
-                PendingRegistrationId = _needToActivate ? Guid.NewGuid() : Guid.Empty,
+                IsPending = _model.NeedToActivate,
+                PendingRegistrationId = _model.NeedToActivate ? Guid.NewGuid() : Guid.Empty,
                 IsActive = true,
                 IsExternal = false,
                 IsTwoFactorEnabled = false,
@@ -120,7 +128,7 @@ namespace AuthorityIdentity.Account
                 Authority.Observers.ForEach(o => o.OnRegistered(_user));
             }
 
-            if (Authority.EmailService != null && _needToActivate)
+            if (Authority.EmailService != null && _model.NeedToActivate)
             {
                 Authority.EmailService.SendUserActivationEmail(_user.Email, _user.PendingRegistrationId);
             }
@@ -135,7 +143,7 @@ namespace AuthorityIdentity.Account
                 Authority.Observers.ForEach(o => o.OnRegistered(_user));
             }
 
-            if (Authority.EmailService != null && _needToActivate)
+            if (Authority.EmailService != null && _model.NeedToActivate)
             {
                 await Authority.EmailService.SendUserActivationEmailAsync(_user.Email, _user.PendingRegistrationId);
             }
