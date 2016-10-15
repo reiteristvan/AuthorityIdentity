@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Authority.IntegrationTests;
 using AuthorityIdentity.Configuration;
 using AuthorityIdentity.Observers;
 using AuthorityIdentity.DomainModel;
@@ -16,7 +17,10 @@ namespace AuthorityIdentity.IntegrationTests
             {
                 DomainMode = DomainMode.Multi,
                 Logger = new TestLogger(),
-                Observers = new List<IAccountObserver> {  new LoggingObserver() }
+                Observers = new List<IAccountObserver> {  new LoggingObserver() },
+                TwoFactorAuthenticationEnabled = true,
+                TwoFactorMode = TwoFactorMode.Optional,
+                TwoFactorService = new TestTwoFactorService()
             };
 
             Authority.Init(configuration);

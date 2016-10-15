@@ -3,6 +3,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AuthorityIdentity.Configuration;
 using AuthorityIdentity.Extensions;
 using AuthorityIdentity.Observers;
 using AuthorityIdentity.Security;
@@ -59,6 +60,30 @@ namespace AuthorityIdentity.Account
                 return result;
             }
 
+            if (Authority.IsTwoFactorEnabled)
+            {
+                result.WaitForTwoFactor = true;
+
+                if (Authority.TwoFactorMode == TwoFactorMode.Strict)
+                {
+                    if (!_user.IsTwoFactorEnabled)
+                    {
+                        throw new RequirementFailedException(
+                            ErrorCodes.TwoFactorNotEnabled,
+                            "User does not have 2FA configured");
+                    }
+                }
+
+                // With Optional mode we should check this, with Strict mode it will be true anyway
+                if (_user.IsTwoFactorEnabled)
+                {
+                    string twoFactorToken = Authority.TwoFactorService.GenerateToken();
+                    _user.TwoFactorToken = twoFactorToken;
+
+                    Authority.TwoFactorService.SendToken(_user.TwoFactorType, _user.TwoFactorTarget, twoFactorToken);
+                }
+            }
+
             byte[] passwordBytes = Encoding.UTF8.GetBytes(_password);
             byte[] saltBytes = Convert.FromBase64String(_user.Salt);
             byte[] hashBytes = _passwordService.CreateHash(passwordBytes, saltBytes);
@@ -69,6 +94,7 @@ namespace AuthorityIdentity.Account
                 return result;
             }
 
+            result.UserId = _user.Id;
             result.Email = _email;
             result.Username = _user.Username;
             result.LastLogin = _user.LastLogin;

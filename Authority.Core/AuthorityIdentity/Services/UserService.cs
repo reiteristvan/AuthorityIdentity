@@ -23,6 +23,7 @@ namespace AuthorityIdentity.Services
         Guid Invite(string email, DateTimeOffset? expireOn = null, Guid domainId = new Guid());
         Task FinalizeInvitation(Guid invitationCode, string username, string password);
         Task AddTwoFactorAuthentication(Guid userId, TwoFactorType type, string target);
+        Task<bool> FinalizeTwoFactorAuthentication(Guid userId, string token);
     }
 
     public sealed class UserService : IUserService
@@ -198,6 +199,23 @@ namespace AuthorityIdentity.Services
             AddTwoFactorAuthenticationToUser addTwoFactor = new AddTwoFactorAuthenticationToUser(context, model);
             await addTwoFactor.Do();
             await addTwoFactor.CommitAsync();
+        }
+
+        /// <summary>
+        /// Finalize the login process with 2FA enabled. If it is failed the whole process should be started from the beginning.
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="token">2FA token sent to the user</param>
+        /// <returns>2FA authentication was successfull or not</returns>
+        public async Task<bool> FinalizeTwoFactorAuthentication(Guid userId, string token)
+        {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            FinalizeTwoFactorAuthentication finalize = new FinalizeTwoFactorAuthentication(context, userId, token);
+            bool result = await finalize.Do();
+            await finalize.CommitAsync();
+
+            return result;
         }
     }
 }

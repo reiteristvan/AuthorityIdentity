@@ -31,5 +31,8 @@
         // Policies
         public const int DefaultPolicyAlreadyExists = 5002;
         public const int PolicyNotFound = 5003;
+
+        // 2FA
+        public const int TwoFactorNotEnabled = 6001;
     }
 }

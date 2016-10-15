@@ -55,6 +55,7 @@
     <Compile Include="Account\BulkUserRegistration.cs" />
     <Compile Include="Account\DeleteUser.cs" />
     <Compile Include="Account\FinalizeInvitation.cs" />
+    <Compile Include="Account\FinalizeTwoFactorAuthentication.cs" />
     <Compile Include="Account\InviteUser.cs" />
     <Compile Include="Account\LoginResult.cs" />
     <Compile Include="Account\SetUserStatus.cs" />
