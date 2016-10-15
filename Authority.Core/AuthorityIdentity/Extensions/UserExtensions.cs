@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using AuthorityIdentity.DomainModel;
 
 namespace AuthorityIdentity.Extensions
@@ -107,6 +108,27 @@ namespace AuthorityIdentity.Extensions
         private static List<AuthorityClaim> IntersectStrategy(List<AuthorityClaim> owned, List<AuthorityClaim> inherited)
         {
             return inherited.Intersect(owned).ToList();
+        }
+
+        /// <summary>
+        /// Create a ClaimsPrincipal instance from a User instance
+        /// </summary>
+        /// <param name="user">User instance</param>
+        /// <param name="authorityClaims">List of claims which from the ClaimsPrincipal builds up. 
+        /// Use the Effective/OwnedClaims functions to get the list</param>
+        /// <returns>Returns a ClaimsPrincipal instance</returns>
+        public static ClaimsPrincipal ToPrincipal(this User user, List<AuthorityClaim> authorityClaims)
+        {
+            List<Claim> claims = new List<Claim>();
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
+
+            foreach (AuthorityClaim authorityClaim in authorityClaims)
+            {
+                claims.Add(new Claim(authorityClaim.Type, authorityClaim.Value, null, authorityClaim.Issuer));
+            }
+
+            ClaimsIdentity identity = new ClaimsIdentity(claims);
+            return new ClaimsPrincipal(identity);
         }
     }
 }
