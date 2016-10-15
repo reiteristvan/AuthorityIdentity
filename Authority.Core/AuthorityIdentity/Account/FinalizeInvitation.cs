@@ -75,7 +75,11 @@ namespace AuthorityIdentity.Account
                 IsPending = false,
                 PendingRegistrationId = Guid.Empty,
                 IsActive = true,
-                IsExternal = false
+                IsExternal = false,
+                IsTwoFactorEnabled = false,
+                TwoFactorToken = "",
+                TwoFactorType = TwoFactorType.Other,
+                TwoFactorTarget = ""
             };
 
             Context.Users.Add(_user);
