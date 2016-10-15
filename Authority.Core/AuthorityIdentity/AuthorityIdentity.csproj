@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\AddTwoFactorAuthenticationToUser.cs" />
     <Compile Include="Account\BulkUserRegistration.cs" />
     <Compile Include="Account\DeleteUser.cs" />
     <Compile Include="Account\FinalizeInvitation.cs" />

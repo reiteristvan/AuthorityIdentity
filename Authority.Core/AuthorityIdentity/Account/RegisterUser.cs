@@ -17,14 +17,6 @@ namespace AuthorityIdentity.Account
         public string Username { get; set; }
         public string Password { get; set; }
         public bool NeedToActivate { get; set; }
-
-        public bool IsValid()
-        {
-            return DomainId != Guid.Empty && 
-                    !string.IsNullOrEmpty(Email) && 
-                    !string.IsNullOrEmpty(Username) &&
-                    !string.IsNullOrEmpty(Password);
-        }
     }
 
     public sealed class RegisterUser : OperationWithReturnValueAsync<User>

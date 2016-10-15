@@ -22,6 +22,7 @@ namespace AuthorityIdentity.Services
         Task BulkRegistration(List<BulkRegistrationData> registrationData, bool shouldActivate = false);
         Guid Invite(string email, DateTimeOffset? expireOn = null, Guid domainId = new Guid());
         Task FinalizeInvitation(Guid invitationCode, string username, string password);
+        Task AddTwoFactorAuthentication(Guid userId, TwoFactorType type, string target);
     }
 
     public sealed class UserService : IUserService
@@ -174,6 +175,29 @@ namespace AuthorityIdentity.Services
             FinalizeInvitation finalizeInvitation = new FinalizeInvitation(context, invitationCode, username, password);
             await finalizeInvitation.Do();
             await finalizeInvitation.CommitAsync();
+        }
+
+        /// <summary>
+        /// Enable two factor authentication for the user
+        /// </summary>
+        /// <param name="userId">Id of the user</param>
+        /// <param name="type">The type of 2FA (email, app, text, etc...)</param>
+        /// <param name="target">Information how or where to send the 2FA code (phone number, email address, etc...)</param>
+        /// <returns></returns>
+        public async Task AddTwoFactorAuthentication(Guid userId, TwoFactorType type, string target)
+        {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            AddTwoFactorAuthenticationModel model = new AddTwoFactorAuthenticationModel
+            {
+                UserId = userId,
+                TwoFactorType = type,
+                TwoFactorTarget = target
+            };
+
+            AddTwoFactorAuthenticationToUser addTwoFactor = new AddTwoFactorAuthenticationToUser(context, model);
+            await addTwoFactor.Do();
+            await addTwoFactor.CommitAsync();
         }
     }
 }
