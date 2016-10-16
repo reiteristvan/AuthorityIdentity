@@ -104,6 +104,7 @@
     <Compile Include="Services\ClaimService.cs" />
     <Compile Include="Services\Common.cs" />
     <Compile Include="Services\DomainService.cs" />
+    <Compile Include="Services\GroupService.cs" />
     <Compile Include="Services\PolicyService.cs" />
     <Compile Include="Services\UserService.cs" />
     <Compile Include="SqlOperation.cs" />

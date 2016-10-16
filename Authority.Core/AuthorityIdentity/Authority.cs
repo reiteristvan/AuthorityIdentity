@@ -21,6 +21,7 @@ namespace AuthorityIdentity
         public static IDomainService Domains { get; internal set; }
         public static IPolicyService Policies { get; internal set; }
         public static IClaimService Claims { get; internal set; }
+        public static IGroupService Groups { get; internal set; }
 
         public static IAuthorityLogger Logger { get; internal set; }
 
@@ -54,6 +55,7 @@ namespace AuthorityIdentity
                 Domains = new DomainService();
                 Policies = new PolicyService();
                 Claims = new ClaimService();
+                Groups = new GroupService();
 
                 Logger = configuration.Logger;
                 PasswordValidators = configuration.PasswordValidators ?? new Dictionary<Guid, IPasswordValidator>();
@@ -93,6 +95,11 @@ namespace AuthorityIdentity
             }
 
             Guid domainId = Domains.Create(DomainService.MasterDomainName).Result;
+
+            if (Logger != null)
+            {
+                Logger.Info(string.Format("Master domain created {0}", domainId));
+            }
         }
     }
 }
