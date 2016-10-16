@@ -15,7 +15,6 @@ namespace AuthorityIdentity.DomainModel
 
         public Guid DomainId { get; set; }
         public string Name { get; set; }
-        public bool IsActive { get; set; }
         public bool Default { get; set; }
 
         public ICollection<User> Users { get; set; }

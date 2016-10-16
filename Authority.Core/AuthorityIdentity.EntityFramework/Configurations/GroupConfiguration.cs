@@ -14,7 +14,6 @@ namespace AuthorityIdentity.EntityFramework.Configurations
             Property(g => g.DomainId).IsRequired();
             Property(g => g.Name).IsRequired().HasMaxLength(256);
             Property(g => g.Default).IsRequired();
-            Property(g => g.IsActive).IsRequired();
 
             HasMany(g => g.Users);
             HasMany(g => g.Policies).WithMany(p => p.Groups);

@@ -45,7 +45,6 @@ namespace AuthorityIdentity.Groups
             Group group = new Group
             {
                 DomainId = domain.Id,
-                IsActive = true,
                 Name = _name,
                 Default = _defaultGroup
             };

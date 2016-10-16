@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201610081409128_TwoFactorAddedStep2.Designer.cs">
       <DependentUpon>201610081409128_TwoFactorAddedStep2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610161355137_RemoveIsActiveFromGroup.cs" />
+    <Compile Include="Migrations\201610161355137_RemoveIsActiveFromGroup.Designer.cs">
+      <DependentUpon>201610161355137_RemoveIsActiveFromGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -172,6 +176,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610081409128_TwoFactorAddedStep2.resx">
       <DependentUpon>201610081409128_TwoFactorAddedStep2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610161355137_RemoveIsActiveFromGroup.resx">
+      <DependentUpon>201610161355137_RemoveIsActiveFromGroup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
