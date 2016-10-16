@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AuthorityIdentity.DomainModel;
 using AuthorityIdentity.EntityFramework;
@@ -9,7 +10,7 @@ namespace AuthorityIdentity.Services
 {
     public interface IGroupService
     {
-        Task<Group> Create(string name, bool defaultGroup = false, Guid domainId = new Guid());
+        Task<Group> Create(string name, IEnumerable<User> userList, bool defaultGroup = false, bool replaceDefault = false, Guid domainId = new Guid());
         Task Delete(Guid groupId);
         Task AddPolicy(Guid groupId, Guid policyId);
         Task RemovePolicy(Guid groupId, Guid policyId);
@@ -23,14 +24,16 @@ namespace AuthorityIdentity.Services
         /// Create a new Group
         /// </summary>
         /// <param name="name">Name of the group</param>
+        /// <param name="userList">Users whom assigned to the group after creation</param>
         /// <param name="defaultGroup">Is the group should be default (automatically assigned to new users)</param>
+        /// <param name="replaceDefault">Should the new Group replace the default Group</param>
         /// <param name="domainId">The Id of the domain the group is in. Leave default value with Single domain settings.</param>
         /// <returns>The new Group instance</returns>
-        public async Task<Group> Create(string name, bool defaultGroup = false, Guid domainId = new Guid())
+        public async Task<Group> Create(string name, IEnumerable<User> userList, bool defaultGroup = false, bool replaceDefault = false, Guid domainId = new Guid())
         {
             IAuthorityContext context = AuthorityContextProvider.Create();
 
-            CreateGroup create = new CreateGroup(context, domainId, name, defaultGroup);
+            CreateGroup create = new CreateGroup(context, domainId, name, defaultGroup, replaceDefault, userList.ToList());
             Group result = await create.Do();
             await create.CommitAsync();
 
