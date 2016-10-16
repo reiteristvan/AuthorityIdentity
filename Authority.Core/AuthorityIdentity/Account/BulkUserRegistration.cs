@@ -15,6 +15,7 @@ namespace AuthorityIdentity.Account
         public string Email { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public bool TwoFactorEnabled { get; set; }
     }
 
 
@@ -27,9 +28,9 @@ namespace AuthorityIdentity.Account
     public sealed class BulkUserRegistration : SqlOperation
     {
         private const string InsertSql = @"insert into Authority.Users 
-                (DomainId, Email, Username, PasswordHash, Salt, IsPending, PendingRegistrationId, IsActive, Id, IsExternal) 
+                (DomainId, Email, Username, PasswordHash, Salt, IsPending, PendingRegistrationId, IsActive, Id, IsExternal, IsTwoFactorEnabled, TwoFactorToken, TwoFactorType, TwoFactorTarget) 
                 values 
-                ('{0}', '{1}', '{2}', '{3}', '{4}', {5}, '{6}', {7}, '{8}', 0)";
+                ('{0}', '{1}', '{2}', '{3}', '{4}', {5}, '{6}', {7}, '{8}', 0, '{9}', '', 1, '')";
 
         private readonly List<BulkRegistrationData> _registrationData;
         private readonly bool _shouldActivate;
@@ -78,7 +79,8 @@ namespace AuthorityIdentity.Account
                         _shouldActivate ? 0 : 1,
                         _shouldActivate ? Guid.NewGuid() : Guid.Empty,
                         1,
-                        Guid.NewGuid());
+                        Guid.NewGuid(),
+                        user.TwoFactorEnabled);
 
                     sqlBuilder.AppendLine(insert);
                 }

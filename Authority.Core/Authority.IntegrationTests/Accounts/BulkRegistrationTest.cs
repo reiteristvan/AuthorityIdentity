@@ -21,7 +21,8 @@ namespace AuthorityIdentity.IntegrationTests.Accounts
                         DomainId = testContext.Domain.Id,
                         Email = RandomData.Email(),
                         Password = RandomData.RandomString(12, true),
-                        Username = RandomData.RandomString()
+                        Username = RandomData.RandomString(),
+                        TwoFactorEnabled = false
                     };
 
                     registrationDataList.Add(registrationData);
