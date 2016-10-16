@@ -14,6 +14,7 @@ namespace AuthorityIdentity.Services
         List<User> All(Guid domainId = new Guid());
         Task<User> FindByEmail(string email, Guid domainId = new Guid());
         Task<User> FindById(Guid id);
+        IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false);
         Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
         Task Activate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
@@ -79,7 +80,27 @@ namespace AuthorityIdentity.Services
             return user;
         }
 
-        public async Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
+        public IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false)
+        {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            DbSet<User> users = context.Users;
+
+            if (includeDetails)
+            {
+                users
+                .Include(u => u.Groups)
+                .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
+                .Include(u => u.Policies)
+                .Include(u => u.Policies.Select(p => p.Claims));
+            }
+
+            IEnumerable<User> result = users.Where(predicate);
+
+            return result;
+        }
+
+    public async Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
