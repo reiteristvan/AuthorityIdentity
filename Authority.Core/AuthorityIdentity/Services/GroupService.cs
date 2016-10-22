@@ -33,6 +33,11 @@ namespace AuthorityIdentity.Services
         {
             IAuthorityContext context = AuthorityContextProvider.Create();
 
+            if (domainId == Guid.Empty)
+            {
+                domainId = Common.GetDomainId();
+            }
+
             CreateGroup create = new CreateGroup(context, domainId, name, defaultGroup, replaceDefault, userList.ToList());
             Group result = await create.Do();
             await create.CommitAsync();
