@@ -14,7 +14,7 @@ namespace AuthorityIdentity.Services
         List<User> All(Guid domainId = new Guid());
         Task<User> FindByEmail(string email, Guid domainId = new Guid());
         Task<User> FindById(Guid id);
-        IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false);
+        IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false, Guid domainId = new Guid());
         Task<User> Register(string email, string username, string password, bool needToActivate = false, string metadata = "", Guid domainId = new Guid());
         Task Activate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
@@ -31,6 +31,13 @@ namespace AuthorityIdentity.Services
 
     public sealed class UserService : IUserService
     {
+        /// <summary>
+        /// List all the users within the domain identified by the domainId parameter. 
+        /// Use with default values in Single domain environment.
+        /// This call does not return detailed user entities.
+        /// </summary>
+        /// <param name="domainId">Id of the domain. With default value the function will use the first domain it find.</param>
+        /// <returns>List of users</returns>
         public List<User> All(Guid domainId = new Guid())
         {
             if (domainId == Guid.Empty)
@@ -44,6 +51,14 @@ namespace AuthorityIdentity.Services
             return users;
         }
 
+        /// <summary>
+        /// Find a user by email address within the domain identified by the domainId parameter.
+        /// This call will return detailed user entities.
+        /// Use default domainId value in Single Domain environment.
+        /// </summary>
+        /// <param name="email">Email address of a user</param>
+        /// <param name="domainId">Id of a domain. With default value the function will use the first domain it find.</param>
+        /// <returns>A detailed user entity.</returns>
         public async Task<User> FindByEmail(string email, Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email))
@@ -69,6 +84,11 @@ namespace AuthorityIdentity.Services
             return user;
         }
 
+        /// <summary>
+        /// Find a user by its id. This call return detailed user entities.
+        /// </summary>
+        /// <param name="id">Id of the user.</param>
+        /// <returns>A detailed user entity.</returns>
         public async Task<User> FindById(Guid id)
         {
             IAuthorityContext context = AuthorityContextProvider.Create();
@@ -84,9 +104,21 @@ namespace AuthorityIdentity.Services
             return user;
         }
 
-        public IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false)
+        /// <summary>
+        /// Find a user by a condition inside a given domain. Use default domainId value i na Single domain environment.
+        /// </summary>
+        /// <param name="predicate">Condition for finding a user.</param>
+        /// <param name="includeDetails">Should the return include details.</param>
+        /// <param name="domainId">Id of the domain where the search should happen.</param>
+        /// <returns>A user entity.</returns>
+        public IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false, Guid domainId = new Guid())
         {
             IAuthorityContext context = AuthorityContextProvider.Create();
+
+            if (domainId == Guid.Empty)
+            {
+                domainId = Common.GetDomainId();
+            }
 
             DbSet<User> users = context.Users;
 
@@ -100,12 +132,13 @@ namespace AuthorityIdentity.Services
                     .Include(u => u.Metadata);
             }
 
-            IEnumerable<User> result = users.Where(predicate);
+            IEnumerable<User> result = users
+                .Where(u => u.DomainId == domainId && predicate(u));
 
             return result;
         }
 
-    public async Task<User> Register(string email, string username, string password, bool needToActivate = false, string metadata = "", Guid domainId = new Guid())
+        public async Task<User> Register(string email, string username, string password, bool needToActivate = false, string metadata = "", Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
