@@ -15,7 +15,7 @@ namespace AuthorityIdentity.Services
         Task<User> FindByEmail(string email, Guid domainId = new Guid());
         Task<User> FindById(Guid id);
         IEnumerable<User> Find(Func<User, bool> predicate, bool includeDetails = false);
-        Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid());
+        Task<User> Register(string email, string username, string password, bool needToActivate = false, string metadata = "", Guid domainId = new Guid());
         Task Activate(Guid activationCode);
         Task<LoginResult> Login(string email, string password, Guid domainId = new Guid());
         Task Delete(Guid userId);
@@ -63,6 +63,7 @@ namespace AuthorityIdentity.Services
                 .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
+                .Include(u => u.Metadata)
                 .FirstOrDefaultAsync(u => u.Email == email && u.DomainId == domainId);
 
             return user;
@@ -77,6 +78,7 @@ namespace AuthorityIdentity.Services
                 .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
+                .Include(u => u.Metadata)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
@@ -91,10 +93,11 @@ namespace AuthorityIdentity.Services
             if (includeDetails)
             {
                 users
-                .Include(u => u.Groups)
-                .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
-                .Include(u => u.Policies)
-                .Include(u => u.Policies.Select(p => p.Claims));
+                    .Include(u => u.Groups)
+                    .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
+                    .Include(u => u.Policies)
+                    .Include(u => u.Policies.Select(p => p.Claims))
+                    .Include(u => u.Metadata);
             }
 
             IEnumerable<User> result = users.Where(predicate);
@@ -102,7 +105,7 @@ namespace AuthorityIdentity.Services
             return result;
         }
 
-    public async Task<User> Register(string email, string username, string password, bool needToActivate = false, Guid domainId = new Guid())
+    public async Task<User> Register(string email, string username, string password, bool needToActivate = false, string metadata = "", Guid domainId = new Guid())
         {
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
@@ -121,7 +124,8 @@ namespace AuthorityIdentity.Services
                 Email = email,
                 Username = username,
                 Password = password,
-                NeedToActivate = needToActivate
+                NeedToActivate = needToActivate,
+                Metadata = metadata
             };
 
             RegisterUser registerOperation = new RegisterUser(context, model);
