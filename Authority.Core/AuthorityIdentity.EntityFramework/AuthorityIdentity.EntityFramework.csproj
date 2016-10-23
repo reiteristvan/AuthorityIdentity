@@ -53,6 +53,7 @@
     <Compile Include="Configurations\AuthorityClaimConfiguration.cs" />
     <Compile Include="Configurations\GroupConfiguration.cs" />
     <Compile Include="Configurations\InviteConfiguration.cs" />
+    <Compile Include="Configurations\MetadataConfiguration.cs" />
     <Compile Include="Configurations\PolicyConfiguration.cs" />
     <Compile Include="Configurations\DomainConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
@@ -118,6 +119,10 @@
     <Compile Include="Migrations\201610161355137_RemoveIsActiveFromGroup.Designer.cs">
       <DependentUpon>201610161355137_RemoveIsActiveFromGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610220908023_AddMetadataToUser.cs" />
+    <Compile Include="Migrations\201610220908023_AddMetadataToUser.Designer.cs">
+      <DependentUpon>201610220908023_AddMetadataToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -179,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610161355137_RemoveIsActiveFromGroup.resx">
       <DependentUpon>201610161355137_RemoveIsActiveFromGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610220908023_AddMetadataToUser.resx">
+      <DependentUpon>201610220908023_AddMetadataToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

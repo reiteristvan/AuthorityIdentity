@@ -17,6 +17,7 @@ namespace AuthorityIdentity.Account
         public string Username { get; set; }
         public string Password { get; set; }
         public bool NeedToActivate { get; set; }
+        public string Metadata { get; set; }
     }
 
     public sealed class RegisterUser : OperationWithReturnValueAsync<User>
@@ -92,7 +93,14 @@ namespace AuthorityIdentity.Account
                 TwoFactorTarget = ""
             };
 
+            Metadata metaData = new Metadata(_user.Id)
+            {
+                Data = _model.Metadata ?? ""
+            };
+
             Context.Users.Add(_user);
+            _user.Metadata = metaData;
+            Context.Metadata.Add(metaData);
 
             Policy defaultPolicy = domain.Policies.FirstOrDefault(p => p.Default);
 

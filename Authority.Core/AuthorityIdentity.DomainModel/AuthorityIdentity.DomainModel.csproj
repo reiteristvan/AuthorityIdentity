@@ -44,6 +44,7 @@
     <Compile Include="EntityBase.cs" />
     <Compile Include="Group.cs" />
     <Compile Include="Invite.cs" />
+    <Compile Include="Metadata.cs" />
     <Compile Include="Policy.cs" />
     <Compile Include="Domain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

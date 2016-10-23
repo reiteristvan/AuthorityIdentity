@@ -25,6 +25,8 @@ namespace AuthorityIdentity.Services
         Task FinalizeInvitation(Guid invitationCode, string username, string password);
         Task AddTwoFactorAuthentication(Guid userId, TwoFactorType type, string target);
         Task<bool> FinalizeTwoFactorAuthentication(Guid userId, string token);
+        Task<string> GetMetadata(Guid userId);
+        Task SetMetadata(Guid userId, string metadata);
     }
 
     public sealed class UserService : IUserService
@@ -237,6 +239,23 @@ namespace AuthorityIdentity.Services
             await finalize.CommitAsync();
 
             return result;
+        }
+
+        public async Task SetMetadata(Guid userId, string metadata)
+        {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            SetMetadata setMetadata = new SetMetadata(context, userId, metadata);
+            await setMetadata.Do();
+            await setMetadata.CommitAsync();
+        }
+
+        public async Task<string> GetMetadata(Guid userId)
+        {
+            IAuthorityContext context = AuthorityContextProvider.Create();
+
+            Metadata metadata = await context.Metadata.FirstOrDefaultAsync(m => m.Id == userId);
+            return metadata.Data;
         }
     }
 }

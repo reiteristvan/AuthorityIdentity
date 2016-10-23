@@ -53,6 +53,8 @@ namespace AuthorityIdentity.DomainModel
 
         public string TwoFactorTarget { get; set; }
 
+        public Metadata Metadata { get; set; }
+
         public ICollection<Group> Groups { get; set; } 
         public ICollection<Policy> Policies { get; set; }
     }

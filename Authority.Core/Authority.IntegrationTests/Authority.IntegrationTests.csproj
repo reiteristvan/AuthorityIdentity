@@ -77,6 +77,7 @@
     <Compile Include="Accounts\DeleteTests.cs" />
     <Compile Include="Accounts\InvitationTests.cs" />
     <Compile Include="Accounts\LoginTests.cs" />
+    <Compile Include="Accounts\MetadataTests.cs" />
     <Compile Include="Accounts\RegistrationTests.cs" />
     <Compile Include="Accounts\TwoFactorTests.cs" />
     <Compile Include="Accounts\UserStatusTests.cs" />

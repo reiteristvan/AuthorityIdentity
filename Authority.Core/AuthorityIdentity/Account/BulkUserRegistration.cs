@@ -16,6 +16,7 @@ namespace AuthorityIdentity.Account
         public string Username { get; set; }
         public string Password { get; set; }
         public bool TwoFactorEnabled { get; set; }
+        public string Metadata { get; set; }
     }
 
 
@@ -31,6 +32,8 @@ namespace AuthorityIdentity.Account
                 (DomainId, Email, Username, PasswordHash, Salt, IsPending, PendingRegistrationId, IsActive, Id, IsExternal, IsTwoFactorEnabled, TwoFactorToken, TwoFactorType, TwoFactorTarget) 
                 values 
                 ('{0}', '{1}', '{2}', '{3}', '{4}', {5}, '{6}', {7}, '{8}', 0, '{9}', '', 1, '')";
+
+        private const string InsertMetadata = @"insert into Authority.Metadata (Id, Data) values ('{0}', '{1}')";
 
         private readonly List<BulkRegistrationData> _registrationData;
         private readonly bool _shouldActivate;
@@ -69,6 +72,8 @@ namespace AuthorityIdentity.Account
                     byte[] saltBytes = _passwordService.CreateSalt();
                     byte[] hashBytes = _passwordService.CreateHash(passwordBytes, saltBytes);
 
+                    Guid userId = Guid.NewGuid();
+
                     string insert = string.Format(
                         InsertSql,
                         user.DomainId,
@@ -79,10 +84,13 @@ namespace AuthorityIdentity.Account
                         _shouldActivate ? 0 : 1,
                         _shouldActivate ? Guid.NewGuid() : Guid.Empty,
                         1,
-                        Guid.NewGuid(),
+                        userId,
                         user.TwoFactorEnabled);
 
+                    string insertMetadataSql = string.Format(InsertMetadata, userId, user.Metadata);
+
                     sqlBuilder.AppendLine(insert);
+                    sqlBuilder.AppendLine(insertMetadataSql);
                 }
 
                 //sw.Stop();

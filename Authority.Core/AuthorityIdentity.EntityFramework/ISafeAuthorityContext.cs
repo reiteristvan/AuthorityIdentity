@@ -13,6 +13,7 @@ namespace AuthorityIdentity.EntityFramework
         DbSet<Policy> Policies { get; set; }
         DbSet<Invite> Invites { get; set; }
         DbSet<Group> Groups { get; set; }
+        DbSet<Metadata> Metadata { get; set; }
         Database Database { get; }
         DbChangeTracker ChangeTracker { get; }
         DbContextConfiguration Configuration { get; }

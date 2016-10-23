@@ -58,6 +58,7 @@
     <Compile Include="Account\FinalizeTwoFactorAuthentication.cs" />
     <Compile Include="Account\InviteUser.cs" />
     <Compile Include="Account\LoginResult.cs" />
+    <Compile Include="Account\SetMetadata.cs" />
     <Compile Include="Account\SetUserStatus.cs" />
     <Compile Include="Account\ActivateUser.cs" />
     <Compile Include="Account\LoginUser.cs" />

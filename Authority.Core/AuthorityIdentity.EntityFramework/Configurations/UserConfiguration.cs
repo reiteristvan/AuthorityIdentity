@@ -31,6 +31,8 @@ namespace AuthorityIdentity.EntityFramework.Configurations
             Property(u => u.TwoFactorType).IsRequired();
             Property(u => u.TwoFactorTarget).IsRequired();
 
+            HasRequired(u => u.Metadata);
+
             HasMany(u => u.Groups).WithMany(g => g.Users);
             HasMany(u => u.Policies).WithMany(p => p.Users);
         }

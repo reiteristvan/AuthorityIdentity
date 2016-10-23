@@ -4,9 +4,9 @@ namespace AuthorityIdentity.DomainModel
 {
     public abstract class EntityBase
     {
-        protected EntityBase()
+        protected EntityBase(Guid id = new Guid())
         {
-            Id = Guid.NewGuid();
+            Id = id == Guid.Empty ? Guid.NewGuid() : id;
         }
 
         public Guid Id { get; protected set; }
