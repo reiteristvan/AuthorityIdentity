@@ -32,7 +32,8 @@ namespace AuthorityIdentity.Configuration
                     Observers = new List<IAccountObserver> {  new LoggingObserver() },
                     TwoFactorAuthenticationEnabled = false,
                     TwoFactorMode = TwoFactorMode.Optional,
-                    TwoFactorService = null
+                    TwoFactorService = null,
+                    ExternalIdentityProviders = new List<ExternalIdentityProvider>()
                 };
             }
         }
@@ -40,6 +41,7 @@ namespace AuthorityIdentity.Configuration
         public DomainMode DomainMode { get; set; }
 
         public IAuthorityLogger Logger { get; set; }
+        public List<ExternalIdentityProvider> ExternalIdentityProviders { get; set; } 
         public Dictionary<Guid, IPasswordValidator> PasswordValidators { get; set; }
         public IAuthorityEmailService EmailService { get; set; }
         public List<IAccountObserver> Observers { get; set; }

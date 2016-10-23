@@ -58,6 +58,7 @@
     <Compile Include="Account\FinalizeTwoFactorAuthentication.cs" />
     <Compile Include="Account\InviteUser.cs" />
     <Compile Include="Account\LoginResult.cs" />
+    <Compile Include="Account\RegisterExternalUser.cs" />
     <Compile Include="Account\SetMetadata.cs" />
     <Compile Include="Account\SetUserStatus.cs" />
     <Compile Include="Account\ActivateUser.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="ErrorCodes.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
     <Compile Include="Extensions\UserExtensions.cs" />
+    <Compile Include="ExternalIdentityProvider.cs" />
     <Compile Include="Groups\AddPolicyToGroup.cs" />
     <Compile Include="Groups\AddUsersToGroup.cs" />
     <Compile Include="Groups\CreateGroup.cs" />

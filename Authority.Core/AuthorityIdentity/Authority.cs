@@ -25,6 +25,7 @@ namespace AuthorityIdentity
 
         public static IAuthorityLogger Logger { get; internal set; }
 
+        public static List<ExternalIdentityProvider> ExternalIdentityProviders { get; internal set; } 
         public static Dictionary<Guid, IPasswordValidator> PasswordValidators { get; internal set; }
         public static IAuthorityEmailService EmailService { get; internal set; }
         public static List<IAccountObserver> Observers { get; internal set; }
@@ -57,6 +58,7 @@ namespace AuthorityIdentity
                 Claims = new ClaimService();
                 Groups = new GroupService();
 
+                ExternalIdentityProviders = new List<ExternalIdentityProvider>();
                 Logger = configuration.Logger;
                 PasswordValidators = configuration.PasswordValidators ?? new Dictionary<Guid, IPasswordValidator>();
                 Observers = configuration.Observers ?? new List<IAccountObserver>();
