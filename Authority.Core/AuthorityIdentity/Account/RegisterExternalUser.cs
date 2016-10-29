@@ -11,14 +11,16 @@ namespace AuthorityIdentity.Account
     {
         private readonly Guid _domainId;
         private readonly string _externalIdentityProviderName;
+        private readonly object _tokenParameter;
         private readonly ExternalIdentityProvider _externalIdentityProvider;
         private User _user;
 
-        public RegisterExternalUser(IAuthorityContext authorityContext, Guid domainId, string externalIdentityProviderName)
+        public RegisterExternalUser(IAuthorityContext authorityContext, Guid domainId, string externalIdentityProviderName, object tokenParameter)
             : base(authorityContext)
         {
             _domainId = domainId;
             _externalIdentityProviderName = externalIdentityProviderName;
+            _tokenParameter = tokenParameter;
             _externalIdentityProvider = Authority.ExternalIdentityProviders
                 .First(eip => eip.Name.Equals(externalIdentityProviderName, StringComparison.InvariantCultureIgnoreCase));
         }
@@ -39,7 +41,7 @@ namespace AuthorityIdentity.Account
 
         public override async Task<User> Do()
         {
-            _user = await _externalIdentityProvider.Register();
+            _user = await _externalIdentityProvider.Register(_tokenParameter);
             _user.ExternalProviderName = _externalIdentityProviderName;
             _user.IsExternal = true;
             _user.DomainId = _domainId;
