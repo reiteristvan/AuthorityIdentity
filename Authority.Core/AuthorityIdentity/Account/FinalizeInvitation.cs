@@ -97,6 +97,13 @@ namespace AuthorityIdentity.Account
             {
                 _user.Policies.Add(defaultPolicy);
             }
+
+            Group defaultGroup = domain.Groups.FirstOrDefault(g => g.Default);
+
+            if (defaultGroup != null)
+            {
+                _user.Groups.Add(defaultGroup);
+            }
         }
 
         public override void Commit()
