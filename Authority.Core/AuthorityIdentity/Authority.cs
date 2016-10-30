@@ -104,7 +104,7 @@ namespace AuthorityIdentity
             }
         }
 
-        public static void RegisterExternalIdentitylProvider(ExternalIdentityProvider provider)
+        public static void RegisterExternalIdentityProvider(ExternalIdentityProvider provider)
         {
             if (ExternalIdentityProviders.Any(p => p.Name == provider.Name))
             {
