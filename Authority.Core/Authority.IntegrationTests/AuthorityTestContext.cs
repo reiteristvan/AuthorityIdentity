@@ -24,6 +24,7 @@ namespace AuthorityIdentity.IntegrationTests
             };
 
             Authority.Init(configuration);
+            Authority.RegisterExternalIdentitylProvider(new TestExternalProvider());
         }
 
         public AuthorityTestContext()

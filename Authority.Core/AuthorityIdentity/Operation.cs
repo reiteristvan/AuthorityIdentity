@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
+using System.Data.Entity;
 using System.Threading.Tasks;
+using AuthorityIdentity.DomainModel;
 using AuthorityIdentity.EntityFramework;
 
 namespace AuthorityIdentity
@@ -44,6 +46,12 @@ namespace AuthorityIdentity
                 _authorityContext.RollbackTransaction();
                 throw new RequirementFailedException(errorCode);
             }
+        }
+
+        public void Update<T>(T entity)
+            where T : EntityBase
+        {
+            _authorityContext.Entry(entity).State = EntityState.Modified;
         }
 
         public virtual async Task CommitAsync()

@@ -103,5 +103,15 @@ namespace AuthorityIdentity
                 Logger.Info(string.Format("Master domain created {0}", domainId));
             }
         }
+
+        public static void RegisterExternalIdentitylProvider(ExternalIdentityProvider provider)
+        {
+            if (ExternalIdentityProviders.Any(p => p.Name == provider.Name))
+            {
+                throw new ArgumentException($"Provider with the name {provider.Name} already exists");
+            }
+
+            ExternalIdentityProviders.Add(provider);
+        }
     }
 }

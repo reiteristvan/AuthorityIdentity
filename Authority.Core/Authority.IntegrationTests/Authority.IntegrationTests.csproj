@@ -75,6 +75,7 @@
     <Compile Include="Accounts\ActivationTests.cs" />
     <Compile Include="Accounts\BulkRegistrationTest.cs" />
     <Compile Include="Accounts\DeleteTests.cs" />
+    <Compile Include="Accounts\ExternalUserTests.cs" />
     <Compile Include="Accounts\InvitationTests.cs" />
     <Compile Include="Accounts\LoginTests.cs" />
     <Compile Include="Accounts\MetadataTests.cs" />
@@ -108,6 +109,7 @@
     <Compile Include="Policies\RemoveUserFromPolicyTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RandomData.cs" />
+    <Compile Include="TestExternalProvider.cs" />
     <Compile Include="TestLogger.cs" />
     <Compile Include="TestTwoFactorService.cs" />
   </ItemGroup>
