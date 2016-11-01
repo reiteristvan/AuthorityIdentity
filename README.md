@@ -26,5 +26,5 @@ Groups are exists within Domains and can be assigned to Users. A Group itself do
 ### User
 
 Users are our main point of interest. In Authority users exists within a Domain uniquely identified by their email address. Beside that their username also unique too.
-All user has zero or more Groups and/or Policies and Users can own Claims too (the Claims the User own and the Claims that the User own through its Policies are the User's owned Claims). There are different strategies inside Authority to aquire the Claims of a User.
+All user has zero or more Groups and/or Policies(the Claims that the User own through its Policies are the User's owned Claims). There are different strategies inside Authority to aquire the Claims of a User combining Claims from owned ones and through Groups.
 Users can be converted to a ClaimsPrincipal instance through an extension method.
