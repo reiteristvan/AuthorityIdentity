@@ -30,7 +30,7 @@ namespace AuthorityIdentity.Domains
             }
 
             await Context.Database.ExecuteSqlCommandAsync(
-                "delete from dbo.UserGroups where User_DomainId = @DomainId",
+                "delete from Authority.UserGroups where User_DomainId = @DomainId",
                 new SqlParameter("@DomainId", domain.Id));
 
             await Context.Database.ExecuteSqlCommandAsync(
@@ -40,7 +40,7 @@ namespace AuthorityIdentity.Domains
             foreach (Policy policy in domain.Policies)
             {
                 await Context.Database.ExecuteSqlCommandAsync(
-                    "delete from dbo.PolicyAuthorityClaims where Policy_Id = @PolicyId",
+                    "delete from Authority.PolicyAuthorityClaims where Policy_Id = @PolicyId",
                     new SqlParameter("@PolicyId", policy.Id));
             }
 

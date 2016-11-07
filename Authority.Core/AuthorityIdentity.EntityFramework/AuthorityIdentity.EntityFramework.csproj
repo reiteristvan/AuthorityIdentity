@@ -59,69 +59,9 @@
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="IAuthorityContext.cs" />
     <Compile Include="ISafeAuthorityContext.cs" />
-    <Compile Include="Migrations\201606251250291_FreshStart.cs" />
-    <Compile Include="Migrations\201606251250291_FreshStart.Designer.cs">
-      <DependentUpon>201606251250291_FreshStart.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606261233374_UserLastLogin.cs" />
-    <Compile Include="Migrations\201606261233374_UserLastLogin.Designer.cs">
-      <DependentUpon>201606261233374_UserLastLogin.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs" />
-    <Compile Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.Designer.cs">
-      <DependentUpon>201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607101420048_UserInvite.cs" />
-    <Compile Include="Migrations\201607101420048_UserInvite.Designer.cs">
-      <DependentUpon>201607101420048_UserInvite.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607101422024_UserInviteCreatedAcceptedColumn.cs" />
-    <Compile Include="Migrations\201607101422024_UserInviteCreatedAcceptedColumn.Designer.cs">
-      <DependentUpon>201607101422024_UserInviteCreatedAcceptedColumn.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607160800482_AddedExpirationToInvitation.cs" />
-    <Compile Include="Migrations\201607160800482_AddedExpirationToInvitation.Designer.cs">
-      <DependentUpon>201607160800482_AddedExpirationToInvitation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607261620385_FixPolicyClaimRelationship.cs" />
-    <Compile Include="Migrations\201607261620385_FixPolicyClaimRelationship.Designer.cs">
-      <DependentUpon>201607261620385_FixPolicyClaimRelationship.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201607270724540_AddIndexToUserId.cs" />
-    <Compile Include="Migrations\201607270724540_AddIndexToUserId.Designer.cs">
-      <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608120754396_AddedTheConceptOfGroups.cs" />
-    <Compile Include="Migrations\201608120754396_AddedTheConceptOfGroups.Designer.cs">
-      <DependentUpon>201608120754396_AddedTheConceptOfGroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608120803439_GroupsHasPolicies.cs" />
-    <Compile Include="Migrations\201608120803439_GroupsHasPolicies.Designer.cs">
-      <DependentUpon>201608120803439_GroupsHasPolicies.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608120815414_DomainHasGroups.cs" />
-    <Compile Include="Migrations\201608120815414_DomainHasGroups.Designer.cs">
-      <DependentUpon>201608120815414_DomainHasGroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201608121628455_RemoveUserCountFromGroup.cs" />
-    <Compile Include="Migrations\201608121628455_RemoveUserCountFromGroup.Designer.cs">
-      <DependentUpon>201608121628455_RemoveUserCountFromGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610080903059_TwoFactorAdded.cs" />
-    <Compile Include="Migrations\201610080903059_TwoFactorAdded.Designer.cs">
-      <DependentUpon>201610080903059_TwoFactorAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610081409128_TwoFactorAddedStep2.cs" />
-    <Compile Include="Migrations\201610081409128_TwoFactorAddedStep2.Designer.cs">
-      <DependentUpon>201610081409128_TwoFactorAddedStep2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610161355137_RemoveIsActiveFromGroup.cs" />
-    <Compile Include="Migrations\201610161355137_RemoveIsActiveFromGroup.Designer.cs">
-      <DependentUpon>201610161355137_RemoveIsActiveFromGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610220908023_AddMetadataToUser.cs" />
-    <Compile Include="Migrations\201610220908023_AddMetadataToUser.Designer.cs">
-      <DependentUpon>201610220908023_AddMetadataToUser.cs</DependentUpon>
+    <Compile Include="Migrations\201611070046249_Initialize.cs" />
+    <Compile Include="Migrations\201611070046249_Initialize.Designer.cs">
+      <DependentUpon>201611070046249_Initialize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,53 +80,8 @@
     <Content Include="Migrations.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201606251250291_FreshStart.resx">
-      <DependentUpon>201606251250291_FreshStart.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606261233374_UserLastLogin.resx">
-      <DependentUpon>201606261233374_UserLastLogin.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201606261306218_PolicyCascadeDeleteWhenDomainDeleted.resx">
-      <DependentUpon>201606261306218_PolicyCascadeDeleteWhenDomainDeleted.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607101420048_UserInvite.resx">
-      <DependentUpon>201607101420048_UserInvite.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607101422024_UserInviteCreatedAcceptedColumn.resx">
-      <DependentUpon>201607101422024_UserInviteCreatedAcceptedColumn.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607160800482_AddedExpirationToInvitation.resx">
-      <DependentUpon>201607160800482_AddedExpirationToInvitation.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607261620385_FixPolicyClaimRelationship.resx">
-      <DependentUpon>201607261620385_FixPolicyClaimRelationship.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201607270724540_AddIndexToUserId.resx">
-      <DependentUpon>201607270724540_AddIndexToUserId.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608120754396_AddedTheConceptOfGroups.resx">
-      <DependentUpon>201608120754396_AddedTheConceptOfGroups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608120803439_GroupsHasPolicies.resx">
-      <DependentUpon>201608120803439_GroupsHasPolicies.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608120815414_DomainHasGroups.resx">
-      <DependentUpon>201608120815414_DomainHasGroups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201608121628455_RemoveUserCountFromGroup.resx">
-      <DependentUpon>201608121628455_RemoveUserCountFromGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610080903059_TwoFactorAdded.resx">
-      <DependentUpon>201610080903059_TwoFactorAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610081409128_TwoFactorAddedStep2.resx">
-      <DependentUpon>201610081409128_TwoFactorAddedStep2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610161355137_RemoveIsActiveFromGroup.resx">
-      <DependentUpon>201610161355137_RemoveIsActiveFromGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610220908023_AddMetadataToUser.resx">
-      <DependentUpon>201610220908023_AddMetadataToUser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611070046249_Initialize.resx">
+      <DependentUpon>201611070046249_Initialize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
