@@ -95,7 +95,8 @@ namespace AuthorityIdentity.EntityFramework.Migrations
                         Expire = c.DateTimeOffset(precision: 7),
                         Accepted = c.Boolean(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .Index(t => t.DomainId, name: "IX_Authority.Invites_DomainId");
             
             CreateTable(
                 "Authority.PolicyAuthorityClaims",
@@ -174,6 +175,7 @@ namespace AuthorityIdentity.EntityFramework.Migrations
             DropIndex("Authority.GroupPolicies", new[] { "Group_Id" });
             DropIndex("Authority.PolicyAuthorityClaims", new[] { "AuthorityClaim_Id" });
             DropIndex("Authority.PolicyAuthorityClaims", new[] { "Policy_Id" });
+            DropIndex("Authority.Invites", "IX_Authority.Invites_DomainId");
             DropIndex("Authority.Users", "IX_Authority.Users_Id");
             DropIndex("Authority.Groups", new[] { "DomainId" });
             DropIndex("Authority.Policies", new[] { "DomainId" });

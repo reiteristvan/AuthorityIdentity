@@ -54,6 +54,11 @@ namespace AuthorityIdentity.Domains
                 "delete from Authority.Users where DomainId = @DomainId",
                 new SqlParameter("@DomainId", _domainId));
 
+            // Remove invites
+            await Context.Database.ExecuteSqlCommandAsync(
+                "delete from Authority.Invites where DomainId = @DomainId",
+                new SqlParameter("@DomainId", _domainId));
+
             // Remove Domain
             await Context.Database.ExecuteSqlCommandAsync(
                 "delete from Authority.Domains where Id = @Id",

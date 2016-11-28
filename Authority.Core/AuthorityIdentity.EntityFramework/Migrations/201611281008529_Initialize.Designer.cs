@@ -13,7 +13,7 @@ namespace AuthorityIdentity.EntityFramework.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201611280954363_Initialize"; }
+            get { return "201611281008529_Initialize"; }
         }
         
         string IMigrationMetadata.Source

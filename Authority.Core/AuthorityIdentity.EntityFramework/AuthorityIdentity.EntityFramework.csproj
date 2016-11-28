@@ -58,9 +58,9 @@
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="IAuthorityContext.cs" />
     <Compile Include="ISafeAuthorityContext.cs" />
-    <Compile Include="Migrations\201611280954363_Initialize.cs" />
-    <Compile Include="Migrations\201611280954363_Initialize.Designer.cs">
-      <DependentUpon>201611280954363_Initialize.cs</DependentUpon>
+    <Compile Include="Migrations\201611281008529_Initialize.cs" />
+    <Compile Include="Migrations\201611281008529_Initialize.Designer.cs">
+      <DependentUpon>201611281008529_Initialize.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,8 +79,8 @@
     <Content Include="Migrations.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611280954363_Initialize.resx">
-      <DependentUpon>201611280954363_Initialize.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201611281008529_Initialize.resx">
+      <DependentUpon>201611281008529_Initialize.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
