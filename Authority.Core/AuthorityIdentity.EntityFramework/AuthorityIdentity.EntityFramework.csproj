@@ -58,6 +58,11 @@
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="IAuthorityContext.cs" />
     <Compile Include="ISafeAuthorityContext.cs" />
+    <Compile Include="Migrations\201611280954363_Initialize.cs" />
+    <Compile Include="Migrations\201611280954363_Initialize.Designer.cs">
+      <DependentUpon>201611280954363_Initialize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +77,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrations.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611280954363_Initialize.resx">
+      <DependentUpon>201611280954363_Initialize.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
