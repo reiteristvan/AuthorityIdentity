@@ -29,14 +29,17 @@ namespace AuthorityIdentity.Domains
                 throw new RequirementFailedException(ErrorCodes.DomainNotExists, _domainId.ToString());
             }
 
+            // Remove UserGroups linker table
             await Context.Database.ExecuteSqlCommandAsync(
                 "delete from Authority.UserGroups where User_DomainId = @DomainId",
                 new SqlParameter("@DomainId", domain.Id));
 
+            // Remove Groups
             await Context.Database.ExecuteSqlCommandAsync(
                 "delete from Authority.Groups where DomainId = @DomainId",
                 new SqlParameter("@DomainId", domain.Id));
 
+            // Remove Policies
             foreach (Policy policy in domain.Policies)
             {
                 await Context.Database.ExecuteSqlCommandAsync(
@@ -44,10 +47,14 @@ namespace AuthorityIdentity.Domains
                     new SqlParameter("@PolicyId", policy.Id));
             }
 
+            //await Context.Database.ExecuteSqlCommandAsync("", new SqlParameter(@"UserId"))
+
+            // Remove users
             await Context.Database.ExecuteSqlCommandAsync(
                 "delete from Authority.Users where DomainId = @DomainId",
                 new SqlParameter("@DomainId", _domainId));
 
+            // Remove Domain
             await Context.Database.ExecuteSqlCommandAsync(
                 "delete from Authority.Domains where Id = @Id",
                 new SqlParameter("@Id", _domainId));

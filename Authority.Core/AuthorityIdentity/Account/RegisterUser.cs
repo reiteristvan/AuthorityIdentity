@@ -90,17 +90,11 @@ namespace AuthorityIdentity.Account
                 IsTwoFactorEnabled = false,
                 TwoFactorToken = "",
                 TwoFactorType = TwoFactorType.Other,
-                TwoFactorTarget = ""
-            };
-
-            Metadata metaData = new Metadata(_user.Id)
-            {
-                Data = _model.Metadata ?? ""
+                TwoFactorTarget = "",
+                Metadata = _model.Metadata
             };
 
             Context.Users.Add(_user);
-            _user.Metadata = metaData;
-            Context.Metadata.Add(metaData);
 
             Policy defaultPolicy = domain.Policies.FirstOrDefault(p => p.Default);
 

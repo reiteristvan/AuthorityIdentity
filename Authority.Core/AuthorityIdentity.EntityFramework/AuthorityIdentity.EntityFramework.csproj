@@ -53,17 +53,11 @@
     <Compile Include="Configurations\AuthorityClaimConfiguration.cs" />
     <Compile Include="Configurations\GroupConfiguration.cs" />
     <Compile Include="Configurations\InviteConfiguration.cs" />
-    <Compile Include="Configurations\MetadataConfiguration.cs" />
     <Compile Include="Configurations\PolicyConfiguration.cs" />
     <Compile Include="Configurations\DomainConfiguration.cs" />
     <Compile Include="Configurations\UserConfiguration.cs" />
     <Compile Include="IAuthorityContext.cs" />
     <Compile Include="ISafeAuthorityContext.cs" />
-    <Compile Include="Migrations\201611070046249_Initialize.cs" />
-    <Compile Include="Migrations\201611070046249_Initialize.Designer.cs">
-      <DependentUpon>201611070046249_Initialize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -78,11 +72,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Migrations.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201611070046249_Initialize.resx">
-      <DependentUpon>201611070046249_Initialize.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

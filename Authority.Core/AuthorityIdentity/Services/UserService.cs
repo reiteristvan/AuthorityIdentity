@@ -25,7 +25,6 @@ namespace AuthorityIdentity.Services
         Task FinalizeInvitation(Guid invitationCode, string username, string password);
         Task AddTwoFactorAuthentication(Guid userId, TwoFactorType type, string target);
         Task<bool> FinalizeTwoFactorAuthentication(Guid userId, string token);
-        Task<string> GetMetadata(Guid userId);
         Task SetMetadata(Guid userId, string metadata);
     }
 
@@ -78,7 +77,6 @@ namespace AuthorityIdentity.Services
                 .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
-                .Include(u => u.Metadata)
                 .FirstOrDefaultAsync(u => u.Email == email && u.DomainId == domainId);
 
             return user;
@@ -98,7 +96,6 @@ namespace AuthorityIdentity.Services
                 .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                 .Include(u => u.Policies)
                 .Include(u => u.Policies.Select(p => p.Claims))
-                .Include(u => u.Metadata)
                 .FirstOrDefaultAsync(u => u.Id == id);
 
             return user;
@@ -128,8 +125,7 @@ namespace AuthorityIdentity.Services
                     .Include(u => u.Groups)
                     .Include(u => u.Groups.Select(g => g.Policies).Select(ps => ps.Select(p => p.Claims)))
                     .Include(u => u.Policies)
-                    .Include(u => u.Policies.Select(p => p.Claims))
-                    .Include(u => u.Metadata);
+                    .Include(u => u.Policies.Select(p => p.Claims));
             }
 
             IEnumerable<User> result = users
@@ -285,14 +281,6 @@ namespace AuthorityIdentity.Services
             SetMetadata setMetadata = new SetMetadata(context, userId, metadata);
             await setMetadata.Do();
             await setMetadata.CommitAsync();
-        }
-
-        public async Task<string> GetMetadata(Guid userId)
-        {
-            IAuthorityContext context = AuthorityContextProvider.Create();
-
-            Metadata metadata = await context.Metadata.FirstOrDefaultAsync(m => m.Id == userId);
-            return metadata.Data;
         }
     }
 }

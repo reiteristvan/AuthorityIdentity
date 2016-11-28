@@ -5,7 +5,7 @@ namespace AuthorityIdentity.IntegrationTests.DapperMigration
 {
     public sealed class DatabaseInitializeTests
     {
-        [Fact]
+        [Fact(Skip = "Future feature")]
         public void InitializeShouldCreateDatabase()
         {
             DataAccess.Initialize();

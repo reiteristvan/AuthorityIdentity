@@ -24,7 +24,7 @@ namespace AuthorityIdentity.Account
 
             Require(() => user != null, ErrorCodes.UserNotFound);
 
-            user.Metadata.Data = _metadata;
+            user.Metadata = _metadata;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AuthorityIdentity.IntegrationTests.Common;
 using AuthorityIdentity.Account;
 using AuthorityIdentity.DomainModel;
@@ -59,11 +58,10 @@ namespace AuthorityIdentity.IntegrationTests.Accounts
 
                 //Assert
                 user = testContext.Context.ReloadEntity<User>(user.Id);
-                Metadata md = await testContext.Context.Metadata.FirstOrDefaultAsync(m => m.Id == user.Id);
 
                 Assert.NotNull(user);
-                Assert.NotNull(md);
-                Assert.Equal(metadata, md.Data);
+                Assert.NotNull(user.Metadata);
+                Assert.Equal(metadata, user.Metadata);
             }
         }
 

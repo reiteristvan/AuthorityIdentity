@@ -69,12 +69,6 @@ namespace AuthorityIdentity.Account
             _user.PasswordHash = "";
             _user.Salt = "";
 
-            if (_user.Metadata == null)
-            {
-                Metadata metadata = new Metadata(_user.Id) { Data = "" };
-                _user.Metadata = metadata;
-            }
-
             if (!existingOverride)
             {
                 await Require(() => IsUserExist(), ErrorCodes.EmailAlreadyExists);
